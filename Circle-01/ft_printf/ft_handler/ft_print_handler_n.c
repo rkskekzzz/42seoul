@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_handler_x.c                               :+:      :+:    :+:   */
+/*   ft_print_handler_num.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 15:26:30 by suhshin           #+#    #+#             */
-/*   Updated: 2021/03/10 15:29:17 by suhshin          ###   ########.fr       */
+/*   Updated: 2021/03/16 18:25:14 by suhshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "ft_printf.h"
 
-int pf_type_handler_num(long long num, t_format *st, const char * base, int bs)
+int	pf_type_handler_n(long long num, t_format *st, const char *base, int bs)
 {
-	char *ret;
+	char	*ret;
 
 	if (num < 0)
 	{

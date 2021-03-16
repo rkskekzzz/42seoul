@@ -13,11 +13,11 @@
 CC		=	gcc
 CFLAGS	=	-Wextra -Wall -Werror -I . -c
 SRCS					= ft_printf.c \
+						ft_utils/ft_print_utils.c \
 						ft_handler/ft_print_handler.c \
 						ft_handler/ft_print_handler_c.c \
 						ft_handler/ft_print_handler_s.c \
-						ft_handler/ft_print_handler_num.c \
-						ft_utils/ft_print_utils.c \
+						ft_handler/ft_print_handler_n.c \
 						ft_utils/ft_print_utils_cal.c \
 						ft_utils/ft_print_utils_isfunc.c \
 						ft_utils/ft_print_utils_lib.c \

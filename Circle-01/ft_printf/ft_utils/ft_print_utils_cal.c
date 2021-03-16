@@ -6,27 +6,27 @@
 /*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 15:26:30 by suhshin           #+#    #+#             */
-/*   Updated: 2021/03/10 15:27:52 by suhshin          ###   ########.fr       */
+/*   Updated: 2021/03/16 18:16:22 by suhshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int pf_max(int a, int b)
+int			pf_max(int a, int b)
 {
 	if (a >= b)
 		return (a);
 	return (b);
 }
 
-int pf_min(int a, int b)
+int			pf_min(int a, int b)
 {
 	if (a < b)
 		return (a);
 	return (b);
 }
 
-int pf_utils_numlen(long long num, int base)
+int			pf_utils_numlen(long long num, int base)
 {
 	size_t	ret;
 

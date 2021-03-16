@@ -6,13 +6,13 @@
 /*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 15:26:30 by suhshin           #+#    #+#             */
-/*   Updated: 2021/03/10 15:28:18 by suhshin          ###   ########.fr       */
+/*   Updated: 2021/03/16 18:16:41 by suhshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	pf_utils_atoi(const char *format, size_t *i)
+int		pf_utils_atoi(const char *format, size_t *i)
 {
 	long long	ret;
 	long long	tmp;
@@ -36,7 +36,7 @@ int	pf_utils_atoi(const char *format, size_t *i)
 	return ((int)ret);
 }
 
-char			*pf_utils_itoa(long long num, const char * base, int bs, t_format *st)
+char	*pf_utils_itoa(long long num, const char *base, int bs, t_format *st)
 {
 	int		i;
 	int		len;
@@ -48,8 +48,11 @@ char			*pf_utils_itoa(long long num, const char * base, int bs, t_format *st)
 		return (NULL);
 	i = 0;
 	sign = 1;
-	if(num < 0)
-		ret[(sign = 0)] = '-';
+	if (num < 0)
+	{
+		sign = 0;
+		ret[0] = '-';
+	}
 	while (++i < len + sign)
 	{
 		ret[len - i] = base[pf_utils_abs(num % bs)];

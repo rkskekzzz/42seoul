@@ -6,16 +6,16 @@
 /*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 15:26:30 by suhshin           #+#    #+#             */
-/*   Updated: 2021/03/10 15:27:33 by suhshin          ###   ########.fr       */
+/*   Updated: 2021/03/16 18:12:00 by suhshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ft_printf(const char* format, ...)
+int	ft_printf(const char *format, ...)
 {
-	int print_size;
-	va_list ap;
+	int		print_size;
+	va_list	ap;
 
 	va_start(ap, format);
 	print_size = pf_printf(format, ap, 0);
@@ -25,11 +25,11 @@ int		ft_printf(const char* format, ...)
 	return (print_size);
 }
 
-int		pf_printf(const char *format, va_list ap, int print_size)
+int	pf_printf(const char *format, va_list ap, int print_size)
 {
-	size_t i;
-	t_format st;
-	int *n;
+	size_t		i;
+	t_format	st;
+	int			*n;
 
 	i = -1;
 	while (format[++i] != '\0')
