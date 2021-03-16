@@ -24,11 +24,24 @@ SRCS					= ft_printf.c \
 						ft_utils/ft_print_utils_string.c \
 						ft_utils/ft_print_utils_xtox.c
 
+BNS_SRCS					= ft_printf_bonus.c \
+						ft_utils/ft_print_utils_bonus.c \
+						ft_handler/ft_print_handler_bonus.c \
+						ft_handler/ft_print_handler_c_bonus.c \
+						ft_handler/ft_print_handler_s_bonus.c \
+						ft_handler/ft_print_handler_n_bonus.c \
+						ft_utils/ft_print_utils_cal_bonus.c \
+						ft_utils/ft_print_utils_isfunc_bonus.c \
+						ft_utils/ft_print_utils_lib_bonus.c \
+						ft_utils/ft_print_utils_string_bonus.c \
+						ft_utils/ft_print_utils_xtox_bonus.c
+
 
 
 NAME=libftprintf.a
 
 OBJS=$(SRCS:.c=.o)
+BNS_OBJS=$(BNS_SRCS:.c=.o)
 
 .PHONY: all
 all	:	$(NAME)
@@ -39,9 +52,13 @@ all	:	$(NAME)
 $(NAME) : $(OBJS)
 	ar -cr $(NAME) $(OBJS)
 
+.PHONY: bonus
+bonus : $(BNS_OBJS)
+	ar -cr $(NAME) $(BNS_OBJS)
+
 .PHONY: clean
 clean :
-	rm -rf $(OBJS)
+	rm -rf $(OBJS) $(BNS_OBJS)
 
 .PHONY: fclean
 fclean: clean

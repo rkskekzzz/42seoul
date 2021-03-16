@@ -1,0 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_print_handler_c_bonus.c                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/28 15:26:30 by suhshin           #+#    #+#             */
+/*   Updated: 2021/03/16 22:20:38 by suhshin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ft_printf_bonus.h"
+
+int	pf_type_handler_c(char ch, t_format *st)
+{
+	pf_utils_print_rep(pf_utils_width_char(st), !st->minus * st->width - 1);
+	pf_utils_putchar(ch, 1);
+	pf_utils_print_rep(pf_utils_width_char(st), st->minus * st->width - 1);
+	return (pf_max(st->width, 1));
+}
