@@ -36,23 +36,42 @@ void pf_utils_print_rep(char c, int n)
 
 char pf_utils_width_char(t_format *st)
 {
-	if (st->zero == 1 && st->minus != 1)
+	if (st->type != 'c' && st->type != 's' && st->type != '%')
+		return (' ');
+	if (st->zero && !st->minus)
 		return ('0');
 	return (' ');
 }
 
+void pf_utils_putflag(t_format *st, int len)
+{
+	if (st->type == 'X')
+		write(1, "0X", len);
+	else
+		write(1, "0x", len);
+	if (st->plus > 0)
+		write(1, &st->plus, 1);
+}
+
+int pf_utils_addlen(t_format *st)
+{
+	if (st->type == 'p' || (st->hash && (st->type == 'x' || st->type == 'X')))
+		return (2);
+	return (0);
+}
+
 int pf_utils_return(char **str, int len, t_format *st)
 {
+	int sign;
+
 	if (!*str)
 		return (-1);
-	if (st->type == 'p')
-		len += 2;
-	pf_utils_print_rep(' ', !st->minus * st->width - len);
-	if (st->type == 'p')
-		pf_utils_putstr("0x", 1);
+	sign = pf_utils_addlen(st);
+	pf_utils_print_rep(pf_utils_width_char(st), !st->minus * st->width - len - sign - (st->plus > 0));
+	pf_utils_putflag(st, sign);
 	pf_utils_putstr(*str, 1);
-	pf_utils_print_rep(' ', st->minus * st->width - len);
+	pf_utils_print_rep(pf_utils_width_char(st), st->minus * st->width - len - sign - (st->plus > 0));
 	free(*str);
 	*str = 0;
-	return (pf_max(st->width, len));
+	return (pf_max(st->width, len + sign + (st->plus > 0)));
 }

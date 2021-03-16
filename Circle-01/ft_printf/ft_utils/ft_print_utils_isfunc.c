@@ -16,7 +16,7 @@ int pf_utils_istype(char ch, t_format *st)
 {
 	if (ch == 'c' || ch == 's' || ch == 'p' || ch == 'd' || \
 		ch == 'i' || ch == 'u' || ch == 'x' || ch == 'X' || \
-		ch == '%' || ch == '\0')
+		ch == '%' || ch == 'n' || ch == '\0')
 		{
 			st->type = ch;
 			return (1);

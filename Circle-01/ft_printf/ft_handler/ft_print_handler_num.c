@@ -16,12 +16,17 @@ int pf_type_handler_num(long long num, t_format *st, const char * base, int bs)
 	char *ret;
 
 	if (num < 0)
+	{
 		st->pre += 1;
+		st->plus = 0;
+	}
+	if (num == 0)
+		st->hash = 0;
 	if (st->zero == 1 && st->dot == 0 && st->minus == 0)
-		st->pre = st->width;
+		st->pre = st->width - st->hash - (st->plus > 0);
 	if (num == 0 && st->dot == 1 && st->pre <= 0)
 		ret = pf_utils_strdup("");
-	else if (num == 0 && st->type == 'p')
+	else if (num == 0 && st->type == 'p' && st->pre <= 0)
 		ret = pf_utils_strdup("0");
 	else
 		ret = pf_utils_itoa(num, base, bs, st);

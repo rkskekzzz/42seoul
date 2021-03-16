@@ -19,7 +19,7 @@ int pf_type_handler(size_t *i, va_list ap, t_format *st)
 	if (st->type == '%')
 		return (pf_type_handler_c('%', st));
 	if (st->type == 's')
-		return (pf_type_handler_s(va_arg(ap, long long), st));
+		return (pf_type_handler_s(va_arg(ap, char *), st));
 	if (st->type == 'd' || st->type == 'i')
 		return (pf_type_handler_num(va_arg(ap, int), st, BASE, 10));
 	if (st->type == 'u')
@@ -39,6 +39,12 @@ void pf_format_handler(const char *format, size_t *i, va_list ap, t_format *st)
 {
 	if(format[*i] == '-')
 		st->minus = 1;
+	else if(format[*i] == '#')
+		st->hash = 2;
+	else if(format[*i] == '+')
+		st->plus = '+';
+	else if(format[*i] == ' ')
+		st->plus = ' ';
 	else if(st->dot == 0 && format[*i] == '0')
 		st->zero = 1;
 	else if(st->dot == 0 && format[*i] == '*')

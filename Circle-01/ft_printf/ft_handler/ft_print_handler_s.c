@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int pf_type_handler_s(long long str, t_format *st)
+int pf_type_handler_s(char * str, t_format *st)
 {
 	char* ret;
 	int len;

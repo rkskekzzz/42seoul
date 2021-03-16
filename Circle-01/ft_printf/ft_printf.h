@@ -27,12 +27,15 @@ typedef struct s_format{
 	int width;
 	int dot;
 	int pre;
+	int space;
+	int hash;
 	int type;
+	char plus;
 }	t_format;
 
 
 int ft_printf(const char* format, ...);
-int	pf_printf(const char *format, va_list ap);
+int	pf_printf(const char *format, va_list ap, int print_size);
 
 //handler
 int pf_type_handler(size_t *i, va_list ap, t_format *st);
@@ -40,14 +43,14 @@ void pf_format_handler(const char *format,size_t *i, va_list ap, t_format *st);
 int pf_asterisk_handler(int num, t_format *st, int i);
 
 int pf_type_handler_c(char ch, t_format *st);
-int pf_type_handler_s(long long str, t_format *st);
+int pf_type_handler_s(char * str, t_format *st);
 int pf_type_handler_num(long long num, t_format *st, const char * base, int bs);
 
 //utils
 void pf_utils_init_struct(t_format *st);
 void pf_utils_print_rep(char c, int n);
-char pf_utils_width_char(t_format *st);
 int pf_utils_return(char **str, int len, t_format *st);
+char pf_utils_width_char(t_format *st);
 
 //utils_xtox
 int	pf_utils_atoi(const char *format, size_t *i);
