@@ -6,7 +6,7 @@
 /*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 15:26:30 by suhshin           #+#    #+#             */
-/*   Updated: 2021/03/16 22:20:28 by suhshin          ###   ########.fr       */
+/*   Updated: 2021/03/17 13:58:31 by suhshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ void	pf_format_handler(const char *str, size_t *i, va_list ap, t_format *st)
 		st->length = str[*i];
 }
 
-int pf_length_handler(va_list ap, t_format *st)
+int		pf_length_handler(va_list ap, t_format *st)
 {
-	unsigned short int num;
+	unsigned short int	num;
 
 	num = va_arg(ap, int);
 	if (st->type == 'u')

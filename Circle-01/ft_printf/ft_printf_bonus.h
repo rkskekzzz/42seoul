@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_printf_bonus.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 15:26:30 by suhshin           #+#    #+#             */
-/*   Updated: 2021/03/17 14:37:26 by suhshin          ###   ########.fr       */
+/*   Updated: 2021/03/17 14:37:01 by suhshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#ifndef FT_PRINTF_BONUS_H
+# define FT_PRINTF_BONUS_H
 
 # include <stdarg.h>
 # include <stdlib.h>
@@ -36,7 +36,8 @@ typedef struct	s_format
 }				t_format;
 
 int				ft_printf(const char *format, ...);
-int				pf_printf(const char *format, va_list ap, int print_size);
+int				pf_printf(const char *format, va_list ap,
+		int print_size, size_t i);
 void			pf_set_n(int print_size, va_list ap, t_format *st);
 int				pf_type_handler(size_t *i, va_list ap, t_format *st);
 void			pf_format_handler(const char *format, size_t *i,
@@ -52,8 +53,8 @@ void			pf_utils_print_rep(char c, int n);
 int				pf_utils_return(char **str, int len, t_format *st);
 char			pf_utils_width_char(t_format *st);
 int				pf_utils_atoi(const char *format, size_t *i);
-char			*pf_utils_itoa(long long num, const char *base,
-		int bs, t_format *st);
+char			*pf_utils_itoa(long long num, const char *base, int bs,
+		t_format *st);
 int				pf_utils_istype(char ch, t_format *st);
 int				pf_utils_isdigit(char ch);
 int				pf_max(int a, int b);
