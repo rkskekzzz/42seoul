@@ -6,13 +6,13 @@
 /*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 15:26:30 by suhshin           #+#    #+#             */
-/*   Updated: 2021/03/16 18:12:00 by suhshin          ###   ########.fr       */
+/*   Updated: 2021/03/17 13:56:01 by suhshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printf(const char *format, ...)
+int		ft_printf(const char *format, ...)
 {
 	int		print_size;
 	va_list	ap;
@@ -25,7 +25,7 @@ int	ft_printf(const char *format, ...)
 	return (print_size);
 }
 
-int	pf_printf(const char *format, va_list ap, int print_size)
+int		pf_printf(const char *format, va_list ap, int print_size)
 {
 	size_t		i;
 	t_format	st;
@@ -49,10 +49,10 @@ int	pf_printf(const char *format, va_list ap, int print_size)
 	return (print_size);
 }
 
-void pf_set_n(int print_size, va_list ap, t_format *st)
+void	pf_set_n(int print_size, va_list ap, t_format *st)
 {
-	int *i;
-	short int *s;
+	int			*i;
+	short int	*s;
 
 	i = 0;
 	s = 0;
