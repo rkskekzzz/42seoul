@@ -22,6 +22,8 @@ int		pf_type_handler(size_t *i, va_list ap, t_format *st)
 		return (pf_type_handler_s(va_arg(ap, char *), st));
 	if (st->type == 'd' || st->type == 'i')
 		return (pf_type_handler_n(va_arg(ap, int), st, BASE, 10));
+	if (st->length == 'h')
+		return (pf_length_handler(ap, st));
 	if (st->type == 'u')
 		return (pf_type_handler_n(va_arg(ap, unsigned int), st, BASE, 10));
 	if (st->type == 'x')
@@ -57,6 +59,22 @@ void	pf_format_handler(const char *str, size_t *i, va_list ap, t_format *st)
 		st->pre = pf_utils_atoi(str, i);
 	else if (st->dot == 1 && str[*i] == '*')
 		st->pre = pf_asterisk_handler(va_arg(ap, int), st, 0);
+	else if (str[*i] == 'h')
+		st->length = str[*i];
+}
+
+int pf_length_handler(va_list ap, t_format *st)
+{
+	unsigned short int num;
+
+	num = va_arg(ap, int);
+	if (st->type == 'u')
+		return (pf_type_handler_n(num, st, BASE, 10));
+	if (st->type == 'x')
+		return (pf_type_handler_n(num, st, HEXBASE, 16));
+	if (st->type == 'X')
+		return (pf_type_handler_n(num, st, HEXBASEL, 16));
+	return (0);
 }
 
 int		pf_asterisk_handler(int num, t_format *st, int i)

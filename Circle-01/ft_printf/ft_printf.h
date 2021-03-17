@@ -32,15 +32,17 @@ typedef	struct	s_format
 	int			space;
 	int			hash;
 	int			type;
+	int			length;
 }				t_format;
 
 int				ft_printf(const char *format, ...);
 int				pf_printf(const char *format, va_list ap, int print_size);
+void			pf_set_n(int print_size, va_list ap, t_format *st);
 int				pf_type_handler(size_t *i, va_list ap, t_format *st);
 void			pf_format_handler(const char *format, size_t *i,
 		va_list ap, t_format *st);
 int				pf_asterisk_handler(int num, t_format *st, int i);
-
+int pf_length_handler(va_list ap, t_format *st);
 int				pf_type_handler_c(char ch, t_format *st);
 int				pf_type_handler_s(char *str, t_format *st);
 int				pf_type_handler_n(long long num, t_format *st,
