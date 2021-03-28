@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	miniRT
+NAME	=	a.out
 
 SRCS	=	\
 			minirt.c
@@ -27,7 +27,7 @@ OBJS = $(SRCS:%.c=%.o)
 
 CC		=	clang
 CFLAGS	=	-Wall -Werror -Wextra
-CLIB	=	-L./minilibx -lmlx -framework OpenGL -framework Appkit
+CLIB	=	-Lmlx -lmlx -framework OpenGL -framework Appkit
 
 #
 # Rules
@@ -35,11 +35,12 @@ CLIB	=	-L./minilibx -lmlx -framework OpenGL -framework Appkit
 
 all		: $(NAME)
 
-$.o: $.c
-  $(CC) $(CFLAGS) -Imlx -c $< -o $@
+%.o	:%.c
+	$(CC) $(CFLAGS) -Imlx -c $< -o $@
 
 $(NAME): $(OBJ)
-  $(CC) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(CLIB) $(SRCS) -o $(NAME)
+	install_name_tool -change libmlx.dylib mlx/libmlx.dylib $(NAME)
 
 clean	:
 	rm -rf $(OBJS)
