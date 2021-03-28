@@ -33,7 +33,7 @@ int main()
 		mlx_pixel_put (mlx_ptr, win_ptr, i, i, 0x00FF0000);
 		//my_mlx_pixel_put(&image, i, i, 0x00FF0000);
 	}
-	mlx_put_image_to_window(mlx_ptr, win_ptr, image.img, 0, 0);
+	//mlx_put_image_to_window(mlx_ptr, win_ptr, image.img, 0, 0);
 	mlx_loop(mlx_ptr);
 	return (0);
 }
