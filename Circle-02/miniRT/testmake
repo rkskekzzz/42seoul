@@ -1,0 +1,225 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: seyu <seyu@student.42seoul.kr>             +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2020/10/10 23:07:12 by seheon            #+#    #+#              #
+#    Updated: 2021/03/26 14:37:33 by seyu             ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+.SUFFIXES:
+.SUFFIXES: .c .o .h
+
+NAME	=	miniRT
+NAME_B	=	miniRT_bonus
+NAME_FT	=	libft.a
+NAME_V3	=	libvec3.a
+
+CP		=	cp
+RM		=	rm -f
+MKDIR	=	mkdir -p
+MV		=	mv
+ECHO	=	echo
+
+# ----------------------------------
+# Echo Colors
+# ----------------------------------
+
+NOCOLOR		= \033[0m
+RED			= \033[0;31m
+GREEN		= \033[0;32m
+ORANGE		= \033[0;33m
+BLUE		= \033[0;34m
+PURPLE		= \033[0;35m
+CYAN		= \033[0;36m
+LIGHTGRAY	= \033[0;37m
+DARKGRAY	= \033[1;30m
+LIGHTRED	= \033[1;31m
+LIGHTGREEN	= \033[1;32m
+YELLOW		= \033[1;33m
+LIGHTBLUE	= \033[1;34m
+LIGHTPURPLE	= \033[1;35m
+LIGHTCYAN	= \033[1;36m
+WHITE		= \033[1;37m
+
+# ----------------------------------
+# Mandatory source files
+# ----------------------------------
+
+MAIN_MANDA	=	minirt.c
+MAIN_BONUS	=	minirt_bonus.c
+
+# Handling MLX library
+
+SRCS	=	\
+			color_init.c \
+			image_util.c \
+			image_bmp.c \
+			window_image_list.c \
+			window_init.c \
+			window_eventhook.c \
+			window_source_list.c \
+			window_image.c \
+			window_source.c
+
+# Parsing
+
+SRCS	+=	\
+			parse.c \
+			parse_util.c \
+			parse_elem1.c \
+			parse_elem2.c
+
+# Error detect and handling
+
+SRCS	+=	\
+			e_handle.c \
+			e_rtfile_elem2.c \
+			e_rtfile_elem1.c \
+			e_rtfile.c \
+			e_valid.c
+
+# Rendering in Ray Tracing
+
+SRCS	+=	\
+			render.c
+
+# Manage the elements
+
+SRCS	+=	\
+			world_init.c \
+			world_print.c \
+			world.c \
+			square.c \
+			triangle.c \
+			cylinder.c \
+			sphere.c \
+			camera.c \
+			plane.c \
+			light_ambient.c \
+			ray.c \
+			light_diffuse.c \
+			light_util.c \
+			light_specular.c
+
+# Math and random utils
+
+SRCS	+=	\
+			util_math.c \
+			util_random_vec.c \
+			util_random.c
+
+# ----------------------------------
+# Bonus source files
+# ----------------------------------
+
+BONUS_SRCS	=	render_bonus.c
+BONUS_LIST	=	Multi-threaded_rendering.
+
+BONUS_LIST	:=	$(addprefix \n    $(GREEN)✔$(NOCOLOR) , $(BONUS_LIST))
+
+# ----------------------------------
+# Object files
+# ----------------------------------
+
+OBJS_MANDA	=	$(addprefix $(DIR_OBJ)/, $(SRCS:%.c=%.o))
+OBJS_MANDA	+=	$(addprefix $(DIR_OBJ)/, $(MAIN_MANDA:%.c=%.o))
+
+OBJS_BONUS	=	$(addprefix $(DIR_OBJ)/, $(SRCS:%.c=%.o))
+OBJS_BONUS	+=	$(addprefix $(DIR_OBJ)/, $(BONUS_SRCS:%.c=%.o))
+OBJS_BONUS	+=	$(addprefix $(DIR_OBJ)/, $(MAIN_BONUS:%.c=%.o))
+
+# ----------------------------------
+# Directories and Paths
+# ----------------------------------
+
+DIR_INC	=	./includes
+DIR_SRC	=	./srcs
+DIR_OBJ	=	./objs
+DIR_FT	=	./libs/libft
+DIR_V3	=	./libs/vec3
+
+SUBDIRS	=	mlx \
+			mlx/mlx_color \
+			mlx/mlx_image \
+			mlx/mlx_window \
+			parse \
+			error \
+			render \
+			world \
+			elements \
+			light \
+			utils \
+			utils/random
+
+VPATH	=	$(DIR_SRC) $(addprefix $(DIR_SRC)/, $(SUBDIRS))
+
+# ----------------------------------
+# Compiler and flags
+# ----------------------------------
+
+CC		=	clang
+CFLAGS	=	-Wall -Wextra -Werror -g3 -fsanitize=address
+CLIBFMW	=	-L. -lmlx -L$(DIR_FT) -lft -L$(DIR_V3) -lvec3 -framework OpenGL -framework AppKit
+
+# ----------------------------------
+# Rules
+# ----------------------------------
+
+all: $(NAME)
+
+$(DIR_OBJ):
+			@$(MKDIR) $@
+
+$(DIR_OBJ)/%.o: %.c
+			@$(CC) $(CFLAGS) -I$(DIR_INC) -c $< -o $@
+			@$(ECHO) "Compiled $(ORANGE)" $< " $(GREEN)Successfully$(NOCOLOR)"
+
+$(NAME):	$(DIR_FT)/$(NAME_FT) $(DIR_V3)/$(NAME_V3) $(DIR_OBJ) $(OBJS_MANDA)
+			@$(CC) $(CFLAGS) -I$(DIR_INC) $(OBJS_MANDA) $(CLIBFMW) -lmlx -o $(NAME)
+			@$(ECHO) "Maked $(BLUE)$(NAME)$(NOCOLOR) $(GREEN)Successfully$(NOCOLOR)"
+			@$(ECHO) "You can render your $(BLUE).rt files$(NOCOLOR):"
+			@$(ECHO) " $(BLUE)>$(NOCOLOR) ./$(NAME) [.rt file] [--save]"
+			@mkdir -p images
+
+$(NAME_B):	$(DIR_FT)/$(NAME_FT) $(DIR_V3)/$(NAME_V3) $(DIR_OBJ) $(OBJS_BONUS)
+			@$(CC) $(CFLAGS) -I$(DIR_INC) $(OBJS_BONUS) $(CLIBFMW) -lmlx -o $(NAME_B)
+			@$(ECHO) "Maked $(BLUE)$(NAME_B)$(NOCOLOR) $(GREEN)Successfully$(NOCOLOR)"
+			@$(ECHO) "Implemented $(ORANGE)BONUS$(NOCOLOR) list: $(BONUS_LIST)"
+			@$(ECHO) "You can render your $(BLUE).rt files$(NOCOLOR):"
+			@$(ECHO) " $(BLUE)>$(NOCOLOR) ./$(NAME_B) [.rt file] [--save]"
+			@mkdir -p images
+
+$(DIR_FT)/$(NAME_FT):
+			@$(ECHO) "Summoning $(ORANGE)$(NAME_FT)$(NOCOLOR) ..."
+			@make -C $(DIR_FT) all
+			@$(ECHO) "Summoned $(ORANGE)$(NAME_FT)$(ORANGE) $(GREEN)Successfully$(NOCOLOR)"
+
+$(DIR_V3)/$(NAME_V3):
+			@$(ECHO) "Summoning $(ORANGE)$(NAME_V3)$(NOCOLOR) ..."
+			@make -C $(DIR_V3) all
+			@$(ECHO) "Summoned $(ORANGE)$(NAME_V3)$(ORANGE) $(GREEN)Successfully$(NOCOLOR)"
+
+bonus:		$(NAME_B)
+
+clean:
+			@make -C $(DIR_FT) clean
+			@$(ECHO) "Clean up $(RED)FT$(NOCOLOR)"
+			@make -C $(DIR_V3) clean
+			@$(ECHO) "Clean up $(RED)VEC3$(NOCOLOR)"
+			@$(RM) -r $(DIR_OBJ)
+			@$(ECHO) "Clean up $(RED)$(NAME)$(NOCOLOR)"
+
+fclean:		clean
+			@make -C $(DIR_FT) fclean
+			@make -C $(DIR_V3) fclean
+			@$(RM) -r $(NAME) $(NAME_B)
+			@$(ECHO) "Removed $(RED)$(NAME)$(NOCOLOR)"
+
+show:
+			@$(ECHO) $(BONUS_LIST)
+
+re:			fclean $(NAME)
