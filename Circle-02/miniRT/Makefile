@@ -27,7 +27,7 @@ OBJS = $(SRCS:%.c=%.o)
 
 CC		=	clang
 CFLAGS	=	-Wall -Werror -Wextra
-CLIB	=	-Lmlx -lmlx -framework OpenGL -framework Appkit
+CLIB	=	-Lmlx -lmlx -framework OpenGL -framework Appkit -Imlx
 
 #
 # Rules
@@ -36,10 +36,10 @@ CLIB	=	-Lmlx -lmlx -framework OpenGL -framework Appkit
 all		: $(NAME)
 
 %.o	:%.c
-	$(CC) $(CFLAGS) -Imlx -c $< -o $@
+	$(CC) $(CFLAGS)  -c $< -o $@
 
 $(NAME): $(OBJ)
-	$(CC) $(CLIB) $(SRCS) -o $(NAME)
+	$(CC) $(CFLAGS) $(CLIB) $(SRCS) -o $(NAME)
 	install_name_tool -change libmlx.dylib mlx/libmlx.dylib $(NAME)
 
 clean	:
