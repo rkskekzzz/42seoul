@@ -1,4 +1,4 @@
-#include <iostream>
+#include <stdio.h>
 
 int main() {
 
@@ -18,9 +18,9 @@ int main() {
             auto b = 1;
 
             // std::cout << r << ' ' << g << ' ' << b << '\n';
-            int ir = static_cast<int>(255.999 * r);
-            int ig = static_cast<int>(255.999 * g);
-            int ib = static_cast<int>(255.999 * b);
+            int ir = (int)(255.999 * r);
+            int ig = (int)(255.999 * g);
+            int ib = (int)(255.999 * b);
 
             std::cout << ir << ' ' << ig << ' ' << ib << '\n';
         }
