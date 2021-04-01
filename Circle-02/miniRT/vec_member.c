@@ -92,16 +92,22 @@ double vec_length_squared(t_vec *vec)
 	return (vec->x * vec->x + vec->y * vec->y + vec->z * vec->z);
 }
 
-t_vec vec_oppo(t_vec *vec)
+void vec_oppo(t_vec *vec)
+{
+	vec->x = -vec->x;
+	vec->y = -vec->y;
+	vec->z = -vec->z;
+}
+
+t_vec vec_alloc(int x, int y, int z)
 {
 	t_vec new_vec;
 
 	new_vec = malloc(sizeof(t_vec) * 1);
 	if (!new_vec)
 		return (NULL);
-	new_vec.x = -vec->x;
-	new_vec.y = -vec->y;
-	new_vec.z = -vec->z;
+	new_vec->x = x;
+	new_vec->y = y;
+	new_vec->z = z;
 	return (new_vec);
 }
-
