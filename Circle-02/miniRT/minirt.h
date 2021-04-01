@@ -24,10 +24,17 @@ typedef struct s_data
 	int		endian;
 }		t_data;
 
+// vector 구조체
 typedef struct s_vec
 {
-	double r;
-	double g;
-	double b;
+	double x;
+	double y;
+	double z;
 }		t_vec;
+
+typedef struct s_ray
+{
+	t_vec* orig;
+	t_vec* dir;
+}	t_ray;
 

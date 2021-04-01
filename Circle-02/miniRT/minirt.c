@@ -5,6 +5,8 @@
 ** x * (data->bits_per_pixel / 8) = x좌표만큼 주소를 이동시키는데 해당 픽셀마다 8
 ** 해당 주소에서 unsigned int 만큼 역참조해서 color 값을 집어 넣는다!-
 */
+
+/************ for fractal   *********/
 int		factorial(int n)
 {
 	int f = 1;
@@ -15,7 +17,11 @@ int		factorial(int n)
 	return f;
 }
 
+void ft_mycircle(int x, int y, float radius)
+{
 
+
+}
 void drawCircle(int x, int y, float radius) {
 	ellipse(x, y, radius, radius);
 	if(radius > 2)
@@ -25,6 +31,7 @@ void drawCircle(int x, int y, float radius) {
 		drawCircle(x, y, radius);
 	}
 }
+/************ for fractal   *********/
 
 void			my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
