@@ -1,4 +1,30 @@
 #include "minirt.h"
+#include <graphics.h>
+/* 시작 주소에서 해당 색을 입힐 공간까지 주소를 이동시킨다
+** y * data->line_length = 이미지의 가로 길이와 y좌표를 활용해 한번에 필요한 위치만큼 이동시킨다
+** x * (data->bits_per_pixel / 8) = x좌표만큼 주소를 이동시키는데 해당 픽셀마다 8
+** 해당 주소에서 unsigned int 만큼 역참조해서 color 값을 집어 넣는다!-
+*/
+int		factorial(int n)
+{
+	int f = 1;
+	for (int i = 0; i < n; i++)
+	{
+		f = f * (i+1);
+	}
+	return f;
+}
+
+
+void drawCircle(int x, int y, float radius) {
+	ellipse(x, y, radius, radius);
+	if(radius > 2)
+	{
+		radius *= 0.75f;
+		The drawCircle() function is calling itself recursively.
+		drawCircle(x, y, radius);
+	}
+}
 
 void			my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -61,12 +87,12 @@ int prtimage()
 			double r = (double)(img_width - j) / (img_width - 1);
 			double g = (double)(i) / (img_height - 1);
 			double b = 1;
-			color = (int)(255.999 * r) * 65536 + (int)(255.999 * g) * 255 + (int)(255.999 * b);
-			my_mlx_pixel_put(&image, i, j, color);
-			// mlx_pixel_put (vars.mlx, vars.win, i, j, color);
+			color = (int)(255.999 * r) * 65536 + (int)(255.999 * g) * 255 + (int)(255.999 * b); // 0X00RRGGBB
+			my_mlx_pixel_put(&image, i, j, color); // 생성한 이미지에 픽셀별 color지정하기
+			// mlx_pixel_put (vars.mlx, vars.win, i, j, color); // 윈도우에 직접 픽셀 하나하나 찍기
 		}
 	}
-	mlx_put_image_to_window(vars.mlx, vars.win, image.img, 0, 0);
+	mlx_put_image_to_window(vars.mlx, vars.win, image.img, 0, 0); // 생성한 이미지 객체 윈도우에 올리기
 	end = clock();
 	printf("[rendering time : %f]\n", (float)(end - start)/CLOCKS_PER_SEC);
 	mlx_key_hook(vars.win, key_hook, &vars); // esc close
