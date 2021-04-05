@@ -2,12 +2,12 @@
 
 void ray_at(t_ray *ray, double t)
 {
-	ray = ray->orig + t * ray->dir;
+	ray = ray->orig + (t * ray->dir);
 }
 
-t_vec ray_origin(int x, int y, int z)
+t_vec *ray_origin(int x, int y, int z)
 {
-	t_vec new_vec;
+	t_vec *new_vec;
 
 	new_vec = malloc(sizeof(t_vec) * 1);
 	if (!new_vec)

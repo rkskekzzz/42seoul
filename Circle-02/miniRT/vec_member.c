@@ -13,7 +13,7 @@ void vec_print(t_vec *vec, char ch)
 double vec_return(t_vec *vec, char ch)
 {
 	if (ch = 'x')
-		return (vec->x)
+		return (vec->x);
 	else if (ch = 'y')
 		return (vec->y);
 	else if (ch = 'z')
@@ -99,9 +99,9 @@ void vec_oppo(t_vec *vec)
 	vec->z = -vec->z;
 }
 
-t_vec vec_alloc(int x, int y, int z)
+t_vec *vec_alloc(int x, int y, int z)
 {
-	t_vec new_vec;
+	t_vec *new_vec;
 
 	new_vec = malloc(sizeof(t_vec) * 1);
 	if (!new_vec)
