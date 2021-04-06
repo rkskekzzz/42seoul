@@ -1,41 +1,6 @@
 #include "minirt.h"
 
-
-
-/************ for fractal   *********/
-// int		factorial(int n)
-// {
-// 	int f = 1;
-// 	for (int i = 0; i < n; i++)
-// 	{
-// 		f = f * (i+1);
-// 	}
-// 	return f;
-// }
-
-// void ft_mycircle(int x, int y, float radius)
-// {
-
-
-// }
-// void drawCircle(int x, int y, float radius) {
-// 	ellipse(x, y, radius, radius);
-// 	if(radius > 2)
-// 	{
-// 		radius *= 0.75f;
-// 		The drawCircle() function is calling itself recursively.
-// 		drawCircle(x, y, radius);
-// 	}
-// }
-/************ for fractal   *********/
-
-
-/* 시작 주소에서 해당 색을 입힐 공간까지 주소를 이동시킨다
-** y * data->line_length = 이미지의 가로 길이와 y좌표를 활용해 한번에 필요한 위치만큼 이동시킨다
-** x * (data->bits_per_pixel / 8) = x좌표만큼 주소를 이동시키는데 해당 픽셀마다 8
-** 해당 주소에서 unsigned int 만큼 역참조해서 color 값을 집어 넣는다!-
-*/
-void			my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void			my_mlx_pixel_put(t_screen *data, int x, int y, int color)
 {
 	char	*dst;
 
@@ -43,78 +8,138 @@ void			my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-// key event
-int	key_hook(int keycode, t_vars *vars)
-{
-	static int i = 0;
-	i++;
-	if(keycode == 53)
-	{
-		mlx_destroy_window(vars->mlx, vars->win);
-		exit(0);
-	}
-	vars = 0;
-	printf("%d : Hello from key_hook!\n", i);
-	return (0);
-}
 
-// printing mouse x, y point
-int mouse_hook(int button, int x, int y, void *param)
-{
-	printf("but : %d, x : %d, y : %d, param : %p\n", button, x, y, param);
-	return (0);
-}
 
 // close button event
-int exit_hook()
+
+// void write_color(std::ostream &out, color pixel_color) {
+//     // Write the translated [0,255] value of each color component.
+//     out << static_cast<int>(255.999 * pixel_color.x()) << ' '
+//         << static_cast<int>(255.999 * pixel_color.y()) << ' '
+//         << static_cast<int>(255.999 * pixel_color.z()) << '\n';
+// }
+int		create_trgb(int t, int r, int g, int b)
 {
-	exit(0);
+	return(t << 24 | r << 16 | g << 8 | b);
 }
 
-int prtimage()
+double hit_sphere(t_vec center, double radius, t_ray *ray)
 {
-	int		img_width;
-	int		img_height;
-	int		color;
-	clock_t start, end;
+	t_vec oc;
+	vec_cal(&oc, (t_vec[2]){ray->origin, center} \
+				,(double[2]){1, -1}, 2);
+	double a = vec_dot(&ray->dir, &ray->dir);
+	double half_b = vec_dot(&oc, &ray->dir);
+	double c = vec_dot(&oc, &oc) - radius * radius;
+	double discriminant = half_b*half_b - a*c;
+	if (discriminant < 0)
+		return -1;
+	return ((-half_b - sqrt(discriminant)) / a);
+}
 
-	img_width = 1920;
-	img_height = 1080;
+int get_color(t_camera *cam, t_ray *ray)
+{
+	t_vec center;
+	vec(&center, 0, 0, -1);
+	double t = hit_sphere(center, 0.5, ray);
+	if (t > 0) {
+		t_vec tmp;
+		t_vec p;
+		ray_at(&p, ray, t);
+		t_vec n;
+		vec(&tmp, p.x, p.y, p.z+1);
+		vec_unit(&n, &tmp);
+		return create_trgb(0, 255.999 *((n.x + 1) / 2), 255.999 *((n.y + 1) / 2), 255.999 *((n.z + 1) / 2));
+	}
+	t_vec unit_direction;
+	vec_unit(&unit_direction, &ray->dir);
+    t = 1-0.5*(unit_direction.y + 1.0);
+	return create_trgb(0, 255.999 * (1-t + 0.5*t),255.999 * (1-t + 0.7*t) ,255.999 * (1-t + 1.0*t) );
+}
 
-	t_data	image;
-	t_vars	vars;
+void set_camera(t_camera *cam, double height, double ratio)
+{
+	cam->view_width = ratio * height;
+	cam->view_height = height;
+	vec(&(cam->focal_length), 0, 0, 1);
+	vec(&(cam->pos), 0, 0, 0);
+	vec(&(cam->horizon), cam->view_width, 0, 0);
+	vec(&(cam->vertical), 0, cam->view_height, 0);
+	vec_cal(&(cam->low_left_corner), (t_vec[4]){cam->pos, cam->horizon, cam->vertical, cam->focal_length}, \
+									(double[4]){1, -0.5, -0.5, -1}, 4);
+	//vec(&(cam.low_left_corner), -view_width/2, -view_height / 2, -focal_length);
+}
 
-	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, img_width, img_height, "Hellow World!");
-	image.img = mlx_new_image(vars.mlx, img_width, img_height); // 이미지 객체 생성
-	image.addr = mlx_get_data_addr(image.img, &image.bits_per_pixel, &image.line_length, &image.endian); // 이미지 주소 할당
-	start = clock();
-	for (int i = 0 ; i < img_width - 1 ; ++i)
+int render(t_screen *screen)
+{
+	int			color;
+	int			hdx;
+	int			wdx;
+	t_ray 		ray;
+	t_camera	*cam;
+
+	cam = malloc(sizeof(t_camera) * 1);
+	set_camera(cam, 2.0, (16.0 / 9.0));
+
+	hdx = -1;
+	while (++hdx < (screen->height - 1))
 	{
-		for (int j = 0 ; j < img_height - 1; ++j)
+		wdx = -1;
+		while (++wdx < (screen->width - 1))
 		{
-			double r = (double)(j) / (img_height);//(double)(j) / (img_height);
-			double g = (double)(j) / (img_height);//(double)(i) / (img_width);
-			double b = 1;
-			color = (int)(255 * r) * 65536 + (int)(255 * g) * 256 + (int)(255 * b); // 0X00RRGGBB
-			// my_mlx_pixel_put(&image, i, j, color); // 생성한 이미지에 픽셀별 color지정하기
-			mlx_pixel_put(vars.mlx, vars.win, i, j, color); // 윈도우에 직접 픽셀 하나하나 찍기
+			double v = (double)hdx / (screen->height  - 1);
+			double u = (double)wdx / (screen->width - 1);
+			ray.origin = cam->pos;
+			vec_cal(&ray.dir, (t_vec[3]){cam->low_left_corner, cam->horizon, cam->vertical} \
+							, (double[3]){1, u, v}, 3);
+			color = get_color(cam, &ray);
+			my_mlx_pixel_put(screen, wdx, hdx, color); // 생성한 이미지에 픽셀별 color지정하기
 		}
 	}
-	mlx_string_put(vars.mlx, vars.win, 0, 20, 0x00FFFFFF, "(0,0)");
-	mlx_string_put(vars.mlx, vars.win, 1800, 20, 0x00FFFFFF, "(1920,0)");
-	// mlx_put_image_to_window(vars.mlx, vars.win, image.img, 0, 0); // 생성한 이미지 객체 윈도우에 올리기
-	end = clock();
-	printf("[rendering time : %f]\n", (float)(end - start)/CLOCKS_PER_SEC);
-	mlx_key_hook(vars.win, key_hook, &vars); // esc close
-	mlx_hook(vars.win, 17, 0, exit_hook, 0); // x button close
-	mlx_hook(vars.win, 4, 1L<<2, mouse_hook, 0); // mouse pointer
-	mlx_loop(vars.mlx);
+	return (0);
+}
+
+void init(t_window *window, t_screen *screen)
+{
+	screen->width = 1600;
+	screen->height = 900;
+	window->mlx = mlx_init();
+	window->win = mlx_new_window(window->mlx, screen->width, screen->height, "Hellow World!");
+	screen->ptr = mlx_new_image(window->mlx, screen->width, screen->height); // 이미지 객체 생성
+	screen->addr = mlx_get_data_addr(screen->ptr, &screen->bits_per_pixel, &screen->line_length, &screen->endian); // 이미지 주소 할당
+}
+
+void event(t_window *window, t_screen *screen)
+{
+	mlx_key_hook(window->win, key_hook, window); // esc close
+	mlx_hook(window->win, 17, 0, exit_hook, 0); // x button close
+}
+
+void draw(t_window *window, t_screen *screen)
+{
+	// t_camera	*cam;
+
+	render(screen);
+	mlx_put_image_to_window(window->mlx, window->win, screen->ptr, 0, 0); // 생성한 이미지 객체 윈도우에 올리기
+	mlx_loop(window->mlx);
+}
+
+int minirt()
+{
+	t_screen	screen;
+	t_window	window;
+
+	init(&window, &screen);
+	event(&window, &screen);
+	draw(&window, &screen);
 	return (0);
 }
 
 int main()
 {
-	prtimage();
+	//parsing();
+	//parsing 에러 체크
+	minirt();
+	//minirt 에러 체크
 	return (0);
 }
