@@ -13,7 +13,8 @@
 NAME	=	a.out
 
 SRCS	=	\
-			minirt.c
+			minirt.c \
+			vec_member.c
 
 #
 #

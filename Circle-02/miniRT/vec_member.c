@@ -1,25 +1,20 @@
 #include "minirt.h"
 
-void vec_print(t_vec *vec, char ch)
+void vec_print(t_vec *vec)
 {
-	if (ch = 'x')
-		printf("%f", vec->x);
-	else if (ch = 'y')
-		printf("%f", vec->y);
-	else if (ch = 'z')
-		printf("%f", vec->z);
+	printf("[%f, %f, %f]", vec->x, vec->y, vec->z);
 }
 
-double vec_return(t_vec *vec, char ch)
-{
-	if (ch = 'x')
-		return (vec->x);
-	else if (ch = 'y')
-		return (vec->y);
-	else if (ch = 'z')
-		return (vec->z);
-	return (0);
-}
+// double vec_return(t_vec *vec, char ch)
+// {
+// 	if (ch = 'x')
+// 		return (vec->x);
+// 	else if (ch = 'y')
+// 		return (vec->y);
+// 	else if (ch = 'z')
+// 		return (vec->z);
+// 	return (0);
+// }
 
 void vec_addnum(t_vec *vec, double num)
 {
@@ -33,6 +28,13 @@ void vec_addvec(t_vec *vec, t_vec *add)
 	vec->x += add->x;
 	vec->y += add->y;
 	vec->z += add->z;
+}
+
+void vec_subvec(t_vec *vec, t_vec *add)
+{
+	vec->x -= add->x;
+	vec->y -= add->y;
+	vec->z -= add->z;
 }
 
 void vec_mulnum(t_vec *vec, double num)
@@ -68,14 +70,12 @@ double vec_dot(t_vec *vec, t_vec *add)
 	return (vec->x * add->x + vec->y * add->y + vec->z * add->z);
 }
 
-void vec_unit_vector(t_vec *vec)
-{
-	double len;
 
-	len = vec_length(vec);
-	vec->x /= len;
-	vec->y /= len;
-	vec->z /= len;
+
+
+double vec_length_squared(t_vec *vec)
+{
+	return (vec->x * vec->x + vec->y * vec->y + vec->z * vec->z);
 }
 
 double vec_length(t_vec *vec)
@@ -87,10 +87,21 @@ double vec_length(t_vec *vec)
 	return (len);
 }
 
-double vec_length_squared(t_vec *vec)
+t_vec *vec_unit_vector(t_vec *vec)
 {
-	return (vec->x * vec->x + vec->y * vec->y + vec->z * vec->z);
+	double len;
+	t_vec *new_vec;
+
+	new_vec = malloc(sizeof(t_vec) * 1);
+	if (!new_vec)
+		return (NULL);
+	len = vec_length(vec);
+	new_vec->x = vec->x / len;
+	new_vec->y = vec->y / len;
+	new_vec->z = vec->z / len;
+	return (new_vec);
 }
+
 
 void vec_oppo(t_vec *vec)
 {
@@ -99,7 +110,7 @@ void vec_oppo(t_vec *vec)
 	vec->z = -vec->z;
 }
 
-t_vec *vec_alloc(int x, int y, int z)
+t_vec *vec_alloc(double x, double y, double z)
 {
 	t_vec *new_vec;
 
@@ -110,4 +121,11 @@ t_vec *vec_alloc(int x, int y, int z)
 	new_vec->y = y;
 	new_vec->z = z;
 	return (new_vec);
+}
+
+t_vec *ray_at(t_ray *ray, double t)
+{
+	return vec_alloc(ray->origin->x + ray->dir->x * t
+					,ray->origin->y + ray->dir->y * t
+					,ray->origin->z + ray->dir->z * t);
 }
