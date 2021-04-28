@@ -9,17 +9,22 @@
 # define ERROR -1
 # define OK 1
 
-typedef struct s_color
+typedef struct s_vec	t_color;
+typedef struct s_vec	t_vec;
+typedef struct s_vec	t_point;
+
+struct s_vec
 {
 	double	x;
 	double	y;
 	double	z;
-}	t_color;
+};
 
 typedef struct s_c
 {
-	double		val;
-	t_color		color;
+	t_point		center;
+	t_vec		n;
+	int			fov;
 	struct s_c	*next;
 }	t_c;
 
@@ -38,10 +43,11 @@ typedef struct s_r
 
 typedef struct s_box
 {
-	char	line[4194304];
+	char	line[2000];
 	int		check;
 	t_r		r;
 	t_a		*a;
+	t_c		*c;
 }	t_box;
 
 #endif
