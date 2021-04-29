@@ -197,3 +197,62 @@ int main(int argc, char **argv)
 // A { }
 // C {{view point}, {normal vector}, FOV}
 // sp {{center}, diameter, {color}}
+
+
+
+static size_t	ft_check_size(char const *s, char c)
+{
+	size_t	cnt;
+	int		i;
+
+	cnt = 0;
+	i = -1;
+	if (!*s)
+		return (0);
+	while (*(++i + s + 1))
+		if (*(i + s) != c && *(i + s + 1) == c)
+			++cnt;
+	return (*(s + i) != c ? cnt + 1 : cnt);
+}
+
+static char		**ft_free_split(char **s, int i)
+{
+	while (--i >= 0 && *(s + i))
+	{
+		free(*(s + i));
+		*(s + i) = NULL;
+	}
+	free(s);
+	s = NULL;
+	return (NULL);
+}
+
+char			**ft_split(char const *s, char c)
+{
+	char	**ret;
+	char	*from;
+	int		i;
+
+	if (!s ||
+		!(ret = (char **)malloc(sizeof(char *) * (ft_check_size(s, c) + 1))))
+		return (NULL);
+	i = 0;
+	while (*s)
+	{
+		if (*s != c)
+		{
+			from = (char *)s;
+			while (*s && *s != c)
+				++s;
+			if (!(ret[i++] = ft_substr(from, 0, (s - from))))
+				return (ft_free_split(ret, i));
+		}
+		else
+			++s;
+	}
+	ret[i] = NULL;
+	return (ret);
+}
+
+// 문자열 전부 입력받는다
+//
