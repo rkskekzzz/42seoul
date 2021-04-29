@@ -70,13 +70,16 @@ int parse_a(char **line, t_box *box)
 {
 	t_a *a;
 	char **tmp;
+	int error;
 
 	a = malloc(sizeof(t_a));
 	if (a == NULL)
 		return (ERROR);
 	a->val = ft_atod(line[1]);
-	parse_split(&(a->color), line[2]);
-	parse_add_a(box, a);
+	error += parse_split(&(a->color), line[2]);
+	error += parse_add_a(box, a);
+	if (error)
+		return (ERROR);
 	return (OK);
 }
 
