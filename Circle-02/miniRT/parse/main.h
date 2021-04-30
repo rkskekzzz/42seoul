@@ -10,6 +10,7 @@
 # define OK 1
 // # define BUFFER_SIZE 4194304
 # define WHITESPACE "\t\n\v\f\r "
+# define ID (char [9][2]){"R", "A", "c", "l", "pl" "sp", "sq", "cy", "tr"}
 
 typedef struct s_vec	t_color;
 typedef struct s_vec	t_vec;
@@ -22,6 +23,11 @@ struct s_vec
 	double	z;
 };
 
+typedef enum e_parsable
+{
+	r = 0, a, c, l, pl, sp, sq, cy, tr
+}	t_parsable;
+
 typedef struct s_r
 {
 	int		wid;
@@ -32,7 +38,6 @@ typedef struct s_a
 {
 	double		val;
 	t_color		color;
-	struct s_a	*next;
 }	t_a;
 
 typedef struct s_c
@@ -40,7 +45,6 @@ typedef struct s_c
 	t_point		center;
 	t_vec		n;
 	int			fov;
-	struct s_c	*next;
 }	t_c;
 
 typedef struct s_l
@@ -48,7 +52,6 @@ typedef struct s_l
 	t_point		pos;
 	double		brightness;
 	t_color		color;
-	struct s_l	*next;
 }	t_l;
 
 typedef struct s_sp
@@ -56,7 +59,6 @@ typedef struct s_sp
 	t_point		pos;
 	double		diameter;
 	t_color		color;
-	struct s_sp	*next;
 }	t_sp;
 
 typedef struct s_pl
@@ -64,7 +66,6 @@ typedef struct s_pl
 	t_point		pos;
 	t_vec		n;
 	t_color		color;
-	struct s_pl	*next;
 }	t_pl;
 
 typedef struct s_sq
@@ -73,7 +74,6 @@ typedef struct s_sq
 	t_vec		n;
 	double		sidesize;
 	t_color		color;
-	struct s_sq	*next;
 }	t_sq;
 
 typedef struct s_cy
@@ -83,7 +83,6 @@ typedef struct s_cy
 	double		diameter;
 	double		hei;
 	t_color		color;
-	struct s_cy	*next;
 }	t_cy;
 
 typedef struct s_tr
@@ -92,32 +91,32 @@ typedef struct s_tr
 	t_point		po2;
 	t_point		po3;
 	t_color		color;
-	struct s_tr	*next;
 }	t_tr;
 
 typedef struct s_box
 {
 	char	line[2000];
-	int		check;
-	t_r		r;
-	t_a		*a;
-	t_c		*c;
-	t_l		*l;
-	t_pl	*pl;
-	t_sp	*sp;
-	t_sq	*sq;
-	t_cy	*cy;
-	t_tr	*tr;
+	t_list	parsed[9];
 }	t_box;
 
-typedef union u_object
+typedef union u_parsed
 {
-	t_cy	cy;
-	t_r		tr;
-	t_sq	sq;
+	t_r		r;
+	t_c		c;
+	t_a		a;
+	t_l		l;
 	t_sp	sp;
 	t_pl	pl;
-}		t_object;
+	t_sq	sq;
+	t_cy	cy;
+	t_r		tr;
+}		t_parsed;
+
+typedef struct s_list
+{
+	t_parsed data;
+	struct s_list *next;
+}	t_list;
 
 int ft_strlen(char *str);
 int ft_arrsize(char **arr);

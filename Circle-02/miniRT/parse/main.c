@@ -1,6 +1,12 @@
 #include "main.h"
 #include "parse.h"
 
+int printf_error()
+{
+	printf("parsing error\n");
+	return (ERROR);
+}
+
 int parsing(char *file, t_box *box)
 {
 	char ch[1];
@@ -35,93 +41,67 @@ int parse_split(t_vec *input, char *line)
 	return (OK);
 }
 
+void parser_init(int (*parser[9])(char **, t_box *))
+{
+	parser[r] = parse_r;
+	parser[a] = parse_a;
+	parser[c] = parse_c;
+	parser[l] = parse_l;
+	parser[sp] = parse_sp;
+	parser[pl] = parse_pl;
+	parser[sq] = parse_sq;
+	parser[cy] = parse_cy;
+	parser[tr] = parse_tr;
+}
+
 int parse_all(t_box *box)
 {
+	int i;
 	char **data;
-	char **oneline;
-	int error;
+	char **line;
+	int (*parser[9])(char **, t_box *);
 
-	error = 1;
 	data = ft_split(box->line, "\n");
 	while(*data)
 	{
-		oneline = ft_split(*data, WHITESPACE);
-		if (!ft_strncmp(oneline[0], "R"))
-			error &= parse_r(oneline, box);
-		else if (!ft_strncmp(oneline[0], "A"))
-			error &= parse_a(oneline, box);
-		else if (!ft_strncmp(oneline[0], "c"))
-			error &= parse_c(oneline, box);
-		else if (!ft_strncmp(oneline[0], "l"))
-			error &= parse_l(oneline, box);
-		else if (!ft_strncmp(oneline[0], "pl"))
-			error &= parse_pl(oneline, box);
-		else if (!ft_strncmp(oneline[0], "sp"))
-			error &= parse_sp(oneline, box);
-		else if (!ft_strncmp(oneline[0], "sq"))
-			error &= parse_sq(oneline, box);
-		else if (!ft_strncmp(oneline[0], "cy"))
-			error &= parse_cy(oneline, box);
-		else if (!ft_strncmp(oneline[0], "tr"))
-			error &= parse_tr(oneline, box);
-		else
-			error &= 0;
+		line = ft_split(*data, WHITESPACE);
+		i = -1;
+		while(++i < 9)
+			if (!ft_strncmp(line[0],
+							(char[9][2]){"R", "A", "c", "l", "pl", "sp"
+										,"sq", "cy", "tr"}[i]) &&
+				parser[i](line, box))
+				break;
+		if (i == 9)
+			return (printf_error());
+		ft_free_split(line, ft_arrsize(line));
 		++data;
-		if (!error)
-		{
-			printf("parsing error\n");
-			return (ERROR);
-		}
-		ft_free_split(oneline, ft_arrsize(oneline));
 	}
 	return (OK);
-}
-
-/***************************** parsing function ********************************/
-
-void parse_set(t_box *box)
-{
-	ft_memset(box, 0, sizeof(t_box));
-	box->a = malloc(sizeof(t_a));
-	box->c = malloc(sizeof(t_c));
-	box->l = malloc(sizeof(t_l));
-	box->pl = malloc(sizeof(t_pl));
-	box->sp = malloc(sizeof(t_sp));
-	box->sq = malloc(sizeof(t_sq));
-	box->cy = malloc(sizeof(t_cy));
-	box->tr = malloc(sizeof(t_tr));
 }
 
 int main(int argc, char **argv)
 {
 	t_box box;
 
-	parse_set(&box);
+	ft_memset(&box, 0 , sizeof(t_box));
 	if (argc == 2)
 	{
 		if (parsing(argv[1], &box) < 0)
 			return (0);
 		parse_all(&box);
-		t_a *tmp = box.a->next;
-		t_c *tmp2 = box.c->next;
-		printf("R w : %d, h : %d\n", box.r.wid, box.r.hei);
-		if(tmp != NULL) // && tmp2 != NULL)
-		{
-			printf("val : %f, x, y, z : (%f, %f, %f)\n", tmp->val, tmp->color.x, tmp->color.y, tmp->color.z);
-			printf("center : (%f, %f, %f), n : (%f, %f, %f), fov : %d\n", tmp2->center.x, tmp2->center.y, tmp2->center.z, tmp2->n.x, tmp2->n.y, tmp2->n.z, tmp2->fov);
-			tmp2 = tmp2->next;
-			printf("center : (%f, %f, %f), n : (%f, %f, %f), fov : %d\n", tmp2->center.x, tmp2->center.y, tmp2->center.z, tmp2->n.x, tmp2->n.y, tmp2->n.z, tmp2->fov);
-			printf("center : (%f, %f, %f)\n", box.tr->next->po1.x, box.tr->next->po1.y, box.tr->next->po1.z);
-		}
+		// t_a tmp = box.a->next;
+		// t_c tmp2 = box.c->next;
+		// printf("R w : %d, h : %d\n", box.r.wid, box.r.hei);
+		// if(tmp != NULL) // && tmp2 != NULL)
+		// {
+		// 	printf("val : %f, x, y, z : (%f, %f, %f)\n", tmp->val, tmp->color.x, tmp->color.y, tmp->color.z);
+		// 	printf("center : (%f, %f, %f), n : (%f, %f, %f), fov : %d\n", tmp2->center.x, tmp2->center.y, tmp2->center.z, tmp2->n.x, tmp2->n.y, tmp2->n.z, tmp2->fov);
+		// 	tmp2 = tmp2->next;
+		// 	printf("center : (%f, %f, %f), n : (%f, %f, %f), fov : %d\n", tmp2->center.x, tmp2->center.y, tmp2->center.z, tmp2->n.x, tmp2->n.y, tmp2->n.z, tmp2->fov);
+		// 	printf("center : (%f, %f, %f)\n", box.tr->next->po1.x, box.tr->next->po1.y, box.tr->next->po1.z);
+		// }
 	}
 	return (0);
 }
-
-
-// R { width, height }
-// A { }
-// C {{view point}, {normal vector}, FOV}
-// sp {{center}, diameter, {color}}
-// 문자열 전부 입력받는다
-//
 
