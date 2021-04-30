@@ -1,36 +1,5 @@
 #include "main.h"
 
-int ft_arrsize(char **arr)
-{
-	int i;
-
-	i = 0;
-	while(arr[i])
-		++i;
-	return (i);
-}
-
-int ft_strlen(char *str)
-{
-	int len;
-
-	len = 0;
-	while (str[len])
-		++len;
-	return (len);
-}
-
-int		ft_strchr(const char *s, int c)
-{
-	int i;
-
-	i = -1;
-	while(s[++i])
-		if (s[i] == c)
-			return (1);
-	return (0);
-}
-
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	size_t	i;
