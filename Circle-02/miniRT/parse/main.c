@@ -26,7 +26,7 @@ int parse_split(t_vec *input, char *line)
 	char **tmp;
 
 	tmp = ft_split(line, ",");
-	if (ft_arrsize(tmp) != 3 || !ft_isnum(tmp[0]) || !ft_isnum(tmp[1]) || !ft_isnum(tmp[2]))
+	if (ft_arrsize(tmp) != 3 ||!ft_isnum(tmp[0]) || !ft_isnum(tmp[1]) || !ft_isnum(tmp[2]))
 		return (ERROR);
 	input->x = ft_atod(tmp[0]);
 	input->y = ft_atod(tmp[1]);
@@ -41,29 +41,37 @@ int parse_all(t_box *box)
 	char **oneline;
 	int error;
 
+	error = 1;
 	data = ft_split(box->line, "\n");
 	while(*data)
 	{
 		oneline = ft_split(*data, WHITESPACE);
 		if (!ft_strncmp(oneline[0], "R"))
-			parse_r(oneline, box);
-		if (!ft_strncmp(oneline[0], "A"))
-			parse_a(oneline, box);
-		if (!ft_strncmp(oneline[0], "c"))
-			parse_c(oneline, box);
-		if (!ft_strncmp(oneline[0], "l"))
-			parse_l(oneline, box);
-		if (!ft_strncmp(oneline[0], "pl"))
-			parse_pl(oneline, box);
-		if (!ft_strncmp(oneline[0], "sp"))
-			parse_sp(oneline, box);
-		if (!ft_strncmp(oneline[0], "sq"))
-			parse_sq(oneline, box);
-		if (!ft_strncmp(oneline[0], "cy"))
-			parse_cy(oneline, box);
-		if (!ft_strncmp(oneline[0], "tr"))
-			parse_tr(oneline, box);
+			error &= parse_r(oneline, box);
+		else if (!ft_strncmp(oneline[0], "A"))
+			error &= parse_a(oneline, box);
+		else if (!ft_strncmp(oneline[0], "c"))
+			error &= parse_c(oneline, box);
+		else if (!ft_strncmp(oneline[0], "l"))
+			error &= parse_l(oneline, box);
+		else if (!ft_strncmp(oneline[0], "pl"))
+			error &= parse_pl(oneline, box);
+		else if (!ft_strncmp(oneline[0], "sp"))
+			error &= parse_sp(oneline, box);
+		else if (!ft_strncmp(oneline[0], "sq"))
+			error &= parse_sq(oneline, box);
+		else if (!ft_strncmp(oneline[0], "cy"))
+			error &= parse_cy(oneline, box);
+		else if (!ft_strncmp(oneline[0], "tr"))
+			error &= parse_tr(oneline, box);
+		else
+			error &= 0;
 		++data;
+		if (!error)
+		{
+			printf("parsing error\n");
+			return (ERROR);
+		}
 		ft_free_split(oneline, ft_arrsize(oneline));
 	}
 	return (OK);
@@ -103,6 +111,7 @@ int main(int argc, char **argv)
 			printf("center : (%f, %f, %f), n : (%f, %f, %f), fov : %d\n", tmp2->center.x, tmp2->center.y, tmp2->center.z, tmp2->n.x, tmp2->n.y, tmp2->n.z, tmp2->fov);
 			tmp2 = tmp2->next;
 			printf("center : (%f, %f, %f), n : (%f, %f, %f), fov : %d\n", tmp2->center.x, tmp2->center.y, tmp2->center.z, tmp2->n.x, tmp2->n.y, tmp2->n.z, tmp2->fov);
+			printf("center : (%f, %f, %f)\n", box.tr->next->po1.x, box.tr->next->po1.y, box.tr->next->po1.z);
 		}
 	}
 	return (0);

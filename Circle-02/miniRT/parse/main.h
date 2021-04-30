@@ -110,6 +110,15 @@ typedef struct s_box
 	t_tr	*tr;
 }	t_box;
 
+typedef union u_object
+{
+	t_cy	cy;
+	t_r		tr;
+	t_sq	sq;
+	t_sp	sp;
+	t_pl	pl;
+}		t_object;
+
 int ft_strlen(char *str);
 int ft_arrsize(char **arr);
 int		ft_strchr(const char *s, int c);
@@ -120,9 +129,8 @@ int parse_split(t_vec *input, char *line);
 int ft_atoi(char *line);
 double ft_atod(char *line);
 
-
-int ft_isdigit(char c);
-int ft_isspace(char c);
-int ft_isnum(char *str);
-void	*ft_memset(void *dest, int value, size_t size);
+int  ft_isdigit(char c);
+int  ft_isspace(char c);
+int  ft_isnum(char *str);
+void *ft_memset(void *dest, int value, size_t size);
 #endif
