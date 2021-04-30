@@ -54,6 +54,19 @@ void parser_init(int (*parser[9])(char **, t_box *))
 	parser[tr] = parse_tr;
 }
 
+int parsed_list_add(t_box *box, t_parsable index, t_parsed parsed)
+{
+	t_parsed_list *t;
+
+	t = malloc(sizeof(t_parsed_list));
+	if (t == NULL)
+		return (ERROR);
+	t->id = parsed;
+	t->next = box->parsed[index].next;
+	box->parsed[index].next = t;
+	return (OK);
+}
+
 int parse_all(t_box *box)
 {
 	int i;
@@ -61,6 +74,7 @@ int parse_all(t_box *box)
 	char **line;
 	int (*parser[9])(char **, t_box *);
 
+	parser_init(parser);
 	data = ft_split(box->line, "\n");
 	while(*data)
 	{
@@ -68,7 +82,7 @@ int parse_all(t_box *box)
 		i = -1;
 		while(++i < 9)
 			if (!ft_strncmp(line[0],
-							(char[9][2]){"R", "A", "c", "l", "pl", "sp"
+							(char[9][3]){"R", "A", "c", "l", "sp", "pl"
 										,"sq", "cy", "tr"}[i]) &&
 				parser[i](line, box))
 				break;

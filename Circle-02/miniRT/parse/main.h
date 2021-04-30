@@ -10,7 +10,6 @@
 # define OK 1
 // # define BUFFER_SIZE 4194304
 # define WHITESPACE "\t\n\v\f\r "
-# define ID (char [9][2]){"R", "A", "c", "l", "pl" "sp", "sq", "cy", "tr"}
 
 typedef struct s_vec	t_color;
 typedef struct s_vec	t_vec;
@@ -25,7 +24,7 @@ struct s_vec
 
 typedef enum e_parsable
 {
-	r = 0, a, c, l, pl, sp, sq, cy, tr
+	r = 0, a, c, l, sp, pl, sq, cy, tr
 }	t_parsable;
 
 typedef struct s_r
@@ -93,12 +92,6 @@ typedef struct s_tr
 	t_color		color;
 }	t_tr;
 
-typedef struct s_box
-{
-	char	line[2000];
-	t_list	parsed[9];
-}	t_box;
-
 typedef union u_parsed
 {
 	t_r		r;
@@ -109,14 +102,20 @@ typedef union u_parsed
 	t_pl	pl;
 	t_sq	sq;
 	t_cy	cy;
-	t_r		tr;
+	t_tr	tr;
 }		t_parsed;
 
-typedef struct s_list
+typedef struct s_parsed_list
 {
-	t_parsed data;
-	struct s_list *next;
-}	t_list;
+	t_parsed id;
+	struct s_parsed_list *next;
+}	t_parsed_list;
+
+typedef struct s_box
+{
+	char	line[2000];
+	t_parsed_list	parsed[9];
+}	t_box;
 
 int ft_strlen(char *str);
 int ft_arrsize(char **arr);
@@ -132,4 +131,6 @@ int  ft_isdigit(char c);
 int  ft_isspace(char c);
 int  ft_isnum(char *str);
 void *ft_memset(void *dest, int value, size_t size);
+
+int parsed_list_add(t_box *box, t_parsable index, t_parsed parsed);
 #endif
