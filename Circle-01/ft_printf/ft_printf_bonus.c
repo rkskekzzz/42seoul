@@ -65,3 +65,9 @@ void	pf_set_n(int print_size, va_list ap, t_format *st)
 		*i = print_size;
 	}
 }
+#include <stdio.h>
+int main(void)
+{
+	printf("real : %04d",1);
+	ft_printf("make : %04d",1);
+}
