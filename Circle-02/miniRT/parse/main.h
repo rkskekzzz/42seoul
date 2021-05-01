@@ -107,29 +107,29 @@ typedef union u_parsed
 
 typedef struct s_parsed_list
 {
-	t_parsed id;
-	struct s_parsed_list *next;
+	t_parsed				id;
+	struct s_parsed_list	*next;
 }	t_parsed_list;
 
 typedef struct s_box
 {
-	char	line[2000];
+	char			line[2000];
 	t_parsed_list	parsed[9];
 }	t_box;
 
-int ft_strlen(char *str);
-int ft_arrsize(char **arr);
+int	ft_strlen(char *str);
+int	ft_arrsize(char **arr);
 int		ft_strchr(const char *s, int c);
-char **ft_split(char const *s, char *delim);
-char **ft_free_split(char **s, int i);
+char	**ft_split(char const *s, char *delim);
+char	**ft_free_split(char **s, int i);
 int	ft_strncmp(const char *s1, const char *s2);
-int parse_split(t_vec *input, char *line);
-int ft_atoi(char *line);
+int	parse_split(t_vec *input, char *line);
+int	ft_atoi(char *line);
 double ft_atod(char *line);
 
-int  ft_isdigit(char c);
-int  ft_isspace(char c);
-int  ft_isnum(char *str);
+int	ft_isdigit(char c);
+int	ft_isspace(char c);
+int	 ft_isnum(char *str);
 void *ft_memset(void *dest, int value, size_t size);
 
 int parsed_list_add(t_box *box, t_parsable index, t_parsed parsed);
