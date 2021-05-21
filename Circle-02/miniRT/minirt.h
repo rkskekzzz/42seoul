@@ -1,48 +1,69 @@
-#include <unistd.h>
-#include <mlx.h>
-#include <math.h>
-#include <stdlib.h>
+#ifndef MINIRT_H
+# define MINIRT_H
+# include <unistd.h>
+# include <mlx.h>
+# include <math.h>
+# include <stdlib.h>
+# include "vector.h"
+# include "library.h"
+# include "material.h"
+# include "light.h"
+# include "object.h"
+# include "parse.h"
+# include "event.h"
 
-#include <stdio.h>
-#include <time.h>
+# define MAX_DEPTH 50
+# define ERROR 0
+# define OK 1
+# define EPSILON 1e-6
+# define LUMEN 3
 
-
-// mlx 구조체
-typedef struct	s_vars
+typedef struct s_world t_wold;
+// camera 구조체
+typedef struct s_camera
 {
-	void		*mlx;
-	void		*win;
-}				t_vars;
+	t_pnt	pos;
+	t_vec	hor;
+	t_vec	ver;
+	t_vec	low_left_corner;
+	double			view_width;
+	double			view_height;
+	double			fov;
+	double lens_radius;
+	t_vec	u;
+	t_vec	v;
+	t_vec	w;
+	void 	*img;
+	char	*img_addr;
+	struct s_camera	*next;
+} 				t_camera;
 
 // image data 구조체
-typedef struct s_image
+typedef struct s_screen
 {
-	void 	*img_ptr;
-	char	*addr;
+	void	*mlx;
+	void	*win;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-	int		width;
-	int		height;
-}		t_image;
+	double	wid;
+	double	hei;
+	int		anti;
+}		t_screen;
 
-// vector 구조체
-typedef struct s_vec
+// the everything...
+typedef struct s_minirt
 {
-	double x;
-	double y;
-	double z;
-}		t_vec;
+	t_screen	scr;
+	t_world		*wrd;
+	t_camera	*cam;
+	t_camera	*curr_cam;
+	t_light		*light;
+}		t_minirt;
 
-typedef struct s_ray
-{
-	t_vec* origin;
-	t_vec* dir;
-}	t_ray;
-
-void vec_print(t_vec *vec);
-t_vec *ray_at(t_ray *ray, double t);
-t_vec *vec_alloc(double x, double y, double z);
-double vec_dot(t_vec *vec, t_vec *add);
-t_vec *vec_unit_vector(t_vec *vec);
-void vec_subvec(t_vec *vec, t_vec *add);
+t_camera	*init_camera();
+int			add_camera(t_minirt *mini, t_vec lookfrom, t_vec dir, double fov);
+void	draw(t_minirt *m);
+int		render(t_minirt *mini);
+t_clr 	phong(t_minirt *mini, t_hit_record *rec);
+#endif
