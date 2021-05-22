@@ -18,13 +18,15 @@ static int	parsing(t_minirt *mini, char *str)
 	int		i;
 	int		(*parser[9])(char **, t_minirt *);
 	char	**data;
+	char	**temp;
 	char	**line;
 
 	parser_init(parser);
 	data = ft_split(str, "\n");
-	while (*data)
+	temp = data;
+	while (*temp)
 	{
-		line = ft_split(*data, WHITESPACE);
+		line = ft_split(*(temp++), WHITESPACE);
 		i = -1;
 		if (line[0][0] != '#')
 			while (++i < 9)
@@ -35,9 +37,9 @@ static int	parsing(t_minirt *mini, char *str)
 					break ;
 		ft_free_split(line, ft_arrsize(line));
 		if (i == 9)
-			return (printf_error());
-		++data;
+			return (printf_error("Parse"));
 	}
+	ft_free_split(data, ft_arrsize(data));
 	return (OK);
 }
 
@@ -67,7 +69,9 @@ int	input(int argc, char **argv, t_minirt *mini)
 {
 	char	line[4400000];
 
-	return (argc == 2 && \
+	if (argc == 3 && !ft_strncmp(argv[2], "--save"))
+		mini->save = OK;
+	return ((argc == 2 || argc == 3) && \
 			fileread(argv[1], mini, line) && \
 			parsing(mini, line));
 }

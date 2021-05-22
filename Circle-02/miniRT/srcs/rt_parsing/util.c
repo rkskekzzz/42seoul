@@ -1,8 +1,14 @@
 #include "minirt.h"
 
-int	printf_error(void)
+int	printf_ok(char *s)
 {
-	printf("parsing error\n");
+	printf("%s\n", s);
+	return (OK);
+}
+
+int	printf_error(char *s)
+{
+	printf("%s Error!\n", s);
 	return (ERROR);
 }
 

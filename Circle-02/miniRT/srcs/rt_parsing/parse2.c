@@ -1,11 +1,28 @@
 #include "minirt.h"
 
+int   ft_screen_check(t_minirt *mini)
+{
+  int max_wid;
+  int max_hei;
+
+  if (!mini)
+	return (ERROR);
+  mlx_get_screen_size(mini->scr.mlx, &max_wid, &max_hei);
+  if (max_wid < mini->scr.wid)
+    mini->scr.wid = max_wid;
+  if (max_hei < mini->scr.hei)
+    mini->scr.hei = max_hei;
+  return (OK);
+}
+
 int	parse_r(char **line, t_minirt *mini)
 {
+
 	if ((mini->scr.wid && mini->scr.hei) || \
 		ft_arrsize(line) != 3 || \
 		!ft_atod(&mini->scr.wid, line[1]) || \
-		!ft_atod(&mini->scr.hei, line[2]))
+		!ft_atod(&mini->scr.hei, line[2]) || \
+		!ft_screen_check(mini))
 		return (ERROR);
 	return (OK);
 }

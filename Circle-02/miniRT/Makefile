@@ -42,6 +42,7 @@ SRCS	=	\
 			./srcs/rt_parsing/parse1.c \
 			./srcs/rt_parsing/parse2.c \
 			./srcs/rt_parsing/util.c \
+			./srcs/rt_parsing/bmp.c \
 			./srcs/rt_light/light.c \
 #
 #

@@ -6,7 +6,7 @@
 /*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 16:52:31 by suhshin           #+#    #+#             */
-/*   Updated: 2021/05/22 16:53:55 by suhshin          ###   ########.fr       */
+/*   Updated: 2021/05/22 16:53:24 by suhshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,20 @@ typedef struct s_world	t_wold;
 
 typedef struct s_camera
 {
-	t_pnt				pos;
-	t_vec				hor;
-	t_vec				ver;
-	t_vec				low_left_corner;
-	double				view_width;
-	double				view_height;
-	double				fov;
-	double				lens_radius;
-	t_vec				u;
-	t_vec				v;
-	t_vec				w;
-	void 				*img;
-	char				*img_addr;
-	struct s_camera		*next;
+	t_pnt	pos;
+	t_vec	hor;
+	t_vec	ver;
+	t_vec	low_left_corner;
+	double	view_width;
+	double	view_height;
+	double	fov;
+	double	lens_radius;
+	t_vec	u;
+	t_vec	v;
+	t_vec	w;
+	void 	*img;
+	char	*img_addr;
+	struct s_camera	*next;
 } 				t_camera;
 
 // image data 구조체

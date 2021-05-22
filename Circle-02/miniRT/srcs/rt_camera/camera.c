@@ -57,5 +57,7 @@ void		draw(t_minirt *m)
 		end = clock();
 		printf("time : %f\n",(double)(end - start) / CLOCKS_PER_SEC);
 	}
+	if (m->save == OK)
+		makebmp(m);
 	mlx_put_image_to_window(m->scr.mlx, m->scr.win, m->curr_cam->img, 0, 0);
 }

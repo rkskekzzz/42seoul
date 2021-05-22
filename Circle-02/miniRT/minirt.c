@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minirt.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/22 16:52:02 by suhshin           #+#    #+#             */
+/*   Updated: 2021/05/22 16:52:03 by suhshin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 static void	event(t_minirt *mini)
 {
-	mlx_key_hook(mini->scr.win, key_hook, mini);  // esc close
-	mlx_hook(mini->scr.win, 17, 0, exit_hook, 0); // x button close
+	mlx_key_hook(mini->scr.win, key_hook, mini);
+	mlx_hook(mini->scr.win, 17, 0, exit_hook, 0);
 }
 
 static void	setting(t_minirt *mini)
@@ -12,7 +24,7 @@ static void	setting(t_minirt *mini)
 
 	mini->scr.mlx = mlx_init();
 	mini->scr.win = mlx_new_window(
-		mini->scr.mlx, mini->scr.wid, mini->scr.hei, "이게 미니 알티다");
+		mini->scr.mlx, mini->scr.wid, mini->scr.hei, "miniRT");
 	mini->scr.anti = 0;
 	c = mini->cam;
 	while (c->next)
@@ -24,12 +36,8 @@ static void	setting(t_minirt *mini)
 
 static int	minirt(t_minirt *mini)
 {
-	// clock_t	start, end;
 	setting(mini);
-	// start = clock();
 	draw(mini);
-	// end = clock();
-	// printf("time : %f\n",(double)(end - start) / CLOCKS_PER_SEC);
 	mlx_loop(mini->scr.mlx);
 	return (0);
 }
@@ -50,7 +58,8 @@ int			main(int argc, char **argv)
 	t_minirt	mini;
 
 	if (!init(&mini) || !input(argc, argv, &mini))
-		return (ERROR);
+		exit(1);
 	minirt(&mini);
+	// free_all(mini);
 	return (0);
 }
