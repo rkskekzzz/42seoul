@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   light.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/22 17:29:45 by suhshin           #+#    #+#             */
+/*   Updated: 2021/05/22 17:30:51 by suhshin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 int		in_shadow(t_minirt *mini, t_ray *light_ray, double light_len)
@@ -9,7 +21,7 @@ int		in_shadow(t_minirt *mini, t_ray *light_ray, double light_len)
 	return (ERROR);
 }
 
-t_light		*init_light()
+t_light		*init_light(void)
 {
 	t_light	*head;
 
@@ -36,7 +48,7 @@ int		add_light(t_light *head, t_pnt origin, t_clr color, double ratio)
 	return (OK);
 }
 
-t_clr light_get(t_minirt *mini, t_hit_record *rec, t_light *light)
+t_clr	light_get(t_minirt *mini, t_hit_record *rec, t_light *light)
 {
 	t_clr	diffuse;
 	t_vec	light_dir;
@@ -52,16 +64,14 @@ t_clr light_get(t_minirt *mini, t_hit_record *rec, t_light *light)
 	double light_len;
 	t_ray light_ray;
 
-	// shadow
 	light_ray.dir = vec_cal((t_vec[2]){light->origin, rec->p}, (double[2]){1, -1}, 2);
 	light_ray.origin = vec_cal((t_vec[2]){rec->p, rec->n}, (double[2]){1, EPSILON}, 2);
 	light_len = vec_length_(&light_ray.dir);
 	if (in_shadow(mini, &light_ray, light_len))
 		return (vec(0,0,0));
 	light_dir = vec_unit(light_ray.dir);
-	kd = ft_max(vec_dot(rec->n, light_dir), 0.0);// (교점에서 출발하여 광원을 향하는 벡터)와 (교점에서의 법선벡터)의 내적값.
+	kd = ft_max(vec_dot(rec->n, light_dir), 0.0);
 	diffuse = vec_muln(light->color, kd);
-	// specular lighting
 	view_dir = vec_unit(vec_oppo(rec->rayin));
 	refl_dir = reflect(vec_oppo(light_dir),rec->n);
 	ksn = 28;
@@ -71,7 +81,7 @@ t_clr light_get(t_minirt *mini, t_hit_record *rec, t_light *light)
 	return (vec_muln(vec_add(diffuse, specular), light->ratio * LUMEN));
 }
 
-t_clr phong(t_minirt *mini, t_hit_record *rec)
+t_clr	phong(t_minirt *mini, t_hit_record *rec)
 {
 	t_clr		color;
 	t_light		*light;

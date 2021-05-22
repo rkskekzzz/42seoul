@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sphere.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/22 17:51:13 by suhshin           #+#    #+#             */
+/*   Updated: 2021/05/22 17:52:04 by suhshin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
-t_object create_sphere(t_vec c, double r)
+t_object	create_sphere(t_vec c, double r)
 {
 	t_object	obj;
 
@@ -10,7 +22,8 @@ t_object create_sphere(t_vec c, double r)
 	return (obj);
 }
 
-int get_sphere_t(t_sphere *sp, t_ray *ray, double minmax[2], double *t)
+static int	get_sphere_t(t_sphere *sp, t_ray *ray,
+		double minmax[2], double *t)
 {
 	double	a;
 	double	half_b;
@@ -18,7 +31,7 @@ int get_sphere_t(t_sphere *sp, t_ray *ray, double minmax[2], double *t)
 	double	discriminant;
 	t_vec	oc;
 
-	oc = vec_cal((t_vec [2]){ray->origin, sp->c}, (double [2]){1, -1}, 2);
+	oc = vec_cal((t_vec[2]){ray->origin, sp->c}, (double[2]){1, -1}, 2);
 	a = vec_length_squared_(&ray->dir);
 	half_b = vec_dot_(&oc, &ray->dir);
 	c = vec_length_squared_(&oc) - sp->r * sp->r;
@@ -35,13 +48,14 @@ int get_sphere_t(t_sphere *sp, t_ray *ray, double minmax[2], double *t)
 	return (OK);
 }
 
-int hit_sphere(t_world *this, t_ray *ray, double minmax [2], t_hit_record *rec)
+int			hit_sphere(t_world *this, t_ray *ray,
+		double minmax[2], t_hit_record *rec)
 {
 	if (!get_sphere_t(&this->obj.sphere, ray, minmax, &rec->t))
 		return (ERROR);
 	rec->p = ray_at(ray, rec->t);
-	rec->n = vec_cal((t_vec [2]){rec->p, this->obj.sphere.c}, \
-			(double [2]){1 / this->obj.sphere.r, -1 / this->obj.sphere.r}, 2);
+	rec->n = vec_cal((t_vec[2]){rec->p, this->obj.sphere.c}, \
+			(double[2]){1 / this->obj.sphere.r, -1 / this->obj.sphere.r}, 2);
 	set_rec(this, ray, rec);
 	return (OK);
 }

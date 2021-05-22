@@ -16,7 +16,7 @@
 
 // lib1.c
 int trgb(int t, int r, int g, int b);
-double rand_num(int anti, int min, int max);
+double r_num(int anti, int min, int max);
 double clamp(double n, double min, double max);
 double ft_min(double a, double b);
 double ft_max(double a, double b);

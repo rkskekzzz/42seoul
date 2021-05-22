@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   triangle.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/22 17:52:20 by suhshin           #+#    #+#             */
+/*   Updated: 2021/05/22 17:52:46 by suhshin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
-t_object	create_triangle(t_vec p1, t_vec p2, t_vec p3)
+t_object		create_triangle(t_vec p1, t_vec p2, t_vec p3)
 {
 	t_object	obj;
 
@@ -15,11 +27,27 @@ t_object	create_triangle(t_vec p1, t_vec p2, t_vec p3)
 	return (obj);
 }
 
-int	get_triangle_t(t_triangle *tr, t_ray *ray, double minmax[2], double *t)
+static int		triangle_t_check(t_triangle *tr, t_ray *ray,
+		double minmax[2], double *t)
+{
+	double	d;
+
+	d = vec_dot_(&ray->dir, &tr->n);
+	if (ft_abs(d) < EPSILON)
+		return (ERROR);
+	*t = vec_dot(vec_cal((t_vec[2]){tr->p1, ray->origin},
+				(double[2]){1, -1}, 2), tr->n) / d;
+	if (*t < minmax[0] || minmax[1] < *t)
+		return (ERROR);
+	return (OK);
+}
+
+static int		get_triangle_t(t_triangle *tr, t_ray *ray,
+		double minmax[2], double *t)
 {
 	t_vec	p;
 
-	if (!_get_plane_t(&tr->p1, &tr->n, ray, minmax, t))
+	if (!triangle_t_check(tr, ray, minmax, t))
 		return (ERROR);
 	p = ray_at(ray, *t);
 	if (vec_dot(tr->n, vec_cross(tr->e1, vec_sub(p, tr->p1))) < 0 || \
@@ -29,7 +57,8 @@ int	get_triangle_t(t_triangle *tr, t_ray *ray, double minmax[2], double *t)
 	return (OK);
 }
 
-int	hit_triangle(t_world *this, t_ray *ray, double minmax[2], t_hit_record *rec)
+int				hit_triangle(t_world *this, t_ray *ray,
+		double minmax[2], t_hit_record *rec)
 {
 	t_vec	tr;
 

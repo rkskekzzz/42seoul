@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse1.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/22 17:58:49 by suhshin           #+#    #+#             */
+/*   Updated: 2021/05/22 17:59:30 by suhshin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 int		parse_a(char **line, t_minirt *mini)
 {
-	if (mini->light->origin.x == 1|| \
+	if (mini->light->origin.x == 1 || \
 		ft_arrsize(line) != 3 || \
 		!ft_atod(&mini->light->origin.x, "1") || \
 		!ft_atod(&mini->light->ratio, line[1]) || \
@@ -27,7 +39,7 @@ int		parse_c(char **line, t_minirt *mini)
 			c, dir, fov));
 }
 
-int 	parse_l(char **line, t_minirt *mini)
+int		parse_l(char **line, t_minirt *mini)
 {
 	t_pnt	c;
 	t_clr	color;

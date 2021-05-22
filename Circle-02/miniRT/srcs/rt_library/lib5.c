@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lib5.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/22 17:07:51 by suhshin           #+#    #+#             */
+/*   Updated: 2021/05/22 17:29:02 by suhshin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+size_t			ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	size_t	i;
 
@@ -36,7 +48,7 @@ static size_t	ft_check_size(char const *s, char *delim)
 	return (!ft_strchr(delim, *(s + i)) ? cnt + 1 : cnt);
 }
 
-char		**ft_free_split(char **s, int i)
+char			**ft_free_split(char **s, int i)
 {
 	if (s == NULL)
 		return (NULL);
@@ -50,7 +62,7 @@ char		**ft_free_split(char **s, int i)
 	return (NULL);
 }
 
-char	*ft_substr(char *s, unsigned int start, size_t len)
+char			*ft_substr(char *s, unsigned int start, size_t len)
 {
 	char	*dest;
 
@@ -69,7 +81,7 @@ char			**ft_split(char const *s, char *delim)
 	int		i;
 
 	if (!s ||
-		!(ret = (char **)malloc(sizeof(char *) * (ft_check_size(s, delim) + 1))))
+		!(ret = malloc(sizeof(char *) * (ft_check_size(s, delim) + 1))))
 		return (NULL);
 	i = 0;
 	while (*s)

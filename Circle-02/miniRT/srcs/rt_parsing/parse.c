@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/22 17:56:26 by suhshin           #+#    #+#             */
+/*   Updated: 2021/05/22 17:58:37 by suhshin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 static void	parser_init(int (*parser[9])(char **, t_minirt *))
@@ -30,10 +42,9 @@ static int	parsing(t_minirt *mini, char *str)
 		i = -1;
 		if (line[0][0] != '#')
 			while (++i < 9)
-				if (!ft_strncmp(line[0], \
-								(char [9][3]){"R", "A", "c", "l", "sp", "pl" \
-											, "sq", "cy", "tr"}[i]) && \
-					parser[i](line, mini))
+				if (!ft_strncmp(line[0], (char[9][3])
+					{"R", "A", "c", "l", "sp", "pl", "sq", "cy", "tr"}[i])
+					&& parser[i](line, mini))
 					break ;
 		ft_free_split(line, ft_arrsize(line));
 		if (i == 9)
@@ -65,7 +76,7 @@ static int	fileread(char *file, t_minirt *mini, char *line)
 	return (s >= 0);
 }
 
-int	input(int argc, char **argv, t_minirt *mini)
+int			input(int argc, char **argv, t_minirt *mini)
 {
 	char	line[4400000];
 

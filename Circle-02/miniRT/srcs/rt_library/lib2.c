@@ -1,16 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lib2.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/22 17:07:32 by suhshin           #+#    #+#             */
+/*   Updated: 2021/05/22 17:08:49 by suhshin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
-int ft_arrsize(char **arr)
+int		ft_arrsize(char **arr)
 {
 	int i;
 
 	i = 0;
-	while(arr[i])
+	while (arr[i])
 		++i;
 	return (i);
 }
 
-int ft_strlen(char *str)
+int		ft_strlen(char *str)
 {
 	int len;
 
@@ -25,7 +37,7 @@ int		ft_strchr(const char *s, int c)
 	int i;
 
 	i = -1;
-	while(s[++i])
+	while (s[++i])
 		if (s[i] == c)
 			return (1);
 	return (0);
@@ -41,7 +53,7 @@ void	*ft_memset(void *dest, int value, size_t size)
 	return (dest);
 }
 
-int	ft_strncmp(const char *s1, const char *s2)
+int		ft_strncmp(const char *s1, const char *s2)
 {
 	while (*s1 && *s2 && (*s1 == *s2))
 	{

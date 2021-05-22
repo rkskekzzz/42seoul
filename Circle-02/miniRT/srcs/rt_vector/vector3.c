@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vector3.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/22 18:03:09 by suhshin           #+#    #+#             */
+/*   Updated: 2021/05/22 18:07:39 by suhshin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
-t_vec vec_min(t_vec v1, t_vec v2)
+t_vec	vec_min(t_vec v1, t_vec v2)
 {
 	t_vec out;
 
@@ -10,7 +22,7 @@ t_vec vec_min(t_vec v1, t_vec v2)
 	return (out);
 }
 
-t_vec vec_mul(t_vec v1, t_vec v2)
+t_vec	vec_mul(t_vec v1, t_vec v2)
 {
 	t_vec out;
 
@@ -20,7 +32,7 @@ t_vec vec_mul(t_vec v1, t_vec v2)
 	return (out);
 }
 
-t_vec vec_mul_(t_vec *v1, t_vec *v2)
+t_vec	vec_mul_(t_vec *v1, t_vec *v2)
 {
 	t_vec out;
 
@@ -30,7 +42,7 @@ t_vec vec_mul_(t_vec *v1, t_vec *v2)
 	return (out);
 }
 
-t_vec vec_muln(t_vec v1, double k)
+t_vec	vec_muln(t_vec v1, double k)
 {
 	t_vec out;
 
@@ -40,7 +52,7 @@ t_vec vec_muln(t_vec v1, double k)
 	return (out);
 }
 
-t_vec vec_divn(t_vec v1, double k)
+t_vec	vec_divn(t_vec v1, double k)
 {
 	t_vec out;
 

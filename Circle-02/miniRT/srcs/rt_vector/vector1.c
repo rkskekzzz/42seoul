@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vector1.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/22 18:02:43 by suhshin           #+#    #+#             */
+/*   Updated: 2021/05/22 18:02:57 by suhshin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 t_vec	ray_at(t_ray *ray, double t)
 {
-	return (vec(ray->origin.x + ray->dir.x * t
-			, ray->origin.y + ray->dir.y * t
-			, ray->origin.z + ray->dir.z * t));
+	return (vec(ray->origin.x + ray->dir.x * t,
+				ray->origin.y + ray->dir.y * t,
+				ray->origin.z + ray->dir.z * t));
 }
 
 void	vec_print(char *str, t_vec *vec)

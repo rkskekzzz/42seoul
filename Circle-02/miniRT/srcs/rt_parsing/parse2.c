@@ -1,23 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse2.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/22 17:59:41 by suhshin           #+#    #+#             */
+/*   Updated: 2021/05/22 18:01:32 by suhshin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
-int   ft_screen_check(t_minirt *mini)
+int		ft_screen_check(t_minirt *mini)
 {
-  int max_wid;
-  int max_hei;
+	int	max_wid;
+	int	max_hei;
 
-  if (!mini)
-	return (ERROR);
-  mlx_get_screen_size(mini->scr.mlx, &max_wid, &max_hei);
-  if (max_wid < mini->scr.wid)
-    mini->scr.wid = max_wid;
-  if (max_hei < mini->scr.hei)
-    mini->scr.hei = max_hei;
-  return (OK);
+	if (!mini)
+		return (ERROR);
+	mlx_get_screen_size(mini->scr.mlx, &max_wid, &max_hei);
+	if (max_wid < mini->scr.wid)
+		mini->scr.wid = max_wid;
+	if (max_hei < mini->scr.hei)
+		mini->scr.hei = max_hei;
+	return (OK);
 }
 
-int	parse_r(char **line, t_minirt *mini)
+int		parse_r(char **line, t_minirt *mini)
 {
-
 	if ((mini->scr.wid && mini->scr.hei) || \
 		ft_arrsize(line) != 3 || \
 		!ft_atod(&mini->scr.wid, line[1]) || \
@@ -27,7 +38,7 @@ int	parse_r(char **line, t_minirt *mini)
 	return (OK);
 }
 
-int	parse_sp(char **line, t_minirt *mini)
+int		parse_sp(char **line, t_minirt *mini)
 {
 	t_vec	c;
 	t_vec	color;
@@ -43,7 +54,7 @@ int	parse_sp(char **line, t_minirt *mini)
 			create_metal(color, (double)rand() / (double)RAND_MAX)));
 }
 
-int	parse_sq(char **line, t_minirt *mini)
+int		parse_sq(char **line, t_minirt *mini)
 {
 	t_pnt	c;
 	t_vec	n;
@@ -61,7 +72,7 @@ int	parse_sq(char **line, t_minirt *mini)
 			create_metal(color, (double)rand() / (double)RAND_MAX)));
 }
 
-int	parse_tr(char **line, t_minirt *mini)
+int		parse_tr(char **line, t_minirt *mini)
 {
 	t_vec	p1;
 	t_vec	p2;

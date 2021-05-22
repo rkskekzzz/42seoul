@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   util.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/22 18:01:55 by suhshin           #+#    #+#             */
+/*   Updated: 2021/05/22 18:02:05 by suhshin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 int	printf_ok(char *s)
@@ -12,7 +24,7 @@ int	printf_error(char *s)
 	return (ERROR);
 }
 
-int parse_split(t_vec *input, char *line)
+int	parse_split(t_vec *input, char *line)
 {
 	char **tmp;
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   camera.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/22 17:01:46 by suhshin           #+#    #+#             */
+/*   Updated: 2021/05/22 17:02:41 by suhshin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 #include <time.h>
 
@@ -31,7 +43,8 @@ int			add_camera(t_minirt *mini, t_vec lookfrom, t_vec dir, double fov)
 	cam->v = vec_cross(cam->w, cam->u);
 	cam->hor = vec_muln(cam->u, cam->view_width);
 	cam->ver = vec_muln(cam->v, cam->view_height);
-	cam->low_left_corner = vec_cal((t_vec[4]){lookfrom, cam->hor, cam->ver, cam->w},
+	cam->low_left_corner =
+		vec_cal((t_vec[4]){lookfrom, cam->hor, cam->ver, cam->w},
 									(double[4]){1, -0.5, -0.5, -1},
 									4);
 	cam->img = 0;
@@ -42,7 +55,8 @@ int			add_camera(t_minirt *mini, t_vec lookfrom, t_vec dir, double fov)
 
 void		draw(t_minirt *m)
 {
-	clock_t	start, end;
+	clock_t	start;
+	clock_t end;
 
 	if (!m->curr_cam->img)
 	{
@@ -55,7 +69,7 @@ void		draw(t_minirt *m)
 		start = clock();
 		render(m);
 		end = clock();
-		printf("time : %f\n",(double)(end - start) / CLOCKS_PER_SEC);
+		printf("time : %f\n", (double)(end - start) / CLOCKS_PER_SEC);
 	}
 	if (m->save == OK)
 		makebmp(m);
