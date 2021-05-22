@@ -21,6 +21,7 @@ int	printf_ok(char *s)
 int	printf_error(char *s)
 {
 	printf("%s Error!\n", s);
+	exit(1);
 	return (ERROR);
 }
 
