@@ -33,9 +33,9 @@ static			t_vec refract(t_vec *r_in, t_vec *n, double ir, double cos_theta)
 	t_vec r_out_perp;
 	t_vec r_out_parallel;
 
-	r_out_perp = vec_cal((t_vec[2]){*r_in, *n}, 
+	r_out_perp = vec_cal((t_vec[2]){*r_in, *n},
 			(double[2]){1 * ir, cos_theta * ir}, 2);
-	r_out_parallel = vec_cal((t_vec[1]){*n}, 
+	r_out_parallel = vec_cal((t_vec[1]){*n},
 			(double[1]){-1 * sqrt(ft_abs(1.0 - vec_length_squared_(&r_out_perp)))}, 1);
 	return (vec_cal((t_vec[2]){r_out_perp, r_out_parallel}, (double[2]){1 ,1}, 2));
 }
@@ -43,9 +43,9 @@ static			t_vec refract(t_vec *r_in, t_vec *n, double ir, double cos_theta)
 int				scatter_dielectric(t_material *this, t_ray *ray_in, t_hit_record *rec, t_ray *ray_out)
 {
 	t_vec target;
-	double refraction_ratio;
 	t_vec ray_in_dir_unit;
 	t_vec ray_in_dir_unit_minus;
+	double refraction_ratio;
 	double cos_theta;
 	double sin_theta;
 

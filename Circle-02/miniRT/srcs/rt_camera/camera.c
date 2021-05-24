@@ -65,7 +65,6 @@ void		draw(t_minirt *m)
 													&m->scr.bits_per_pixel,
 													&m->scr.line_length,
 													&m->scr.endian);
-		printf("{bit p pixel : %d}", m->scr.bits_per_pixel);
 		printf("start render!\n");
 		start = clock();
 		if (m->save == OK)
