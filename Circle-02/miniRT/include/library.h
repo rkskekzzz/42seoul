@@ -6,13 +6,13 @@
 /*   By: ycha <ycha@gmail.com>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 19:45:34 by ycha              #+#    #+#             */
-/*   Updated: 2021/05/24 21:58:58 by suhshin          ###   ########.fr       */
+/*   Updated: 2021/05/24 22:07:18 by suhshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBRARY_H
-# define LIBRARY_H
-# include "minirt.h"
+#define LIBRARY_H
+#include "minirt.h"
 
 int		trgb(int t, int r, int g, int b);
 double	r_num(int anti, int min, int max);
