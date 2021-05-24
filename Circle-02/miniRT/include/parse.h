@@ -6,15 +6,15 @@
 /*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 22:05:39 by suhshin           #+#    #+#             */
-/*   Updated: 2021/05/24 22:06:36 by suhshin          ###   ########.fr       */
+/*   Updated: 2021/05/24 22:14:58 by suhshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSE_H
-#define PARSE_H
-#include "minirt.h"
-#include <fcntl.h>
-#define WHITESPACE "\t\n\v\f\r "
+# define PARSE_H
+# include "minirt.h"
+# include <fcntl.h>
+# define WHITESPACE "\t\n\v\f\r "
 
 typedef struct s_minirt		t_minirt;
 
@@ -45,8 +45,8 @@ typedef struct				s_a
 
 typedef struct				s_c
 {
-	t_pnt						center;
-	t_vec						n;
+	t_pnt					center;
+	t_vec					n;
 	int						fov;
 }							t_c;
 
@@ -102,11 +102,11 @@ typedef union				u_parsed
 	t_c						c;
 	t_a						a;
 	t_l						l;
-	t_sp						sp;
-	t_pl						pl;
-	t_sq						sq;
-	t_cy						cy;
-	t_tr						tr;
+	t_sp					sp;
+	t_pl					pl;
+	t_sq					sq;
+	t_cy					cy;
+	t_tr					tr;
 }							t_parsed;
 
 typedef struct				s_parsed_list
@@ -126,7 +126,8 @@ int							printf_ok(char *s);
 int							printf_error(char *s);
 int							input(int argc, char **argv, t_minirt *mini);
 int							parse_split(t_vec *input, char *line);
-int							parsed_list_add(t_minirt *mini, t_parsable index, t_parsed parsed);
+int							parsed_list_add(t_minirt *mini,
+		t_parsable index, t_parsed parsed);
 
 int							parse_r(char **line, t_minirt *mini);
 int							parse_a(char **line, t_minirt *mini);

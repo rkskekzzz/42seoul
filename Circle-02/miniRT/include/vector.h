@@ -6,14 +6,14 @@
 /*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 21:41:05 by suhshin           #+#    #+#             */
-/*   Updated: 2021/05/24 22:06:31 by suhshin          ###   ########.fr       */
+/*   Updated: 2021/05/24 22:10:04 by suhshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_H
-#define VECTOR_H
-#include <math.h>
-#include <stdio.h>
+# define VECTOR_H
+# include <math.h>
+# include <stdio.h>
 
 typedef struct s_vec	t_clr;
 typedef struct s_vec	t_pnt;
