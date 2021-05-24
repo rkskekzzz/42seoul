@@ -1,72 +1,79 @@
 #include "minirt.h"
 
-void    write_bmp_header(t_minirt *mini, int fd)
+void	rgbt_init(t_rgbtriple *trgb, int color)
 {
-    unsigned char bmp_h[54];
-    int file_size;
-    int temp;
+	trgb->rgbtBlue = color & 0xFF;
+	trgb->rgbtGreen = (color & (0xFF << 8)) >> 8;
+	trgb->rgbtRed = (color & (0xFF << 16)) >> 16;
+}
 
-    ft_memset(bmp_h, 0, 54);
+void	info_init(t_minirt *mini, t_bitmapinfo *info)
+{
+	int temp;
+
     temp = mini->scr.line_length / 4;
-    file_size = 4 * mini->scr.hei * temp + 54;
-    bmp_h[0] = 'B';
-    bmp_h[1] = 'M';
-    bmp_h[2] = (unsigned char)file_size;
-    bmp_h[3] = (unsigned char)(file_size >> 8);
-    bmp_h[4] = (unsigned char)(file_size >> 16);
-    bmp_h[5] = (unsigned char)(file_size >> 24);
-    bmp_h[10] = 54;
-    bmp_h[14] = 40;
-    bmp_h[18] = (unsigned char)temp;
-    bmp_h[19] = (unsigned char)(temp >> 8);
-    bmp_h[20] = (unsigned char)(temp >> 16);
-    bmp_h[21] = (unsigned char)(temp >> 24);
-    bmp_h[22] = (unsigned char)mini->scr.hei;
-    bmp_h[23] = (unsigned char)((int)mini->scr.hei >> 8);
-    bmp_h[24] = (unsigned char)((int)mini->scr.hei >> 16);
-    bmp_h[25] = (unsigned char)((int)mini->scr.hei >> 24);
-    bmp_h[26] = 1;
-    bmp_h[28] = 32;
-    write(fd, bmp_h, 54);
+	info->biSize = 40;
+	info->biWidth = mini->scr.wid;
+	info->biHeight = mini->scr.hei;
+	info->biPlanes = 1;
+	info->biBitCount = 24;
+	info->biCompression = 0;
+	info->biSizeImage = mini->scr.wid * mini->scr.hei;
+	info->biXPelsPerMeter = mini->scr.wid;
+	info->biYPelsPerMeter = mini->scr.hei;
+	info->biClrUsed = 0xffffff;
+	info->biClrImportant = 0;
 }
 
-
-static void write_bmp_i(t_minirt *mini, int fd)
+void	file_init(t_minirt *mini, t_bitmapfile *file)
 {
-	char	*pix_arr;
-	int		img_size;
-	int		i;
-	int		j;
+	int file_size;
 
-	pix_arr = malloc(sizeof(char) * mini->scr.line_length * mini->scr.hei);
-	if (!pix_arr)
-		printf_error("malloc");
-	img_size = mini->scr.wid * mini->scr.hei;
-	i = -1;
-	j = -1;
-	while (++i < img_size)
-	{
-		pix_arr[++j] = mini->curr_cam->img_addr[i] & 255;
-		pix_arr[++j] = (mini->curr_cam->img_addr[i] & 255 << 8) >> 8;
-		pix_arr[++j] = (mini->curr_cam->img_addr[i] & 255 << 16) >> 16;
-		pix_arr[++j] = 0;
-	}
-	write(fd, pix_arr, mini->scr.line_length * mini->scr.hei);
-	free(pix_arr);
+    file_size = (3 * mini->scr.hei * mini->scr.wid) + 54; // 왜 4?
+	file->bfType1 = 'B';
+	file->bfType2 = 'M';
+	file->bfSize = file_size;
+	file->bfReserved1 = 0;
+	file->bfReserved2 = 0;
+	file->bfOffBits = 54;
 }
 
-
-int makebmp(t_minirt *mini)
+void	bmpheader(t_minirt *mini, int fd)
 {
-	int fd;
-	
-	fd = open("output/minirt.bmp", O_CREAT | O_WRONLY | O_TRUNC,0744);
+	t_bitmapfile	file;
+	t_bitmapinfo	info;
+
+	file_init(mini, &file);
+	info_init(mini, &info);
+	write(fd, &file, 14);
+	write(fd, &info, 40);
+}
+
+void makebmp(t_minirt *mini)
+{
+	int	fd;
+	int	hdx;
+	int	wdx;
+	t_rgbtriple rgbt;
+	t_rgbtriple white;
+	ft_memset(&white, 0, sizeof(t_rgbtriple));
+
+	fd = open("output/minirt.bmp", O_CREAT | O_WRONLY | O_TRUNC, 0744);
 	if (fd != -1)
 	{
-		write_bmp_h(mini, fd);
-		write_bmp_i(mini, fd);
+		bmpheader(mini, fd);
+		hdx = -1;
+		while (++hdx < (mini->scr.hei))
+		{
+
+			wdx = -1;
+			while (++wdx < (mini->scr.wid)) {
+				rgbt_init(&rgbt, anti(mini, wdx, hdx));
+				write(fd, &rgbt, 3);
+			}
+		}
 		close(fd);
 		printf_ok("Save Complete!\nfile : output/minirt.bmp\n");
 	}
-    exit(0);
+	exit(0);
 }

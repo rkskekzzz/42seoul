@@ -29,8 +29,8 @@ static void	setting(t_minirt *mini)
 	c = mini->cam;
 	while (c->next)
 		c = c->next;
+	mini->curr_cam = c;
 	c->next = mini->cam->next;
-	mini->curr_cam = mini->cam->next;
 	event(mini);
 }
 

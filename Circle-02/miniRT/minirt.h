@@ -23,6 +23,7 @@
 # include "object.h"
 # include "parse.h"
 # include "event.h"
+# include "bmp.h"
 
 # define MAX_DEPTH 50
 # define ERROR 0
@@ -76,12 +77,13 @@ typedef struct s_minirt
 	t_camera	*curr_cam;
 	t_light		*light;
 	int			save;
-	
+
 }		t_minirt;
 
 t_camera	*init_camera();
 int			add_camera(t_minirt *mini, t_vec lookfrom, t_vec dir, double fov);
 void	draw(t_minirt *m);
 int		render(t_minirt *mini);
+int		anti(t_minirt *mini, int wdx, int hdx);
 t_clr 	phong(t_minirt *mini, t_hit_record *rec);
 #endif

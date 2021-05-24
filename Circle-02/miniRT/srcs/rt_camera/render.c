@@ -38,19 +38,15 @@ static t_clr	ray_color(t_minirt *mini, t_ray *ray, int depth)
 {
 	t_hit_record	rec;
 	t_ray			new_ray;
-	double			val_for_sky;
-	t_vec			ray_from_cam;
 
 	if (depth <= 0)
 		return ((t_vec){0, 0, 0});
 	if (hit_world(mini->wrd, ray, (double[2]){0.001, INFINITY}, &rec))
 		return (phong(mini, &rec));
-	ray_from_cam = vec_oppo(vec_unit_(&ray->dir));
-	val_for_sky = 0.5 - 0.5 * ray_from_cam.y;
-	return (vec((1 - 0.5 * val_for_sky), (1 - 0.3 * val_for_sky), 1));
+	return (vec(0, 0, 0));
 }
 
-static int		anti(t_minirt *mini, int wdx, int hdx)
+int		anti(t_minirt *mini, int wdx, int hdx)
 {
 	double	u;
 	double	v;
@@ -58,6 +54,7 @@ static int		anti(t_minirt *mini, int wdx, int hdx)
 	t_ray	ray;
 	t_clr	color;
 
+	// color = vec(1, wdx / 1600.0, hdx / 900.0);
 	color = vec(0, 0, 0);
 	adx = -1;
 	while (++adx <= mini->scr.anti)
@@ -77,6 +74,7 @@ static int		anti(t_minirt *mini, int wdx, int hdx)
 						2);
 	}
 	return (trgb_anti(&color, mini->scr.anti));
+
 }
 
 int				render(t_minirt *mini)
@@ -85,10 +83,10 @@ int				render(t_minirt *mini)
 	int	wdx;
 
 	hdx = -1;
-	while (++hdx < (mini->scr.hei - 1))
+	while (++hdx < (mini->scr.hei))
 	{
 		wdx = -1;
-		while (++wdx < (mini->scr.wid - 1))
+		while (++wdx < (mini->scr.wid))
 			put_pixel(mini, wdx, (mini->scr.hei - 1 - hdx),
 					anti(mini, wdx, hdx));
 	}

@@ -65,13 +65,14 @@ void		draw(t_minirt *m)
 													&m->scr.bits_per_pixel,
 													&m->scr.line_length,
 													&m->scr.endian);
+		printf("{bit p pixel : %d}", m->scr.bits_per_pixel);
 		printf("start render!\n");
 		start = clock();
+		if (m->save == OK)
+			makebmp(m);
 		render(m);
 		end = clock();
 		printf("time : %f\n", (double)(end - start) / CLOCKS_PER_SEC);
 	}
-	if (m->save == OK)
-		makebmp(m);
 	mlx_put_image_to_window(m->scr.mlx, m->scr.win, m->curr_cam->img, 0, 0);
 }

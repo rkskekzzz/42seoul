@@ -101,7 +101,7 @@ typedef struct s_box
 	t_parsed_list	parsed[9];
 }	t_box;
 
-int makebmp(t_minirt *mini);
+void makebmp(t_minirt *mini);
 int	printf_ok(char *s);
 int	printf_error(char *s);
 int input(int argc, char **argv, t_minirt *mini);
