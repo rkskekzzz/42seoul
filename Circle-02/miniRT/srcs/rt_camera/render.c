@@ -6,7 +6,7 @@
 /*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 17:02:52 by suhshin           #+#    #+#             */
-/*   Updated: 2021/05/22 17:05:52 by suhshin          ###   ########.fr       */
+/*   Updated: 2021/05/24 21:17:12 by suhshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static t_clr	ray_color(t_minirt *mini, t_ray *ray, int depth)
 	return (vec(0, 0, 0));
 }
 
-int		anti(t_minirt *mini, int wdx, int hdx)
+int				anti(t_minirt *mini, int wdx, int hdx)
 {
 	double	u;
 	double	v;
@@ -54,7 +54,6 @@ int		anti(t_minirt *mini, int wdx, int hdx)
 	t_ray	ray;
 	t_clr	color;
 
-	// color = vec(1, wdx / 1600.0, hdx / 900.0);
 	color = vec(0, 0, 0);
 	adx = -1;
 	while (++adx <= mini->scr.anti)
@@ -74,7 +73,6 @@ int		anti(t_minirt *mini, int wdx, int hdx)
 						2);
 	}
 	return (trgb_anti(&color, mini->scr.anti));
-
 }
 
 int				render(t_minirt *mini)
