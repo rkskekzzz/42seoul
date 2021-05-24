@@ -6,11 +6,11 @@
 #    By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/22 18:04:03 by suhshin           #+#    #+#              #
-#    Updated: 2021/05/22 18:04:06 by suhshin          ###   ########.fr        #
+#    Updated: 2021/05/24 22:27:30 by suhshin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	a.out
+NAME	=	miniRT
 
 SRCS	=	\
 			minirt.c \
@@ -44,9 +44,6 @@ SRCS	=	\
 			./srcs/rt_parsing/util.c \
 			./srcs/rt_parsing/bmp.c \
 			./srcs/rt_light/light.c \
-#
-#
-#
 
 SRC_DIR	=	./srcs
 
@@ -54,17 +51,9 @@ INCLUDE =	-Iinclude -Isrcs/mlx -I./
 
 OBJS = $(SRCS:%.c=%.o)
 
-#
-# Compiler and flags
-#
-
 CC		=	clang
-CFLAGS	=	#-Wall -Werror -Wextra
+CFLAGS	=	-Wall -Werror -Wextra
 CLIB	=	-Lsrcs/mlx -lmlx -framework OpenGL -framework Appkit $(INCLUDE)
-
-#
-# Rules
-#
 
 all		: $(NAME)
 

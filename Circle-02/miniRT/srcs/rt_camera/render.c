@@ -6,7 +6,7 @@
 /*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 17:02:52 by suhshin           #+#    #+#             */
-/*   Updated: 2021/05/24 21:17:12 by suhshin          ###   ########.fr       */
+/*   Updated: 2021/05/24 22:17:21 by suhshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static int		trgb_anti(t_vec *colors, int anti)
 static t_clr	ray_color(t_minirt *mini, t_ray *ray, int depth)
 {
 	t_hit_record	rec;
-	t_ray			new_ray;
 
 	if (depth <= 0)
 		return ((t_vec){0, 0, 0});

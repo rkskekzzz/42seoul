@@ -6,7 +6,7 @@
 /*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 17:07:51 by suhshin           #+#    #+#             */
-/*   Updated: 2021/05/22 17:29:02 by suhshin          ###   ########.fr       */
+/*   Updated: 2021/05/24 22:18:59 by suhshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char			*ft_substr(char *s, unsigned int start, size_t len)
 
 	if (!s || !(dest = (char *)malloc(len + 1)))
 		return (NULL);
-	if ((size_t)start >= ft_strlen(s) ||
+	if ((int)start >= ft_strlen(s) ||
 			!(ft_strlcpy(dest, s + start, len + 1)))
 		dest[0] = '\0';
 	return (dest);

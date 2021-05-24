@@ -6,7 +6,7 @@
 /*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 17:32:36 by suhshin           #+#    #+#             */
-/*   Updated: 2021/05/24 21:16:26 by suhshin          ###   ########.fr       */
+/*   Updated: 2021/05/24 22:19:47 by suhshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,6 @@ t_material		create_dielectric(double ir)
 	mat.ir = ir;
 	mat.scatter = scatter_dielectric;
 	return (mat);
-}
-
-static double	reflectance(double cos_theta, double ir)
-{
-	return (ir * (1 - ir) * pow(1 - cos_theta, 5));
 }
 
 static t_vec	refract(t_vec *r_in, t_vec *n, double ir, double cos_theta)

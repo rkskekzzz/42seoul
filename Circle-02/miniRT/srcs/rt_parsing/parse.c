@@ -6,7 +6,7 @@
 /*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 17:56:26 by suhshin           #+#    #+#             */
-/*   Updated: 2021/05/22 17:58:37 by suhshin          ###   ########.fr       */
+/*   Updated: 2021/05/24 22:20:19 by suhshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	parsing(t_minirt *mini, char *str)
 	return (OK);
 }
 
-static int	fileread(char *file, t_minirt *mini, char *line)
+static int	fileread(char *file, char *line)
 {
 	char	ch[1];
 	int		s;
@@ -83,6 +83,6 @@ int			input(int argc, char **argv, t_minirt *mini)
 	if (argc == 3 && !ft_strncmp(argv[2], "--save"))
 		mini->save = OK;
 	return ((argc == 2 || argc == 3) && \
-			fileread(argv[1], mini, line) && \
+			fileread(argv[1], line) && \
 			parsing(mini, line));
 }
