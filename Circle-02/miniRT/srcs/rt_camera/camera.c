@@ -33,6 +33,7 @@ int			add_camera(t_minirt *mini, t_vec lookfrom, t_vec dir, double fov)
 	aperture = 2.0;
 	ratio = mini->scr.wid / mini->scr.hei;
 	cam = malloc(sizeof(t_camera));
+	dir = vec_unit(dir);
 	if (!cam)
 		return (ERROR);
 	cam->pos = lookfrom;
@@ -45,8 +46,7 @@ int			add_camera(t_minirt *mini, t_vec lookfrom, t_vec dir, double fov)
 	cam->ver = vec_muln(cam->v, cam->view_height);
 	cam->low_left_corner =
 		vec_cal((t_vec[4]){lookfrom, cam->hor, cam->ver, cam->w},
-									(double[4]){1, -0.5, -0.5, -1},
-									4);
+									(double[4]){1, -0.5, -0.5, -1}, 4);
 	cam->img = 0;
 	cam->next = mini->cam->next;
 	mini->cam->next = cam;
