@@ -1,117 +1,93 @@
 #include "push_swap.h"
 
-int	init_stack(t_list **tail, t_list **head)
+void	init_stack(t_list **tail, t_list **head)
 {
 	t_list	*new_head;
 	t_list	*new_tail;
 
-	new_head = ft_lstnew(42);
-	new_tail = ft_lstnew(42);
+	new_head = new_list(HEAD);
+	new_tail = new_list(TAIL);
 	if (!new_head || !new_tail)
-		return (ERROR);
-	new_head->link[0] = new_tail;
-	new_tail->link[1] = new_head;
-	new_head->val = HEAD;
-	new_tail->val = TAIL;
+		exit(prt_error("Malloc Error!"));
+	new_head->link[HEAD] = new_tail;
+	new_tail->link[TAIL] = new_head;
 	*head = new_head;
 	*tail = new_tail;
-	return (OK);
 }
 
-int	add_list(t_list *pos, int val)
+int	add_list(int t, int val)
 {
 	t_list	*new_node;
 	t_list	*tmp;
 
-	tmp = pos;
-	pos = pos->link[tmp->val];
-	new_node = ft_lstnew(val);
+	tmp = ht()->stack[t];
+	new_node = new_list(val);
 	if (!new_node)
 		return (ERROR);
 	new_node->link[!tmp->val] = tmp;
 	new_node->link[tmp->val] = tmp->link[tmp->val];
 	tmp->link[tmp->val]->link[!tmp->val] = new_node;
 	tmp->link[tmp->val] = new_node;
-	new_node->val = val;
+	++ht()->size[t >> 1];
 	return (OK);
 }
 
-int		del_list(t_list *list, int size)
+int	del_list(int t)
 {
-	int del;
+	int		ret;
+	t_list	*pos;
 
-	if (size == 0)
-		return 0;
-	del = list->val;
-	list->link[1]->link[0] = list->link[0];
-	list->link[0]->link[1] = list->link[1];
-	freend(&list->link[0]);
-	freend(&list->link[1]);
-	freend(&list);
-	return (del);
+	if (!ht()->size[t >> 1])
+		return (0);
+	pos = ht()->stack[t]->link[ht()->stack[t]->val];
+	ret = pos->val;
+	pos->link[1]->link[0] = pos->link[0];
+	pos->link[0]->link[1] = pos->link[1];
+	ps_freend((void *)&pos);
+	--ht()->size[t >> 1];
+	return (ret);
 }
 
-void	swap_list(t_list *list)
+int	swp_list(int t)
 {
-	int	tmp;
+	int		tmp;
+	t_list	*pos;
 
-	if (!list->link[list->val]->link[list->val]->link[list->val])
-		return ;
-	tmp = list->link[list->val]->val;
-	list->link[list->val]->val = list->link[list->val]->link[list->val]->val;
-	list->link[list->val]->link[list->val]->val = tmp;
+	if (ht()->size[t >> 1] < 2)
+		return (ERROR);
+	pos = ht()->stack[t];
+	tmp = pos->link[pos->val]->val;
+	pos->link[pos->val]->val = pos->link[pos->val]->link[pos->val]->val;
+	pos->link[pos->val]->link[pos->val]->val = tmp;
+	return (OK);
 }
 
-int	size_list(t_list *tail, t_list *head)
+int srh_list(int t, int find)
 {
-	int		cnt;
 	t_list	*tmp;
+	int		dir;
 
-	cnt = 0;
-	tmp = tail;
-	while (tmp && tmp->link[1] != head)
+	tmp = ht()->stack[t << 1];
+	dir = tmp->val;
+	while (tmp->link[dir]->link[dir])
 	{
-		tmp = tmp->link[1];
-		++cnt;
-	}
-	return (cnt);
-}
-
-int search_list(t_list *tail, t_list *head, int find)
-{
-	t_list *tmp;
-
-	tmp = tail;
-	while (tmp != head)
-	{
+		tmp = tmp->link[dir];
 		if (tmp->val == find)
 			return (1);
-		tmp = tmp->link[1];
 	}
 	return (0);
 }
 
-void print_list(t_list *tail, t_list *head)
+void prt_list(int t)
 {
 	t_list *tmp;
 
-	tmp = tail->link[1];
-	while (tmp != head)
+	tmp = ht()->stack[t]->link[ht()->stack[t]->val];
+	while (tmp->link[ht()->stack[t]->val])
 	{
 		printf("%d ", tmp->val);
-		tmp = tmp->link[1];
+		tmp = tmp->link[ht()->stack[t]->val];
 	}
 	printf("\n");
 }
 
-t_list	*ft_lstnew(int val)
-{
-	t_list	*new_node;
-
-	if (!(new_node = (t_list *)malloc(sizeof(t_list))))
-		return (NULL);
-	new_node->val = val;
-	new_node->link[0] = NULL;
-	new_node->link[1] = NULL;
-	return (new_node);
-}

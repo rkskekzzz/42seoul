@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-void	*ft_memset(void *dest, int value, size_t size)
+void	*ps_memset(void *dest, int value, size_t size)
 {
 	size_t	i;
 
@@ -10,13 +10,60 @@ void	*ft_memset(void *dest, int value, size_t size)
 	return (dest);
 }
 
-t_bool	print_error(char *message)
+t_bool	prt_error(char *message)
 {
 	return (printf("%s\n", message) >= 0);
 }
 
-void 	freend(void **ptr)
+void 	ps_freend(void **ptr)
 {
 	free(*ptr);
 	*ptr = 0;
+}
+
+int		ps_isnum_atoi(char *s)
+{
+	int			sign;
+	long long	ret;
+
+	sign = 1;
+	ret = 0;
+
+	if (*s == '-' || *s == '+')
+		if (*s++ == '-')
+			sign = -1;
+	while (*s >= '0' && *s <= '9')
+	{
+		ret = ret * 10 + (*s++ - '0');
+		if (ret > INTMAX)
+			exit(prt_error("Numsize Error!"));
+	}
+	return ((int)ret * sign);
+}
+
+t_list	*new_list(int val)
+{
+	t_list	*new_node;
+
+	new_node = malloc(sizeof(t_list));
+	if (!new_node)
+		return (NULL);
+	new_node->val = val;
+	new_node->link[0] = NULL;
+	new_node->link[1] = NULL;
+	return (new_node);
+}
+
+void	free_list(int t)
+{
+	t_list *tmp;
+	t_list *cur;
+	int		dir;
+
+	while (ht()->size[t >> 1])
+	{
+		del_list(t);
+	}
+	ps_freend((void*)&ht()->stack[t & 2]);
+	ps_freend((void*)&ht()->stack[(t & 2) + 1]);
 }

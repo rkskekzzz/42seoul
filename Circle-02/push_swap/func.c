@@ -2,73 +2,35 @@
 
 t_ht	*ht(void)
 {
-	static t_ht	*ht;
+	static t_ht	ht;
 
-	return (ht);
+	return (&ht);
 }
 
-void sa()
+int	cmd(t_func f)
 {
-	swap_list(ht()->b_head);
+	(f == sa) && swap_list(ht()->stack[AHEAD]) && printf("sa");
+	(f == sb) && swap_list(ht()->stack[BHEAD]);
+	(f == ss) && cmd(sa) && cmd(sb);
+	(f == pa) && add_list(ht()->stack[AHEAD], del_list(BHEAD));
+	(f == pb) && add_list(ht()->stack[BHEAD], del_list(AHEAD));
+	(f == ra) && add_list(ht()->stack[ATAIL], del_list(AHEAD));
+	(f == rb) && add_list(ht()->stack[BTAIL], del_list(BHEAD));
+	(f == rr) && cmd(ra) && cmd(rb);
+	(f == rra) && add_list(ht()->stack[AHEAD], del_list(ATAIL));
+	(f == rrb) && add_list(ht()->stack[BHEAD], del_list(BTAIL));
+	(f == rrr) && cmd(rra) && cmd(rrb);
+	return (OK);
 }
 
-void sb()
-{
-	swap_list(ht()->b_head);
-}
+// int	cmds(t_func *f, int n)
+// {
+// 	int	i;
 
-void ss()
-{
-	sa();
-	sb();
-}
+// 	i = -1;
+// 	while (++i < n)
+// 		if (!cmd(f[i]))
+// 			return (ERROR);
+// 	return (OK);
+// }
 
-void pa()
-{
-	add_list(ht()->a_head, del_list(ht()->b_head, ht()->b_size));
-}
-
-void pa()
-{
-	add_list(ht()->b_head, del_list(ht()->a_head, ht()->a_size));
-}
-
-void rr()
-{
-	(ra && rb);
-}
-
-void ra()
-{
-	add_list(ht()->a_tail, del_list(ht()->a_head, ht()->a_size));
-}
-
-void rb()
-{
-	add_list(ht()->b_tail, del_list(ht()->b_head, ht()->b_size));
-}
-
-void rrr()
-{
-	(rra && rrb);
-}
-
-void rra()
-{
-	add_list(ht()->a_head, del_list(ht()->a_tail, ht()->a_size));
-}
-
-void rrb()
-{
-	add_list(ht()->b_head, del_list(ht()->b_tail, ht()->b_size));
-}
-
-// swap_list(ht()->b_head);
-cmd[0] = (*rtptr(swap_list))(ht()->b_head);
-
-void (*rtptr(void *))(void)
-{
-	if void* == swap_list
-		return swap_list;
-
-}
