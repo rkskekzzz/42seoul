@@ -28,7 +28,6 @@ int		ps_isnum_atoi(char *s)
 
 	sign = 1;
 	ret = 0;
-
 	if (*s == '-' || *s == '+')
 		if (*s++ == '-')
 			sign = -1;
@@ -66,4 +65,13 @@ void	free_list(int t)
 	}
 	ps_freend((void*)&ht()->stack[t & 2]);
 	ps_freend((void*)&ht()->stack[(t & 2) + 1]);
+}
+
+void ps_swap(int *a, int *b)
+{
+	int temp;
+
+	temp = *a;
+	*a = *b;
+	*b = temp;
 }

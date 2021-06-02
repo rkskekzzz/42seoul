@@ -67,15 +67,18 @@ t_bool				prt_error(char *message);
 void 				ps_freend(void **ptr);
 int					ps_isnum_atoi(char *s);
 void				*ps_memset(void *dest, int value, size_t size);
-
+void				ps_swap(int *a, int *b);
 t_list				*new_list(int val);
 void				free_list(int t);
 
 int 				cmd(t_func f);
-int 				cmds(t_func *f, int n);
 
 t_ht				*ht(void);
 
+int *init_arr(int argc, char **argv);
+void quick_sort(int **list, int left, int right);
+int partition(int **list, int left, int right);
 
 
+void	merge();
 #endif

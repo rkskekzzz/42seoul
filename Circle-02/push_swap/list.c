@@ -7,7 +7,7 @@ void	init_stack(t_list **tail, t_list **head)
 
 	new_head = new_list(HEAD);
 	new_tail = new_list(TAIL);
-	if (!new_head || !new_tail)
+	if (!new_head || !new_tail)	// free 해주기
 		exit(prt_error("Malloc Error!"));
 	new_head->link[HEAD] = new_tail;
 	new_tail->link[TAIL] = new_head;
@@ -64,16 +64,14 @@ int	swp_list(int t)
 
 int srh_list(int t, int find)
 {
-	t_list	*tmp;
-	int		dir;
+	t_list *tmp;
 
-	tmp = ht()->stack[t << 1];
-	dir = tmp->val;
-	while (tmp->link[dir]->link[dir])
+	tmp = ht()->stack[t]->link[ht()->stack[t]->val];
+	while (tmp->link[ht()->stack[t]->val])
 	{
-		tmp = tmp->link[dir];
 		if (tmp->val == find)
 			return (1);
+		tmp = tmp->link[ht()->stack[t]->val];
 	}
 	return (0);
 }
@@ -90,4 +88,3 @@ void prt_list(int t)
 	}
 	printf("\n");
 }
-

@@ -32,8 +32,8 @@ int		parse_r(char **line, t_minirt *mini)
 	if ((mini->scr.wid && mini->scr.hei) || \
 		ft_arrsize(line) != 3 || \
 		!ft_atod(&mini->scr.wid, line[1]) || \
-		!ft_atod(&mini->scr.hei, line[2]))// || \
-		//!ft_screen_check(mini))
+		!ft_atod(&mini->scr.hei, line[2]) || \
+		!ft_screen_check(mini))
 		return (ERROR);
 	return (OK);
 }
