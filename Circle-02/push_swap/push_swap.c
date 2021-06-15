@@ -10,30 +10,24 @@ void	init(int argc, char **argv)
 	init_stack(&(ht()->stack[BTAIL]), &(ht()->stack[BHEAD]));
 	ht()->size[a] = 0;
 	ht()->size[b] = 0;
-	pivot = init_arr(argc, argv);
-	idx = -1;
-	printf("%d, %d\n", pivot[0], pivot[1]);
+	idx = 0;
 	while (argv[++idx])
-	{
 		add_list(AHEAD, ps_isnum_atoi(argv[idx]));
-	}
+	pivot = init_arr(AHEAD, ht()->size[a]);
+	printf("%d, %d\n", pivot[0], pivot[1]);
 }
 
 void	push_swap(int argc, char **argv)
 {
 	init(argc, argv);
-	prt_list(ATAIL);
-	del_list(ATAIL);
-	prt_list(ATAIL);
-	swp_list(AHEAD);
-	cmd(sa);
-	prt_list(ATAIL);
-	merge();
-	merge();
-	merge();
-	merge();
-	if (srh_list(a, 3))
-		printf("find!\n");
+	// prt_list(ATAIL);
+	// del_list(ATAIL);
+	// prt_list(ATAIL);
+	// swp_list(AHEAD);
+	// cmd(sa);
+	// prt_list(ATAIL);
+	// if (srh_list(a, 3))
+	// 	printf("find!\n");
 }
 
 int	main(int argc, char **argv)
