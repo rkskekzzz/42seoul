@@ -75,7 +75,8 @@ int 				cmd(t_func f);
 
 t_ht				*ht(void);
 
-int *init_arr(int argc, char **argv);
+// int *init_arr(int argc, char **argv);
+int *init_arr(int t, int size);
 void quick_sort(int **list, int left, int right);
 int partition(int **list, int left, int right);
 

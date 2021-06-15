@@ -26,21 +26,43 @@ void quick_sort(int **list, int left, int right)
 	quick_sort(list, j + 1, right);
 }
 
-int *init_arr(int argc, char **argv)
+// int *init_arr(int argc, char **argv)
+// {
+// 	int	*arr;
+// 	int	idx;
+// 	int	pv[2];
+
+// 	arr = malloc(sizeof(int) * (argc - 1));
+// 	idx = -1;
+// 	while (++idx < argc - 1)
+// 	{
+// 		arr[idx] = ps_isnum_atoi(argv[idx + 1]);
+// 	}
+// 	quick_sort(&arr, 0, argc - 2);
+// 	pv[0] = arr[(argc - 2) / 3];
+// 	pv[1] = arr[(argc - 2) - ((argc - 1) / 3)];
+// 	ps_freend((void *)&arr);
+// 	return ((int [2]){pv[0], pv[1]});
+// }
+
+int *init_arr(int t, int size)
 {
 	int	*arr;
-	int	idx;
+	int idx;
 	int	pv[2];
+	t_list *tmp;
 
-	arr = malloc(sizeof(int) * (argc - 1));
 	idx = -1;
-	while (++idx < argc - 1)
+	tmp = ht()->stack[t]->link[ht()->stack[t]->val];
+	arr = malloc(sizeof(int) * size);
+	while (++idx < size)
 	{
-		arr[idx] = ps_isnum_atoi(argv[idx + 1]);
+		arr[idx] = tmp->val;
+		tmp = tmp->link[ht()->stack[t]->val];
 	}
-	quick_sort(&arr, 0, argc - 2);
-	pv[0] = arr[(argc - 2) / 3];
-	pv[1] = arr[(argc - 2) - ((argc - 1) / 3)];
+	quick_sort(&arr, 0, size - 1);
+	pv[0] = arr[(size - 1) / 3];
+	pv[1] = arr[(size - 1) - ((size - 1) / 3)];
 	ps_freend((void *)&arr);
 	return ((int [2]){pv[0], pv[1]});
 }
