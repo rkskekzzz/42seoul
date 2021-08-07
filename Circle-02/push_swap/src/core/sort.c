@@ -34,15 +34,15 @@ int	*find_pivot(int t, int size)
 	t_list	*tmp;
 
 	idx = -1;
-	tmp = ht()->stack[t]->link[ht()->stack[t]->val];
+	tmp = ht()->stack[t]->link[ht()->stack[t]->val.n];
 	out = malloc(sizeof(int) * 2);
 	arr = malloc(sizeof(int) * size);
 	if (!out || !arr)
 		exit(1);
 	while (++idx < size)
 	{
-		arr[idx] = tmp->val;
-		tmp = tmp->link[ht()->stack[t]->val];
+		arr[idx] = tmp->val.n;
+		tmp = tmp->link[ht()->stack[t]->val.n];
 	}
 	quick_sort(&arr, 0, size - 1);
 	out[0] = arr[(size - 1) / 3];

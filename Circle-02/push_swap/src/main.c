@@ -32,6 +32,7 @@ void	init(char **argv)
 
 	init_stack(&(ht()->stack[ATAIL]), &(ht()->stack[AHEAD]));
 	init_stack(&(ht()->stack[BTAIL]), &(ht()->stack[BHEAD]));
+	ht()->stack[FUNCL] = new_list(0);
 	ht()->size[A] = 0;
 	ht()->size[B] = 0;
 	idx = -1;
@@ -54,7 +55,6 @@ char	**parsing(char **argv)
 
 void	solution(void)
 {
-	t_list *
 	a_to_b(ht()->size[A]);
 }
 

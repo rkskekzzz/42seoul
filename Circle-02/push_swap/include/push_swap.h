@@ -9,22 +9,24 @@
 # define INTMAX 2147483647
 # define BUFFER_SIZE 200000
 
-# define FALSE	0
-# define TRUE	1
+# define FALSE		0
+# define TRUE		1
 
-# define A		0
-# define B		1
+# define A			0
+# define B			1
 
-# define HEAD	1
-# define TAIL	0
+# define HEAD		1
+# define TAIL		0
 
-# define SMALL	0
-# define BIG	1
+# define SMALL		0
+# define BIG		1
 
-# define AHEAD	0
-# define ATAIL	1
-# define BHEAD	2
-# define BTAIL	3
+# define AHEAD		0
+# define ATAIL		1
+# define BHEAD		2
+# define BTAIL		3
+# define FUNCL		4
+# define LIST_SIZE	5
 
 // 확정
 void				init_stack(t_list **head, t_list **tail);

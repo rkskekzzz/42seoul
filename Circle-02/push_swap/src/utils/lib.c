@@ -49,7 +49,7 @@ t_list	*new_list(int val)
 	new_node = malloc(sizeof(t_list));
 	if (!new_node)
 		return (NULL);
-	new_node->val = val;
+	new_node->val.n = val;
 	new_node->link[0] = NULL;
 	new_node->link[1] = NULL;
 	return (new_node);

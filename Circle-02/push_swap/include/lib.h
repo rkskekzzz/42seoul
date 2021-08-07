@@ -4,12 +4,20 @@
 # include <stdlib.h>
 # include <stdio.h>
 
-typedef int t_bool;
+/*
+** 0 left 1 right
+*/
+typedef int		t_bool;
 
- // 0 : left,  1 : right
+typedef union u_val
+{
+	int		n;
+	char	*s;
+}			t_val;
+
 typedef struct s_list
 {
-	int				val;
+	t_val			val;
 	struct s_list	*link[2];
 }				t_list;
 

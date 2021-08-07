@@ -24,10 +24,10 @@ int	add_list(int t, int val)
 	new_node = new_list(val);
 	if (!new_node)
 		return (FALSE);
-	new_node->link[!tmp->val] = tmp;
-	new_node->link[tmp->val] = tmp->link[tmp->val];
-	tmp->link[tmp->val]->link[!tmp->val] = new_node;
-	tmp->link[tmp->val] = new_node;
+	new_node->link[!tmp->val.n] = tmp;
+	new_node->link[tmp->val.n] = tmp->link[tmp->val.n];
+	tmp->link[tmp->val.n]->link[!tmp->val.n] = new_node;
+	tmp->link[tmp->val.n] = new_node;
 	++ht()->size[t >> 1];
 	return (TRUE);
 }
@@ -39,10 +39,10 @@ int	del_list(int t)
 
 	if (!ht()->size[t >> 1])
 		return (0);
-	pos = ht()->stack[t]->link[ht()->stack[t]->val];
-	ret = pos->val;
-	pos->link[1]->link[0] = pos->link[0];
-	pos->link[0]->link[1] = pos->link[1];
+	pos = ht()->stack[t]->link[ht()->stack[t]->val.n];
+	ret = pos->val.n;
+	pos->link[HEAD]->link[TAIL] = pos->link[TAIL];
+	pos->link[TAIL]->link[HEAD] = pos->link[HEAD];
 	ps_freend((void *)&pos);
 	--ht()->size[t >> 1];
 	return (ret);
@@ -56,9 +56,9 @@ int	swp_list(int t)
 	if (ht()->size[t >> 1] < 2)
 		return (FALSE);
 	pos = ht()->stack[t];
-	tmp = pos->link[pos->val]->val;
-	pos->link[pos->val]->val = pos->link[pos->val]->link[pos->val]->val;
-	pos->link[pos->val]->link[pos->val]->val = tmp;
+	tmp = pos->link[pos->val.n]->val.n;
+	pos->link[pos->val.n]->val = pos->link[pos->val.n]->link[pos->val.n]->val;
+	pos->link[pos->val.n]->link[pos->val.n]->val.n = tmp;
 	return (TRUE);
 }
 
@@ -67,11 +67,11 @@ int	srh_list(int t, int find)
 	t_list	*tmp;
 	int		dir;
 
-	dir = ht()->stack[t]->val;
+	dir = ht()->stack[t]->val.n;
 	tmp = ht()->stack[t]->link[dir];
 	while (tmp->link[dir])
 	{
-		if (tmp->val == find)
+		if (tmp->val.n == find)
 			return (1);
 		tmp = tmp->link[dir];
 	}
@@ -83,12 +83,12 @@ void	prt_list(int t)
 	t_list	*tmp;
 	int		dir;
 
-	dir = ht()->stack[t]->val;
+	dir = ht()->stack[t]->val.n;
 	tmp = ht()->stack[t]->link[dir];
 	printf("-> ");
 	while (tmp->link[dir])
 	{
-		printf("%d ", tmp->val);
+		printf("%d ", tmp->val.n);
 		tmp = tmp->link[dir];
 	}
 	printf("\n");

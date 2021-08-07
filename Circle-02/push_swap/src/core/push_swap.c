@@ -35,12 +35,12 @@ void	a_to_b(int size)
 		// printf("pivot : %d, %d\n", pivot[0], pivot[1]);
 		while (--size >= 0)
 		{
-			if (ht()->stack[AHEAD]->link[HEAD]->val >= pivot[BIG])
+			if (ht()->stack[AHEAD]->link[HEAD]->val.n >= pivot[BIG])
 				ra_cnt += ra();
 			else
 			{
 				pb_cnt += pb();
-				if (ht()->stack[BHEAD]->link[HEAD]->val >= pivot[SMALL])
+				if (ht()->stack[BHEAD]->link[HEAD]->val.n >= pivot[SMALL])
 					rb_cnt += rb();
 			}
 		}
@@ -74,12 +74,12 @@ void	b_to_a(int size)
 		//printf("pivot : %d, %d\n", pivot[0], pivot[1]);
 		while (--size >= 0)
 		{
-			if (ht()->stack[BHEAD]->link[HEAD]->val < pivot[SMALL])
+			if (ht()->stack[BHEAD]->link[HEAD]->val.n < pivot[SMALL])
 				rb_cnt += rb();
 			else
 			{
 				pa_cnt += pa();
-				if (ht()->stack[AHEAD]->link[HEAD]->val < pivot[BIG])
+				if (ht()->stack[AHEAD]->link[HEAD]->val.n < pivot[BIG])
 					ra_cnt += ra();
 			}
 		}
