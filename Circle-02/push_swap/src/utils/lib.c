@@ -21,7 +21,7 @@ void 	ps_freend(void **ptr)
 	*ptr = 0;
 }
 
-int		ps_isnum_atoi(char *s)
+int	ps_isnum_atoi(char *s)
 {
 	int			sign;
 	long long	ret;
@@ -37,6 +37,8 @@ int		ps_isnum_atoi(char *s)
 		if (ret > INTMAX)
 			exit(prt_error("Numsize Error!"));
 	}
+	if (*s != 0)
+		exit(prt_error("Not Number Error!"));
 	return ((int)ret * sign);
 }
 
@@ -55,23 +57,27 @@ t_list	*new_list(int val)
 
 void	free_list(int t)
 {
-	t_list *tmp;
-	t_list *cur;
-	int		dir;
-
 	while (ht()->size[t >> 1])
-	{
 		del_list(t);
-	}
-	ps_freend((void*)&ht()->stack[t & 2]);
-	ps_freend((void*)&ht()->stack[(t & 2) + 1]);
+	ps_freend((void *)&ht()->stack[t & 2]);
+	ps_freend((void *)&ht()->stack[(t & 2) + 1]);
 }
 
-void ps_swap(int *a, int *b)
+void	ps_swap(int *a, int *b)
 {
-	int temp;
+	int	temp;
 
 	temp = *a;
 	*a = *b;
 	*b = temp;
+}
+
+int	ps_strlen(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+		;
+	return (i);
 }

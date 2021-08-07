@@ -7,7 +7,7 @@ void	init_stack(t_list **tail, t_list **head)
 
 	new_head = new_list(HEAD);
 	new_tail = new_list(TAIL);
-	if (!new_head || !new_tail)	// free 해주기
+	if (!new_head || !new_tail)
 		exit(prt_error("Malloc Error!"));
 	new_head->link[HEAD] = new_tail;
 	new_tail->link[TAIL] = new_head;
@@ -23,13 +23,13 @@ int	add_list(int t, int val)
 	tmp = ht()->stack[t];
 	new_node = new_list(val);
 	if (!new_node)
-		return (ERROR);
+		return (FALSE);
 	new_node->link[!tmp->val] = tmp;
 	new_node->link[tmp->val] = tmp->link[tmp->val];
 	tmp->link[tmp->val]->link[!tmp->val] = new_node;
 	tmp->link[tmp->val] = new_node;
 	++ht()->size[t >> 1];
-	return (OK);
+	return (TRUE);
 }
 
 int	del_list(int t)
@@ -54,37 +54,42 @@ int	swp_list(int t)
 	t_list	*pos;
 
 	if (ht()->size[t >> 1] < 2)
-		return (ERROR);
+		return (FALSE);
 	pos = ht()->stack[t];
 	tmp = pos->link[pos->val]->val;
 	pos->link[pos->val]->val = pos->link[pos->val]->link[pos->val]->val;
 	pos->link[pos->val]->link[pos->val]->val = tmp;
-	return (OK);
+	return (TRUE);
 }
 
-int srh_list(int t, int find)
+int	srh_list(int t, int find)
 {
-	t_list *tmp;
+	t_list	*tmp;
+	int		dir;
 
-	tmp = ht()->stack[t]->link[ht()->stack[t]->val];
-	while (tmp->link[ht()->stack[t]->val])
+	dir = ht()->stack[t]->val;
+	tmp = ht()->stack[t]->link[dir];
+	while (tmp->link[dir])
 	{
 		if (tmp->val == find)
 			return (1);
-		tmp = tmp->link[ht()->stack[t]->val];
+		tmp = tmp->link[dir];
 	}
 	return (0);
 }
 
-void prt_list(int t)
+void	prt_list(int t)
 {
-	t_list *tmp;
+	t_list	*tmp;
+	int		dir;
 
-	tmp = ht()->stack[t]->link[ht()->stack[t]->val];
-	while (tmp->link[ht()->stack[t]->val])
+	dir = ht()->stack[t]->val;
+	tmp = ht()->stack[t]->link[dir];
+	printf("-> ");
+	while (tmp->link[dir])
 	{
 		printf("%d ", tmp->val);
-		tmp = tmp->link[ht()->stack[t]->val];
+		tmp = tmp->link[dir];
 	}
 	printf("\n");
 }
