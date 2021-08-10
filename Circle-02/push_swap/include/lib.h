@@ -9,15 +9,10 @@
 */
 typedef int		t_bool;
 
-typedef union u_val
-{
-	int		n;
-	char	*s;
-}			t_val;
 
 typedef struct s_list
 {
-	t_val			val;
+	int				val;
 	struct s_list	*link[2];
 }				t_list;
 
@@ -30,6 +25,21 @@ typedef enum e_case
 	case_312,
 	case_321
 }			t_case;
+
+typedef enum e_func
+{
+	SA = 0,
+	SB,
+	SS,
+	PA,
+	PB,
+	RA,
+	RB,
+	RR,
+	RRA,
+	RRB,
+	RRR
+}				t_func;
 
 int					ps_isnum_atoi(char *s);
 void				ps_swap(int *a, int *b);

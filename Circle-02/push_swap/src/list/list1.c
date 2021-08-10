@@ -24,10 +24,10 @@ int	add_list(int t, int val)
 	new_node = new_list(val);
 	if (!new_node)
 		return (FALSE);
-	new_node->link[!tmp->val.n] = tmp;
-	new_node->link[tmp->val.n] = tmp->link[tmp->val.n];
-	tmp->link[tmp->val.n]->link[!tmp->val.n] = new_node;
-	tmp->link[tmp->val.n] = new_node;
+	new_node->link[!tmp->val] = tmp;
+	new_node->link[tmp->val] = tmp->link[tmp->val];
+	tmp->link[tmp->val]->link[!tmp->val] = new_node;
+	tmp->link[tmp->val] = new_node;
 	++ht()->size[t >> 1];
 	return (TRUE);
 }
@@ -39,8 +39,8 @@ int	del_list(int t)
 
 	if (!ht()->size[t >> 1])
 		return (0);
-	pos = ht()->stack[t]->link[ht()->stack[t]->val.n];
-	ret = pos->val.n;
+	pos = ht()->stack[t]->link[ht()->stack[t]->val];
+	ret = pos->val;
 	pos->link[HEAD]->link[TAIL] = pos->link[TAIL];
 	pos->link[TAIL]->link[HEAD] = pos->link[HEAD];
 	ps_freend((void *)&pos);
@@ -56,9 +56,9 @@ int	swp_list(int t)
 	if (ht()->size[t >> 1] < 2)
 		return (FALSE);
 	pos = ht()->stack[t];
-	tmp = pos->link[pos->val.n]->val.n;
-	pos->link[pos->val.n]->val = pos->link[pos->val.n]->link[pos->val.n]->val;
-	pos->link[pos->val.n]->link[pos->val.n]->val.n = tmp;
+	tmp = pos->link[pos->val]->val;
+	pos->link[pos->val]->val = pos->link[pos->val]->link[pos->val]->val;
+	pos->link[pos->val]->link[pos->val]->val = tmp;
 	return (TRUE);
 }
 
@@ -67,29 +67,53 @@ int	srh_list(int t, int find)
 	t_list	*tmp;
 	int		dir;
 
-	dir = ht()->stack[t]->val.n;
+	dir = ht()->stack[t]->val;
 	tmp = ht()->stack[t]->link[dir];
 	while (tmp->link[dir])
 	{
-		if (tmp->val.n == find)
-			return (1);
+		if (tmp->val == find)
+			return (TRUE);
 		tmp = tmp->link[dir];
 	}
-	return (0);
+	return (FALSE);
 }
+
+
 
 void	prt_list(int t)
 {
 	t_list	*tmp;
 	int		dir;
 
-	dir = ht()->stack[t]->val.n;
+	dir = ht()->stack[t]->val;
 	tmp = ht()->stack[t]->link[dir];
 	printf("-> ");
 	while (tmp->link[dir])
 	{
-		printf("%d ", tmp->val.n);
+		(t != FHEAD) && printf("%d ", tmp->val);
+		(t == FHEAD) && prt_func(tmp->val);
 		tmp = tmp->link[dir];
 	}
 	printf("\n");
+}
+
+t_list	*new_list(int val)
+{
+	t_list	*new_node;
+
+	new_node = malloc(sizeof(t_list));
+	if (!new_node)
+		return (NULL);
+	new_node->val = val;
+	new_node->link[0] = NULL;
+	new_node->link[1] = NULL;
+	return (new_node);
+}
+
+void	free_list(int t)
+{
+	while (ht()->size[t >> 1])
+		del_list(t);
+	ps_freend((void *)&ht()->stack[t & 2]);
+	ps_freend((void *)&ht()->stack[(t & 2) + 1]);
 }

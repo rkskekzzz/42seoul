@@ -1,7 +1,6 @@
 #include "push_swap.h"
 
-// ./push_swap 1 3 "3 4 " 5 9 " 10 11"
-char*	join_argv(char **argv)
+char	*join_argv(char **argv)
 {
 	char	*ret;
 	int		i;
@@ -32,42 +31,43 @@ void	init(char **argv)
 
 	init_stack(&(ht()->stack[ATAIL]), &(ht()->stack[AHEAD]));
 	init_stack(&(ht()->stack[BTAIL]), &(ht()->stack[BHEAD]));
-	ht()->stack[FUNCL] = new_list(0);
+	init_stack(&(ht()->stack[FTAIL]), &(ht()->stack[FHEAD]));
 	ht()->size[A] = 0;
 	ht()->size[B] = 0;
+	ht()->size[F] = 0;
 	idx = -1;
 	while (argv[++idx])
 		add_list(ATAIL, ps_isnum_atoi(argv[idx]));
 }
 
-char	**parsing(char **argv)
+void	parsing(char ***argv)
 {
 	char	*str;
-	char	**ret;
 
-	str = join_argv(argv);
+	str = join_argv(*argv);
 	if (!str)
 		exit(prt_error("parse ERROR\n"));
-	ret = ps_split(str, " \"\'");
+	*argv = ps_split(str, " \"\'");
 	free(str);
-	return (ret);
 }
 
 void	solution(void)
 {
-	a_to_b(ht()->size[A]);
+	if (ht()->size[A] == 3)
+		size_3_a();
+	else if (ht()->size[A] == 5)
+		size_5_a();
+	else
+		a_to_b(ht()->size[A]);
 }
 
 void	push_swap(char **argv)
 {
-	char	**arr;
-
-	arr = parsing(argv);
-	init(arr);
+	parsing(&argv);
+	init(argv);
 	solution();
-	if (DEBUG)
-		prt_list(AHEAD);
-	ps_free_split(arr);
+	prt_list(FHEAD);
+	ps_free_split(argv);
 }
 
 int	main(int argc, char **argv)
@@ -75,6 +75,6 @@ int	main(int argc, char **argv)
 	if (argc > 1)
 		push_swap(argv);
 	else
-		prt_error("Arguments Error!\n");
+		prt_error("Arguments Error!\n");	;
 	return (0);
 }

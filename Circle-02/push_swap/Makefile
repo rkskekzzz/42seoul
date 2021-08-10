@@ -1,11 +1,14 @@
 NAME	=	push_swap
 
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror -g
 INCLUDE =	-I./include
 SRC		=	main.c \
-			core/push_swap.c core/sort.c core/under3.c \
-			utils/func.c utils/lib.c utils/list.c utils/split.c
+			core/push_swap.c core/sort.c core/under5.c \
+			utils/library.c utils/utils.c utils/split.c \
+			list/list1.c list/list2.c \
+			func/func1.c func/func2.c func/func3.c \
+
 
 SRC_DIR = ./src/
 SRCS = $(addprefix $(SRC_DIR),$(SRC))

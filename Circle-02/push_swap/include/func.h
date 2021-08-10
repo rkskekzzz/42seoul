@@ -5,8 +5,8 @@ typedef int		t_bool;
 
 typedef struct s_ht
 {
-	int				size[2];
-	struct s_list	*stack[5];
+	int				size[3];
+	struct s_list	*stack[6];
 }					t_ht;
 
 t_ht	*ht(void);

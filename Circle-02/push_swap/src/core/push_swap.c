@@ -17,6 +17,26 @@ void 	rewind_stack(int ra_cnt, int rb_cnt)
 		rrb();
 }
 
+t_bool	already_sort(int type, int size)
+{
+	t_list	*tmp;
+	int		dir;
+	int		idx;
+
+	idx = -1;
+	dir = ht()->stack[type]->val;
+	tmp = ht()->stack[type]->link[dir]->link[dir];
+	while (++idx < size - 1)
+	{
+		if ((type == AHEAD) && tmp->val < tmp->link[!dir]->val)
+			return (FALSE);
+		else if ((type == BHEAD) && tmp->val > tmp->link[!dir]->val)
+			return (FALSE);
+		tmp = tmp->link[dir];
+	}
+	return (TRUE);
+}
+
 void	a_to_b(int size)
 {
 	int	*pivot;
@@ -27,31 +47,26 @@ void	a_to_b(int size)
 	ra_cnt = 0;
 	rb_cnt = 0;
 	pb_cnt = 0;
-	if (size <= 3)
-		under_3_a(size);
-	else
+	if (size <= 2)
+		under_2_a(size);
+	else if (!already_sort(AHEAD, size))
 	{
 		pivot = find_pivot(AHEAD, size);
-		// printf("pivot : %d, %d\n", pivot[0], pivot[1]);
 		while (--size >= 0)
 		{
-			if (ht()->stack[AHEAD]->link[HEAD]->val.n >= pivot[BIG])
+			if (ht()->stack[AHEAD]->link[HEAD]->val >= pivot[BIG])
 				ra_cnt += ra();
 			else
 			{
 				pb_cnt += pb();
-				if (ht()->stack[BHEAD]->link[HEAD]->val.n >= pivot[SMALL])
+				if (ht()->stack[BHEAD]->link[HEAD]->val >= pivot[SMALL])
 					rb_cnt += rb();
 			}
 		}
 		free(pivot);
-		// printf("**************1************** %d\n", 42);
 		rewind_stack(ra_cnt, rb_cnt);
-		// printf("**************2************** %d\n", ra_cnt);
 		a_to_b(ra_cnt);
-		// printf("**************3************** %d\n", rb_cnt);
 		b_to_a(rb_cnt);
-		// printf("**************4************** %d\n", pb_cnt - rb_cnt);
 		b_to_a(pb_cnt - rb_cnt);
 	}
 }
@@ -66,31 +81,29 @@ void	b_to_a(int size)
 	ra_cnt = 0;
 	pa_cnt = 0;
 	rb_cnt = 0;
-	if (size <= 3)
-		under_3_b(size);
-	else
+	if (size <= 2)
+		under_2_b(size);
+	else if (!already_sort(BHEAD, size))
 	{
 		pivot = find_pivot(BHEAD, size);
-		//printf("pivot : %d, %d\n", pivot[0], pivot[1]);
 		while (--size >= 0)
 		{
-			if (ht()->stack[BHEAD]->link[HEAD]->val.n < pivot[SMALL])
+			if (ht()->stack[BHEAD]->link[HEAD]->val < pivot[SMALL])
 				rb_cnt += rb();
 			else
 			{
 				pa_cnt += pa();
-				if (ht()->stack[AHEAD]->link[HEAD]->val.n < pivot[BIG])
+				if (ht()->stack[AHEAD]->link[HEAD]->val < pivot[BIG])
 					ra_cnt += ra();
 			}
 		}
 		free(pivot);
-		// printf("--------------1-------------- %d\n", pa_cnt - ra_cnt);
 		a_to_b(pa_cnt - ra_cnt);
-		// printf("--------------2-------------- %d\n", 42);
 		rewind_stack(ra_cnt, rb_cnt);
-		// printf("--------------3-------------- %d\n", ra_cnt);
 		a_to_b(ra_cnt);
-		// printf("--------------4-------------- %d\n", rb_cnt);
 		b_to_a(rb_cnt);
 	}
+	else
+		while (--size >= 0)
+			pa();
 }

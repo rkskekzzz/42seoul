@@ -34,19 +34,19 @@ int	*find_pivot(int t, int size)
 	t_list	*tmp;
 
 	idx = -1;
-	tmp = ht()->stack[t]->link[ht()->stack[t]->val.n];
+	tmp = ht()->stack[t]->link[ht()->stack[t]->val];
 	out = malloc(sizeof(int) * 2);
 	arr = malloc(sizeof(int) * size);
 	if (!out || !arr)
 		exit(1);
 	while (++idx < size)
 	{
-		arr[idx] = tmp->val.n;
-		tmp = tmp->link[ht()->stack[t]->val.n];
+		arr[idx] = tmp->val;
+		tmp = tmp->link[ht()->stack[t]->val];
 	}
 	quick_sort(&arr, 0, size - 1);
-	out[0] = arr[(size - 1) / 3];
-	out[1] = arr[(size - 1) - ((size - 1) / 3)];
+	out[0] = arr[size / 3];
+	out[1] = arr[size * 2 / 3];
 	ps_freend((void *)&arr);
 	return (out);
 }
