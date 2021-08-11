@@ -47,6 +47,26 @@ int	*find_pivot(int t, int size)
 	quick_sort(&arr, 0, size - 1);
 	out[0] = arr[size / 3];
 	out[1] = arr[size * 2 / 3];
-	ps_freend((void *)&arr);
+	ps_free((void *)&arr);
 	return (out);
+}
+
+int	find_border(void)
+{
+	int		*arr;
+	int		idx;
+	t_list	*tmp;
+
+	idx = -1;
+	tmp = ht()->stack[AHEAD]->link[HEAD];
+	arr = malloc(sizeof(int) * 5);
+	if (!arr)
+		exit(1);
+	while (++idx < 5)
+	{
+		arr[idx] = tmp->val;
+		tmp = tmp->link[HEAD];
+	}
+	quick_sort(&arr, 0, 4);
+	return (arr[1]);
 }

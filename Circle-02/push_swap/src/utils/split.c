@@ -1,13 +1,4 @@
-#include "lib.h"
-
-char	*ps_strchr(const char *s, int c)
-{
-	while (*s && *s != (char)c)
-		++s;
-	if (*s == (char)c)
-		return ((char *)s);
-	return (NULL);
-}
+#include "library.h"
 
 size_t	ps_strlcpy(char *dst, const char *src, size_t dstsize)
 {

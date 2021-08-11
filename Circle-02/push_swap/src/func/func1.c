@@ -11,7 +11,7 @@ t_bool	sa(void)
 {
 	if (!swp_list(AHEAD))
 		return (FALSE);
-	if (ht()->stack[FTAIL]->link[TAIL]->val == SB)
+	if (ht()->size[F] > 1 && ht()->stack[FTAIL]->link[TAIL]->val == SB)
 	{
 		ht()->stack[FTAIL]->link[TAIL]->val = SS;
 		return (TRUE);
@@ -23,7 +23,7 @@ t_bool	sb(void)
 {
 	if (!swp_list(BHEAD))
 		return (FALSE);
-	if (ht()->stack[FTAIL]->link[TAIL]->val == SA)
+	if (ht()->size[F] > 1 && ht()->stack[FTAIL]->link[TAIL]->val == SA)
 	{
 		ht()->stack[FTAIL]->link[TAIL]->val = SS;
 		return (TRUE);

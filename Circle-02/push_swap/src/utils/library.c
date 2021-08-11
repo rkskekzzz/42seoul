@@ -23,7 +23,7 @@ int	ps_isnum_atoi(char *s)
 	while (*s >= '0' && *s <= '9')
 	{
 		ret = ret * 10 + (*s++ - '0');
-		if (ret > INTMAX)
+		if (ret - 1 * (sign == -1) > INTMAX)
 			exit(prt_error("Numsize Error!"));
 	}
 	if (*s != 0)
@@ -48,4 +48,13 @@ int	ps_strlen(char *str)
 	while (str[++i])
 		;
 	return (i);
+}
+
+char	*ps_strchr(const char *s, int c)
+{
+	while (*s && *s != (char)c)
+		++s;
+	if (*s == (char)c)
+		return ((char *)s);
+	return (NULL);
 }

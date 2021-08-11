@@ -1,8 +1,20 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: su <su@student.42.fr>                      +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/08/11 18:43:46 by su                #+#    #+#              #
+#    Updated: 2021/08/11 19:00:47 by su               ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME	=	push_swap
 
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror -g
 INCLUDE =	-I./include
+CFLAGS	=	-Wall -Wextra -Werror $(INCLUDE)
 SRC		=	main.c \
 			core/push_swap.c core/sort.c core/under5.c \
 			utils/library.c utils/utils.c utils/split.c \
@@ -10,29 +22,34 @@ SRC		=	main.c \
 			func/func1.c func/func2.c func/func3.c \
 
 
-SRC_DIR = ./src/
-SRCS = $(addprefix $(SRC_DIR),$(SRC))
-
-# OBJ = $(SRCS:.c=.o)
+SRC_DIR =	./src/
+SRCS	=	$(addprefix $(SRC_DIR),$(SRC))
+OBJ		=	$(patsubst %.c,%.o,$(SRCS))
+SHELL	=	/bin/bash
 
 all		:	$(NAME)
 
-%.o		:	$(SRC_DIR)/%.c
-			$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+%.o		:	%.c
+	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) $(INCLUDE) $(SRCS) -o $(NAME)
+$(NAME)	:	$(OBJ)
+	@$(CC) $(CFLAGS) $^ -o $@
+	@printf "PUSHSWAP \e[0;32mis Ready 💚\e[0m\n"
 
 
 
 bonus	: all
 
 clean	:
-			@rm -f $(OBJ)
+	@rm -f $(OBJ)
 
 fclean	:	clean
-			@rm -f $(NAME)
+	@rm -f $(NAME)
+
+norm	:
+	norminette src/*
+	norminette include/*
 
 re		:	fclean	all
 
-.PHONY	:	all clean fclean re bonus
+.PHONY	:	all clean fclean re bonus norm

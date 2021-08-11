@@ -67,26 +67,6 @@ void	under_2_b(int size)
 	}
 }
 
-int		find_border(void)
-{
-	int		*arr;
-	int		idx;
-	t_list	*tmp;
-
-	idx = -1;
-	tmp = ht()->stack[AHEAD]->link[HEAD];
-	arr = malloc(sizeof(int) * 5);
-	if (!arr)
-		exit(1);
-	while (++idx < 5)
-	{
-		arr[idx] = tmp->val;
-		tmp = tmp->link[HEAD];
-	}
-	quick_sort(&arr, 0, 4);
-	return (arr[1]);
-}
-
 void	size_5_a(void)
 {
 	int		i;
@@ -96,10 +76,10 @@ void	size_5_a(void)
 	i = -1;
 	j = -1;
 	border = find_border();
+	if (already_sort(AHEAD, 5))
+		return ;
 	while (++i < 5 && j < 2)
 	{
-		prt_list(AHEAD);
-		prt_list(BHEAD);
 		if (ht()->stack[AHEAD]->link[HEAD]->val <= border)
 		{
 			pb();

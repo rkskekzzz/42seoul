@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-void 	rewind_stack(int ra_cnt, int rb_cnt)
+int	rewind_stack(int ra_cnt, int rb_cnt)
 {
 	int	min;
 	int	i;
@@ -15,6 +15,7 @@ void 	rewind_stack(int ra_cnt, int rb_cnt)
 		rra();
 	while (--rb_cnt >= min)
 		rrb();
+	return (TRUE);
 }
 
 t_bool	already_sort(int type, int size)
@@ -34,19 +35,18 @@ t_bool	already_sort(int type, int size)
 			return (FALSE);
 		tmp = tmp->link[dir];
 	}
+	if (type == BHEAD)
+		while (--size >= 0)
+			pa();
 	return (TRUE);
 }
 
-void	a_to_b(int size)
+int	a_to_b(int size)
 {
 	int	*pivot;
-	int	ra_cnt;
-	int	pb_cnt;
-	int	rb_cnt;
+	int	cnt[12];
 
-	ra_cnt = 0;
-	rb_cnt = 0;
-	pb_cnt = 0;
+	ps_memset(cnt, 0, sizeof(int) * 12);
 	if (size <= 2)
 		under_2_a(size);
 	else if (!already_sort(AHEAD, size))
@@ -55,32 +55,27 @@ void	a_to_b(int size)
 		while (--size >= 0)
 		{
 			if (ht()->stack[AHEAD]->link[HEAD]->val >= pivot[BIG])
-				ra_cnt += ra();
+				cnt[PA] += ra();
 			else
 			{
-				pb_cnt += pb();
+				cnt[PB] += pb();
 				if (ht()->stack[BHEAD]->link[HEAD]->val >= pivot[SMALL])
-					rb_cnt += rb();
+					cnt[RB] += rb();
 			}
 		}
 		free(pivot);
-		rewind_stack(ra_cnt, rb_cnt);
-		a_to_b(ra_cnt);
-		b_to_a(rb_cnt);
-		b_to_a(pb_cnt - rb_cnt);
+		rewind_stack(cnt[PA], cnt[RB]) && a_to_b(cnt[PA]);
+		b_to_a(cnt[RB]) && b_to_a(cnt[PB] - cnt[RB]);
 	}
+	return (TRUE);
 }
 
-void	b_to_a(int size)
+int	b_to_a(int size)
 {
 	int	*pivot;
-	int	ra_cnt;
-	int	pa_cnt;
-	int	rb_cnt;
+	int	cnt[12];
 
-	ra_cnt = 0;
-	pa_cnt = 0;
-	rb_cnt = 0;
+	ps_memset(cnt, 0, sizeof(int) * 12);
 	if (size <= 2)
 		under_2_b(size);
 	else if (!already_sort(BHEAD, size))
@@ -89,21 +84,17 @@ void	b_to_a(int size)
 		while (--size >= 0)
 		{
 			if (ht()->stack[BHEAD]->link[HEAD]->val < pivot[SMALL])
-				rb_cnt += rb();
+				cnt[RB] += rb();
 			else
 			{
-				pa_cnt += pa();
+				cnt[PA] += pa();
 				if (ht()->stack[AHEAD]->link[HEAD]->val < pivot[BIG])
-					ra_cnt += ra();
+					cnt[RA] += ra();
 			}
 		}
 		free(pivot);
-		a_to_b(pa_cnt - ra_cnt);
-		rewind_stack(ra_cnt, rb_cnt);
-		a_to_b(ra_cnt);
-		b_to_a(rb_cnt);
+		a_to_b(cnt[PA] - cnt[RA]) && rewind_stack(cnt[RA], cnt[RB]);
+		a_to_b(cnt[RA]) && b_to_a(cnt[RB]);
 	}
-	else
-		while (--size >= 0)
-			pa();
+	return (TRUE);
 }

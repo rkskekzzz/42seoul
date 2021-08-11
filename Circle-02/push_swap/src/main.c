@@ -1,30 +1,5 @@
 #include "push_swap.h"
 
-char	*join_argv(char **argv)
-{
-	char	*ret;
-	int		i;
-	int		j;
-	int		k;
-
-	i = 0;
-	k = -1;
-	ret = malloc(BUFFER_SIZE);
-	if (!ret)
-		return (NULL);
-	while (argv[++i])
-	{
-		j = -1;
-		while (argv[i][++j])
-		{
-			ret[++k] = argv[i][j];
-		}
-		ret[++k] = ' ';
-	}
-	ret[++k] = 0;
-	return (ret);
-}
-
 void	init(char **argv)
 {
 	int	idx;
@@ -37,7 +12,11 @@ void	init(char **argv)
 	ht()->size[F] = 0;
 	idx = -1;
 	while (argv[++idx])
+	{
+		if (srh_list(AHEAD, ps_isnum_atoi(argv[idx])))
+			exit(prt_error("Same Value Error!"));
 		add_list(ATAIL, ps_isnum_atoi(argv[idx]));
+	}
 }
 
 void	parsing(char ***argv)
@@ -74,7 +53,5 @@ int	main(int argc, char **argv)
 {
 	if (argc > 1)
 		push_swap(argv);
-	else
-		prt_error("Arguments Error!\n");	;
 	return (0);
 }
