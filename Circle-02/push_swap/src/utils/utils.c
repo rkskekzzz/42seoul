@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/11 20:28:31 by suhshin           #+#    #+#             */
+/*   Updated: 2021/08/11 20:28:32 by suhshin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 t_bool	prt_error(char *message)
@@ -5,7 +17,7 @@ t_bool	prt_error(char *message)
 	return (printf("%s\n", message) >= 0);
 }
 
-void 	ps_free(void **ptr)
+void	ps_free(void **ptr)
 {
 	free(*ptr);
 	*ptr = 0;
