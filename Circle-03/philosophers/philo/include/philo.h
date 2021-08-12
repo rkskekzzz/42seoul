@@ -22,14 +22,14 @@ typedef struct s_condition
 
 typedef struct s_resource
 {
-	int				idx;
 	pthread_mutex_t	*fork;
-	t_condition		*cond;
 }	t_resource;
 
 typedef struct s_philo
 {
 	int				idx;
+	pthread_t		philo;
+	pthread_mutex_t	*fork[2];
 	t_condition		*cond;
 }	t_philo;
 

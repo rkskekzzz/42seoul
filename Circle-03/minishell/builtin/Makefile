@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: najlee <najlee@student.42seoul.kr>         +#+  +:+       +#+         #
+#    By: su <su@student.42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/02 12:01:44 by najlee            #+#    #+#              #
-#    Updated: 2021/07/15 14:31:34 by najlee           ###   ########.fr        #
+#    Updated: 2021/08/13 01:28:18 by su               ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,9 +37,8 @@ all		:	$(NAME)
 			$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 $(NAME): $(OBJ)
-	# @./wave.sh
-	# @./spinner.sh
 	@$(CC) $(CFLAGS) $(INCLUDE) $(SRCS) -o $(NAME)
+	@cat ../header/header3
 	@printf "\b\b\b\b\b\b\b\b\b\b\b\b\033m\e[1;33mMI\e[1;31mNI\e[1;37mSHELL \e[0;32mis Ready 💚\e[0m\n"
 
 

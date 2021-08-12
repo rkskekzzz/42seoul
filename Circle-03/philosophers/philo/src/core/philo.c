@@ -18,44 +18,34 @@ void	*test(void *data)
 	return (NULL);
 }
 
-void	init_thread(pthread_t **thread, t_condition *cond)
+void	init_res(t_resource **res, t_condition *cond)
 {
-	*thread = malloc(sizeof(pthread_t) * cond->num_of_philo);
-	if (!thread)
+	int		idx;
+
+	idx = -1;
+	(*res) = malloc(sizeof(t_resource) * cond->num_of_philo);
+	if (!*res)
 		exit(12);
+	while (++idx < cond->num_of_philo)
+	{
+		pthread_mutex_init((*res)[idx].fork, NULL);
+	}
 }
 
-void	init_resource(t_resource **res, t_condition *cond)
+void	init_philo(t_philo **philo, t_condition *cond, t_resource *res)
 {
-	int	i;
-
-	i = -1;
-	*res = malloc(sizeof(t_resource) * cond->num_of_philo);
-	if (!res)
+	(*philo) = malloc(sizeof(t_philo) * cond->num_of_philo);
+	if (!*philo)
 		exit(12);
-	(*res)->idx = -1;
-	(*res)->cond = cond;
-	(*res)->fork = malloc(sizeof(pthread_t) * cond->num_of_philo);
-	if (!(*res)->fork)
-		exit(12);
-	while (++i < cond->num_of_philo)
-		pthread_mutex_init(&(*res)->fork[i], NULL);
-}
-
-void	init_philo(t_philo philo)
-{
-
 }
 
 void	philo(t_condition *cond)
 {
-	pthread_t	*thread;
-	t_resource	*res;
 	t_philo		*philo;
-	int			status;
+	t_resource	*res;
 
-	init_thread(&thread, cond);
-	init_resource(&res, cond);
+	init_res(&res, cond);
+	init_philo(&philo, cond, res);
 	while (++res->idx < cond->num_of_philo)
 	{
 		printf("here\n");
