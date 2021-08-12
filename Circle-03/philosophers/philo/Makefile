@@ -1,33 +1,41 @@
 NAME	=	philo
 
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror
-INCLUDE =	-I./includes
-SRC		=	main.c debug.c\
-			library/atoi.c
+INCLUDE =	-I./include
+CFLAGS	=	-Wall -Wextra -Werror $(INCLUDE)
+SRC		=	main.c debug.c \
+			library/atoi.c \
+			library/library.c \
+			core/philo.c
 
-SRC_DIR = ./src/
-SRCS = $(addprefix $(SRC_DIR),$(SRC))
 
-# OBJ = $(SRCS:.c=.o)
+SRC_DIR =	./src/
+SRCS	=	$(addprefix $(SRC_DIR),$(SRC))
+OBJ		=	$(patsubst %.c,%.o,$(SRCS))
+SHELL	=	/bin/bash
 
 all		:	$(NAME)
 
-%.o		:	$(SRC_DIR)/%.c
-			$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+%.o		:	%.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) $(INCLUDE) $(SRCS) -o $(NAME)
+$(NAME)	:	$(OBJ)
+	$(CC) $(CFLAGS) $^ -o $@
+
 
 
 bonus	: all
 
 clean	:
-			@rm -f $(OBJ)
+	@rm -f $(OBJ)
 
 fclean	:	clean
-			@rm -f $(NAME)
+	@rm -f $(NAME)
+
+norm	:
+	norminette src/*
+	norminette include/*
 
 re		:	fclean	all
 
-.PHONY	:	all clean fclean re bonus
+.PHONY	:	all clean fclean re bonus norm

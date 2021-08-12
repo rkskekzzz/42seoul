@@ -6,7 +6,7 @@
 #    By: su <su@student.42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/11 18:43:46 by su                #+#    #+#              #
-#    Updated: 2021/08/11 19:00:47 by su               ###   ########.fr        #
+#    Updated: 2021/08/12 02:20:54 by suhshin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,10 +30,10 @@ SHELL	=	/bin/bash
 all		:	$(NAME)
 
 %.o		:	%.c
-	@$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME)	:	$(OBJ)
-	@$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $^ -o $@
 	@printf "PUSHSWAP \e[0;32mis Ready 💚\e[0m\n"
 
 

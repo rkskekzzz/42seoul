@@ -11,11 +11,6 @@
 
 # include "library.h"
 
-# define TRUE 1
-# define FALSE 0
-
-typedef int	t_bool;
-
 typedef struct s_condition
 {
 	int			num_of_philo;
@@ -23,9 +18,23 @@ typedef struct s_condition
 	int			time_to_eat;
 	int			time_to_sleep;
 	int			num_of_philo_must_eat;
-}				t_condition;
+}	t_condition;
+
+typedef struct s_resource
+{
+	int				idx;
+	pthread_mutex_t	*fork;
+	t_condition		*cond;
+}	t_resource;
+
+typedef struct s_philo
+{
+	int				idx;
+	t_condition		*cond;
+}	t_philo;
 
 void	parsing(char **argv);
 void	print_condition(t_condition *cond);
+void	philo(t_condition *cond);
 
 #endif

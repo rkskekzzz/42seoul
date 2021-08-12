@@ -1,4 +1,4 @@
-#include "philo.h"
+#include "library.h"
 
 t_bool	ph_isnum(char *str)
 {

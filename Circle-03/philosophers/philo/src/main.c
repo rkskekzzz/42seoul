@@ -18,7 +18,7 @@ int	init_argv(char **argv, t_condition *cond)
 // 인자 처리 (1이냐, 숫자가 아닌게 들어왔나, 인자 개수가 잘못되거나)
 t_bool	check_error(int argc, char** argv)
 {
-	int i;
+	int 	i;
 
 	i = 0;
 	if (argc < 5)
@@ -31,9 +31,10 @@ t_bool	check_error(int argc, char** argv)
 	return (TRUE);
 }
 
-void solution(t_condition *cond)
+void	solution(t_condition *cond)
 {
 	print_condition(cond);
+	philo(cond);
 }
 
 void	start_philo(int argc, char **argv)
