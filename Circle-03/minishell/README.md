@@ -1,5 +1,29 @@
 # minishell
-minishell 너무쉽당.. 할만하네~
+나만의 Bash Shell 만들기
 
-## To-Do List
-- 평가표 보고 다 체크하기
+Create My own bash
+
+
+
+## Architecture
+### built in
+* echo
+* cd
+* pwd
+* export
+* unset
+* env
+* exit
+### other
+Implemented with `execve`
+
+## How to  run
+1. Make
+```shell
+make
+```
+
+2. RUN
+```shell
+./minishell
+```
