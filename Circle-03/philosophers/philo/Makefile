@@ -2,7 +2,7 @@ NAME	=	philo
 
 CC		=	gcc
 INCLUDE =	-I./include
-CFLAGS	=	-Wall -Wextra -Werror $(INCLUDE)
+CFLAGS	=	-Wall -Wextra -Werror $(INCLUDE) -g
 SRC		=	main.c debug.c \
 			library/atoi.c \
 			library/library.c \

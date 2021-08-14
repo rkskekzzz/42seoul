@@ -17,6 +17,8 @@ void *test(void *data)
     for (i = 0; i < 10; i++)
     {
         printf("%d\n", i*a);
+        if (i == 3)
+            exit(1);
     }
     return (void *)status;
 }
@@ -27,15 +29,15 @@ int main()
     pthread_t thread_t;
     int *status;
 
-    // 쓰레드를 생성한다. 
+    // 쓰레드를 생성한다.
     if (pthread_create(&thread_t, NULL, test, (void *)&a) < 0)
     {
         perror("thread create error:");
         exit(0);
     }
 
-    // 쓰레드가 종료되기를 기다린후 
-    // 쓰레드의 리턴값을 출력한다. 
+    // 쓰레드가 종료되기를 기다린후
+    // 쓰레드의 리턴값을 출력한다.
     pthread_join(thread_t, &status);
     printf("Thread End %d\n", status[0]);
     printf("Thread End %d\n", status[1]);
