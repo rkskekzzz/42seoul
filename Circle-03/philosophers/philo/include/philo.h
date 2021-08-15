@@ -24,6 +24,7 @@ typedef struct s_condition
 // 공유하는 자원
 typedef struct s_resource
 {
+	pthread_mutex_t	table;
 	pthread_mutex_t	*fork;
 	t_condition		*cond;
 }	t_resource;
@@ -33,7 +34,6 @@ typedef struct s_philosopher
 {
 	int				idx;
 	pthread_t		philo;
-	pthread_mutex_t	*fork[2];
 	t_resource		*res;
 }	t_philosopher;
 

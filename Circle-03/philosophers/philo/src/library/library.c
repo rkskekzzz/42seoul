@@ -15,6 +15,6 @@ t_bool	ph_isnum(char *str)
 
 t_bool	ph_exit(char *s)
 {
-	printf("%s\n");
+	printf("%s\n", s);
 	exit(1);
 }
