@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: su <su@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 20:28:31 by suhshin           #+#    #+#             */
-/*   Updated: 2021/08/11 20:28:32 by suhshin          ###   ########.fr       */
+/*   Updated: 2021/08/17 00:58:45 by su               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,17 @@ char	*join_argv(char **argv)
 	}
 	ret[++k] = 0;
 	return (ret);
+}
+
+int	ps_strncmp(const char *s1, const char *s2, size_t n)
+{
+	while (*s1 && *s2 && n && (*s1 == *s2))
+	{
+		++s1;
+		++s2;
+		--n;
+	}
+	if (n == 0)
+		return (0);
+	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }

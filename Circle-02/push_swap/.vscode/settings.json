@@ -12,6 +12,9 @@
 		"string_view": "c",
 		"unordered_map": "c",
 		"utility": "c",
-		"vector": "c"
+		"vector": "c",
+		"istream": "c",
+		"cstdlib": "c",
+		"mutex": "c"
 	}
 }

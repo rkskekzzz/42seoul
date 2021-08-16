@@ -42,5 +42,6 @@ int		find_border(void);
 void	quick_sort(int **list, int left, int right);
 int		partition(int **list, int left, int right);
 t_bool	already_sort(int type, int size);
+int		ps_strncmp(const char *s1, const char *s2, size_t n);
 
 #endif

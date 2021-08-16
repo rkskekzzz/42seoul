@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: su <su@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 20:27:11 by suhshin           #+#    #+#             */
-/*   Updated: 2021/08/17 00:12:09 by su               ###   ########.fr       */
+/*   Updated: 2021/08/17 01:05:47 by su               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	init(char **argv)
 	while (argv[++idx])
 	{
 		if (srh_list(AHEAD, ps_isnum_atoi(argv[idx])))
-			exit(prt_error("Same Value Error!"));
+			exit(prt_error("checker : Same Value Error!"));
 		add_list(ATAIL, ps_isnum_atoi(argv[idx]));
 	}
 }
@@ -37,33 +37,77 @@ void	parsing(char ***argv)
 
 	str = join_argv(*argv);
 	if (!str)
-		exit(prt_error("parse ERROR\n"));
+		exit(prt_error("checker : parse ERROR\n"));
 	*argv = ps_split(str, " \"\'");
 	free(str);
 }
 
-void	solution(void)
+int	func(char *str)
 {
-	if (ht()->size[A] == 3)
-		size_3_a();
-	else if (ht()->size[A] == 5)
-		size_5_a();
-	else
-		a_to_b(ht()->size[A]);
+	if (!ps_strncmp(str, "pa", ps_strlen(str)))
+		return (pa());
+	if (!ps_strncmp(str, "pb", ps_strlen(str)))
+		return (pb());
+	if (!ps_strncmp(str, "sa", ps_strlen(str)))
+		return (sa());
+	if (!ps_strncmp(str, "sb", ps_strlen(str)))
+		return (sb());
+	if (!ps_strncmp(str, "ss", ps_strlen(str)))
+		return (ss());
+	if (!ps_strncmp(str, "ra", ps_strlen(str)))
+		return (ra());
+	if (!ps_strncmp(str, "rb", ps_strlen(str)))
+		return (rb());
+	if (!ps_strncmp(str, "rr", ps_strlen(str)))
+		return (rr());
+	if (!ps_strncmp(str, "rra", ps_strlen(str)))
+		return (rra());
+	if (!ps_strncmp(str, "rrb", ps_strlen(str)))
+		return (rrb());
+	if (!ps_strncmp(str, "rrr", ps_strlen(str)))
+		return (rrr());
 }
 
-void	push_swap(char **argv)
+void	start_sort(char **split)
+{
+	int	i;
+
+	i = -1;
+	while (split[++i])
+	{
+		func(split[i]);
+	}
+}
+
+void	solution(void)
+{
+	char	buf[BUFFER_SIZE];
+	char	**split;
+	int		read_size;
+
+	read_size = read(STDIN_FILENO, buf, BUFFER_SIZE);
+	if (read_size < 0)
+		exit(1);
+	split = ps_split(buf, "\n");
+	start_sort(split);
+	ps_free_split(split);
+}
+
+void	checker(char **argv)
 {
 	parsing(&argv);
 	init(argv);
 	solution();
-	prt_list(FHEAD);
+	if (already_sort(AHEAD, ht()->size[A]))
+		printf("OK\n");
+	else
+		printf("KO\n");
 	ps_free_split(argv);
 }
 
 int	main(int argc, char **argv)
 {
-	if (argc > 1)
-		push_swap(argv);
+	if (argc == 2)
+		checker(argv);
 	return (0);
 }
