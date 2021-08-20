@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: najlee <najlee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: su <su@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 14:40:55 by najlee            #+#    #+#             */
-/*   Updated: 2021/07/08 14:40:55 by najlee           ###   ########.fr       */
+/*   Updated: 2021/08/20 04:22:32 by su               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,6 @@ void	child_command(t_parsed *parsed, t_std *std, int pipe_in, int pipe_len)
 {
 	char	*tmp;
 
-	if (pipe_len != 1)
-	{
-		dup2(pipe_in, STDIN_FILENO);
-		close(pipe_in);
-	}
 	fill_list(parsed->cmd[2], '<', std->in);
 	fill_list(parsed->cmd[2], '>', std->out);
 	tmp = core_cmd(parsed->cmd[2]);
@@ -30,6 +25,12 @@ void	child_command(t_parsed *parsed, t_std *std, int pipe_in, int pipe_len)
 	tmp = 0;
 	redi_stdout(std->out->head->right);
 	tmp = join_parsed(parsed);
+	(void)pipe_in;
+	// if (pipe_len != 1)
+	// {
+	// 	dup2(pipe_in, STDIN_FILENO);
+	// 	close(pipe_in);
+	// }
 	if (redi_stdin(std->in->head->right) != -1
 		&& !run_builtin(parsed, std->out))
 		run_execved(tmp, parsed, std->in, std->out);

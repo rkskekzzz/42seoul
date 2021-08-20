@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_redirection2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: najlee <najlee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: su <su@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 12:04:00 by najlee            #+#    #+#             */
-/*   Updated: 2021/07/02 12:04:01 by najlee           ###   ########.fr       */
+/*   Updated: 2021/08/20 04:14:49 by su               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,13 @@ int	get_read_buf(char *read_buf, int *i, char *val)
 {
 	char	ch;
 
+	ch = 0;
 	while (read(0, &ch, 1) > 0)
 	{
+		printf(" -> %d\n", *i);
 		if (ch == 3)
 		{
+			printf("???\n");
 			write(1, "\n", 1);
 			return (FALSE);
 		}
@@ -39,11 +42,14 @@ int	get_read_buf(char *read_buf, int *i, char *val)
 		}
 		else if (ch != 127)
 		{
+			// printf("%d\n", ch);
 			write(1, &ch, 1);
 			read_buf[++(*i)] = nl_to_null(ch);
 			if (ch == '\n')
 				break ;
 		}
+		else
+			printf("else\n");
 	}
 	return (TRUE);
 }
@@ -59,7 +65,8 @@ int	redi_stdin_db(t_term *term, t_list *tmp, int fd)
 	while (1)
 	{
 		i = -1;
-		write(1, " > ", 3);
+		// write(1, " > ", 3);
+		m_memset(read_buf, 0, BUFFER_SIZE);
 		if (!get_read_buf(read_buf, &i, tmp->val))
 		{
 			free(read_buf);
