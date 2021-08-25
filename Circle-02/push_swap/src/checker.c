@@ -6,7 +6,7 @@
 /*   By: su <su@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 20:27:11 by suhshin           #+#    #+#             */
-/*   Updated: 2021/08/25 00:59:04 by su               ###   ########.fr       */
+/*   Updated: 2021/08/25 21:17:21 by su               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	checker(char **argv)
 
 int	main(int argc, char **argv)
 {
-	if (argc == 2)
+	if (argc > 1)
 		checker(argv);
 	return (0);
 }

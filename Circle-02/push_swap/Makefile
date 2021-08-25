@@ -6,7 +6,7 @@
 #    By: su <su@student.42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/11 18:43:46 by su                #+#    #+#              #
-#    Updated: 2021/08/25 01:02:43 by su               ###   ########.fr        #
+#    Updated: 2021/08/25 18:55:50 by su               ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,6 @@ SRC		=	core/push_swap.c core/sort.c core/under5.c \
 
 SRC_DIR =	./src/
 SRCS	=	$(addprefix $(SRC_DIR),$(SRC))
-# OBJ		=	$(patsubst %.c,%.o,$(SRCS))
 SHELL	=	/bin/bash
 
 
