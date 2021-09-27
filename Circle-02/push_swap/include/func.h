@@ -22,4 +22,7 @@ t_bool	rra(void);
 t_bool	rrb(void);
 t_bool	rrr(void);
 
+void	start_sort(char **split);
+int		func(char *str);
+
 #endif

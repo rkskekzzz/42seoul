@@ -6,7 +6,7 @@
 #    By: su <su@student.42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/11 18:43:46 by su                #+#    #+#              #
-#    Updated: 2021/08/25 18:55:50 by su               ###   ########.fr        #
+#    Updated: 2021/09/27 18:43:09 by su               ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRC		=	core/push_swap.c core/sort.c core/under5.c \
 			utils/library.c utils/utils.c utils/split.c \
 			list/list1.c list/list2.c \
 			func/func1.c func/func2.c func/func3.c \
+			func/func_checker.c
 
 
 SRC_DIR =	./src/
@@ -52,6 +53,7 @@ bonus	:	all
 
 clean	:
 	@rm -f $(PS_OBJ)
+	@rm -f $(CH_OBJ)
 
 fclean	:	clean
 	@rm -f $(NAME) $(CH_NAME)
