@@ -6,7 +6,7 @@
 #    By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/22 18:04:03 by suhshin           #+#    #+#              #
-#    Updated: 2021/05/24 22:27:30 by suhshin          ###   ########.fr        #
+#    Updated: 2021/10/26 17:44:44 by suhshin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,13 +47,13 @@ SRCS	=	\
 
 SRC_DIR	=	./srcs
 
-INCLUDE =	-Iinclude -Isrcs/mlx -I./
+INCLUDE =	-Iinclude -Isrcs/mlx2 -I./
 
 OBJS = $(SRCS:%.c=%.o)
 
 CC		=	clang
 CFLAGS	=	-Wall -Werror -Wextra
-CLIB	=	-Lsrcs/mlx -lmlx -framework OpenGL -framework Appkit $(INCLUDE)
+CLIB	=	-Lsrcs/mlx2 -lmlx -framework OpenGL -framework Appkit $(INCLUDE)
 
 all		: $(NAME)
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: su <su@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 20:27:23 by suhshin           #+#    #+#             */
-/*   Updated: 2021/08/11 20:27:24 by suhshin          ###   ########.fr       */
+/*   Updated: 2021/09/27 21:41:46 by su               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,10 @@ int	a_to_b(int size)
 			}
 		}
 		free(pivot);
-		rewind_stack(cnt[PA], cnt[RB]) && a_to_b(cnt[PA]);
-		b_to_a(cnt[RB]) && b_to_a(cnt[PB] - cnt[RB]);
+		rewind_stack(cnt[PA], cnt[RB]);
+		a_to_b(cnt[PA]);
+		b_to_a(cnt[RB]);
+		b_to_a(cnt[PB] - cnt[RB]);
 	}
 	return (TRUE);
 }
