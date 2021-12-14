@@ -1,7 +1,8 @@
 {
-	"files.associations": {
-		"*.ejs": "html",
-		"*.h": "swift",
-		"__threading_support": "c"
-	}
+  "files.associations": {
+    "*.ejs": "html",
+    "*.h": "swift",
+    "__threading_support": "c",
+    "complex": "c"
+  }
 }

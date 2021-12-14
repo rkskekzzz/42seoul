@@ -1,10 +1,8 @@
 #include "philo.h"
 
-int	init_argv(char **argv, t_condition *cond)
+static int init_argv(char **argv, t_condition *cond)
 {
 	cond->num_of_philo = ph_atoi(argv[1]);
-	if (cond->num_of_philo < 2)
-		return (FALSE);
 	cond->time_to_die = ph_atoi(argv[2]);
 	cond->time_to_eat = ph_atoi(argv[3]) * 1000;
 	cond->time_to_sleep = ph_atoi(argv[4]) * 1000;
@@ -12,16 +10,15 @@ int	init_argv(char **argv, t_condition *cond)
 		cond->num_of_philo_must_eat = ph_atoi(argv[5]);
 	else
 		cond->num_of_philo_must_eat = -1;
-	return (TRUE);
+	return (cond->num_of_philo >= 2);
 }
 
-// 인자 처리 (1이냐, 숫자가 아닌게 들어왔나, 인자 개수가 잘못되거나)
-t_bool	check_error(int argc, char** argv)
+static t_bool check_error(int argc, char **argv)
 {
-	int 	i;
+	int i;
 
 	i = 0;
-	if (argc < 5)
+	if (argc < 5 || argc > 6)
 		return (FALSE);
 	while (argv[++i])
 	{
@@ -31,26 +28,22 @@ t_bool	check_error(int argc, char** argv)
 	return (TRUE);
 }
 
-void	solution(t_condition *cond)
+static t_bool run_command(t_condition *cond)
 {
+	t_resource res;
+	t_philosopher *philo;
+
 	print_condition(cond);
-	philo(cond);
+	if (init(&arg, &res, &philos) || run(&arg, philos) || destroy(&arg, &res, philos))
+		return (FALSE);
+	return (TRUE);
 }
 
-void	start_philo(int argc, char **argv)
+int main(int argc, char **argv)
 {
-	t_condition	cond;
+	t_condition cond;
 
-	if (!check_error(argc, argv) || !init_argv(argv, &cond))
-		return ;
-	solution(&cond);
-}
-
-int	main(int argc, char **argv)
-{
-	if (argc < 5)
-		printf("argument error\n");
-	else
-		start_philo(argc, argv);
+	if (!check_error(argc, argv) || !init_argv(argv, &cond) || run_command(&cond))
+		return (printf("Error\n"));
 	return (0);
 }

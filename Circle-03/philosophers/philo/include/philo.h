@@ -21,20 +21,30 @@ typedef struct s_condition
 	int			num_of_philo_must_eat;
 }	t_condition;
 
+typedef struct s_data
+{
+	int value;
+	pthread_mutex_t lock;
+} t_data;
 // 공유하는 자원
 typedef struct s_resource
 {
-	pthread_mutex_t	table;
-	pthread_mutex_t	*fork;
-	t_condition		*cond;
+	int				start;
+	t_data			end;
+	t_data			*forks;
+	pthread_mutex_t	table_lock;
 }	t_resource;
 
 // 개별 자원
 typedef struct s_philosopher
 {
+	pthread_t		thread;
 	int				idx;
-	pthread_t		philo;
+	int				fork_idx;
+	t_data			eat_count;
+	t_data			die_time;
 	t_resource		*res;
+	t_condition		*cond;
 }	t_philosopher;
 
 typedef struct s_monitor

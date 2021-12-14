@@ -1,8 +1,8 @@
 #include "library.h"
 
-t_bool	ph_isnum(char *str)
+t_bool ph_isnum(char *str)
 {
-	int	i;
+	int i;
 
 	i = -1;
 	while (str[++i])
@@ -13,7 +13,7 @@ t_bool	ph_isnum(char *str)
 	return (TRUE);
 }
 
-t_bool	ph_exit(char *s)
+t_bool ph_exit(char *s)
 {
 	printf("%s\n", s);
 	exit(1);

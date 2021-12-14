@@ -1,8 +1,8 @@
 #include "philo.h"
 
-void	init_res(t_resource *res, t_condition *cond)
+void init_res(t_resource *res, t_condition *cond)
 {
-	int		idx;
+	int idx;
 
 	idx = -1;
 	res->cond = cond;
@@ -16,15 +16,18 @@ void	init_res(t_resource *res, t_condition *cond)
 	}
 }
 
-void	eat(t_philosopher *philo)
+void eat(t_philosopher *philo)
 {
-	printf("philo %d is eat(%d, %d)\n", philo->idx, philo->idx, (philo->idx + 1) % philo->res->cond->num_of_philo);
+	printf("philo %d is eat(%d, %d)\n",
+		   philo->idx,
+		   philo->idx,
+		   (philo->idx + 1) % philo->res->cond->num_of_philo);
 	usleep(philo->res->cond->time_to_eat);
 }
 
-void	*routine(void *data)
+void *routine(void *data)
 {
-	t_philosopher		*philo;
+	t_philosopher *philo;
 
 	philo = (t_philosopher *)data;
 	pthread_mutex_lock(&philo->res->table);
@@ -37,11 +40,11 @@ void	*routine(void *data)
 	return (NULL);
 }
 
-void	philo(t_condition *cond)
+void philo(t_condition *cond)
 {
-	t_resource		res;
-	t_philosopher	*philo;
-	int				idx;
+	t_resource res;
+	t_philosopher *philo;
+	int idx;
 
 	init_res(&res, cond);
 	idx = -1;
@@ -54,4 +57,13 @@ void	philo(t_condition *cond)
 		pthread_join(philo->philo, NULL);
 	}
 	free(philo);
+}
+
+void init_philo()
+{
+}
+
+void init(t_resource *res, t_philosopher *philo, t_condition *cond)
+{
+	init_philo();
 }
