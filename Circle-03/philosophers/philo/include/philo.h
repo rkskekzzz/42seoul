@@ -23,10 +23,10 @@ typedef struct s_condition
 
 typedef struct s_data
 {
-	int value;
-	pthread_mutex_t lock;
-} t_data;
-// 공유하는 자원
+	int				value;
+	pthread_mutex_t	lock;
+}	t_data;
+
 typedef struct s_resource
 {
 	int				start;
@@ -57,5 +57,7 @@ typedef struct s_monitor
 void	parsing(char **argv);
 void	print_condition(t_condition *cond);
 void	philo(t_condition *cond);
+
+int		init(t_resource *res, t_philosopher **philos, t_condition *cond);
 
 #endif

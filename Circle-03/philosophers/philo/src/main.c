@@ -13,37 +13,39 @@ static int init_argv(char **argv, t_condition *cond)
 	return (cond->num_of_philo >= 2);
 }
 
-static t_bool check_error(int argc, char **argv)
+static t_bool	check_error(int argc, char **argv)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (argc < 5 || argc > 6)
 		return (FALSE);
 	while (argv[++i])
-	{
 		if (!ph_isnum(argv[i]))
 			return (FALSE);
-	}
 	return (TRUE);
 }
 
-static t_bool run_command(t_condition *cond)
+static t_bool	run_command(t_condition *cond)
 {
-	t_resource res;
-	t_philosopher *philo;
+	t_resource		res;
+	t_philosopher	*philos;
 
 	print_condition(cond);
-	if (init(&arg, &res, &philos) || run(&arg, philos) || destroy(&arg, &res, philos))
+	if (!init(cond, &res, &philos) || \
+		!run(cond, philos) || \
+		!destroy(cond, &res, philos))
 		return (FALSE);
 	return (TRUE);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_condition cond;
+	t_condition	cond;
 
-	if (!check_error(argc, argv) || !init_argv(argv, &cond) || run_command(&cond))
+	if (!check_error(argc, argv) || \
+		!init_argv(argv, &cond) || \
+		!run_command(&cond))
 		return (printf("Error\n"));
 	return (0);
 }
