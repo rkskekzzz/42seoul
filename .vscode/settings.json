@@ -1,0 +1,14 @@
+{
+  "files.associations": {
+    "*.ejs": "html",
+    "*.h": "swift",
+    "locale": "c",
+    "__locale": "c",
+    "__availability": "c",
+    "__config": "c",
+    "chrono": "c",
+    "ctime": "c",
+    "iterator": "c",
+    "algorithm": "c"
+  }
+}

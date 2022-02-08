@@ -1,10 +1,10 @@
 #include "library.h"
 
-int ph_atoi(char *str)
+int	ph_atoi(char *str)
 {
-	long long answer;
-	int minus;
-	int i;
+	long long	answer;
+	int			minus;
+	int			i;
 
 	i = 0;
 	minus = 1;
@@ -20,7 +20,7 @@ int ph_atoi(char *str)
 		if (str[i] >= '0' && str[i] <= '9')
 			answer = answer * 10 + str[i] - '0';
 		else
-			break;
+			break ;
 		i++;
 	}
 	return (minus * answer);

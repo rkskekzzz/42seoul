@@ -3,14 +3,12 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-
-typedef int	t_bool;
-
-# define TRUE	1
-# define FALSE	0
+# include <sys/time.h>
+# include <time.h>
 
 int			ph_atoi(char *str);
-t_bool		ph_isnum(char *str);
-t_bool		ph_exit(char *s);
+int			ph_isnum(char *str);
+long long	timestamp(void);
+char		*message(int type);
 
 #endif
