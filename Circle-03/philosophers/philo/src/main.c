@@ -48,5 +48,8 @@ int	main(int argc, char **argv)
 		!init_argv(argv, &cond) || \
 		run_command(&cond))
 		printf("Error\n");
+	while (1)
+	;
+
 	return (0);
 }

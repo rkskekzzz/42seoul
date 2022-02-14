@@ -13,17 +13,22 @@ void	pick(t_philosopher *philo)
 {
 	while (1)
 	{
-		if (gdata(&philo->res->forks[philo->fork_idx[LEFT]]) == 0 && gdata(&philo->res->forks[philo->fork_idx[RIGHT]]) == 0)
+		pthread_mutex_lock(&philo->res->forks[philo->fork_idx[LEFT]].lock);
+		pthread_mutex_lock(&philo->res->forks[philo->fork_idx[RIGHT]].lock);
+		if (philo->res->forks[philo->fork_idx[LEFT]].value == 0 && \
+			philo->res->forks[philo->fork_idx[RIGHT]].value == 0)
+		{
+			philo->res->forks[philo->fork_idx[LEFT]].value = 1;
+			philo->res->forks[philo->fork_idx[RIGHT]].value = 1;
 			break ;
+		}
+		usleep(100);
+		pthread_mutex_unlock(&philo->res->forks[philo->fork_idx[LEFT]].lock);
+		pthread_mutex_unlock(&philo->res->forks[philo->fork_idx[RIGHT]].lock);
 	}
-	sdata(&philo->res->forks[philo->fork_idx[LEFT]], 1);
+	pthread_mutex_unlock(&philo->res->forks[philo->fork_idx[LEFT]].lock);
+	pthread_mutex_unlock(&philo->res->forks[philo->fork_idx[RIGHT]].lock);
 	print(philo, PICK);
-	while (1)
-	{
-		if (gdata(&philo->res->forks[philo->fork_idx[LEFT]]) == 0 && gdata(&philo->res->forks[philo->fork_idx[RIGHT]]) == 0)
-			break ;
-	}
-	sdata(&philo->res->forks[philo->fork_idx[RIGHT]], 1);
 	print(philo, PICK);
 	sdata(&philo->die_time, philo->cond->time_to_die); // 죽을 시간 연장
 	sdata(&philo->eat_count, gdata(&philo->eat_count) + 1); // 먹은 회수 증가
@@ -31,8 +36,7 @@ void	pick(t_philosopher *philo)
 	usleep(philo->cond->time_to_eat); // 먹는동안 잠자기
 	sdata(&philo->res->forks[philo->fork_idx[LEFT]], 0);
 	sdata(&philo->res->forks[philo->fork_idx[RIGHT]], 0);
-	// pthread_mutex_unlock(&philo->res->forks[philo->fork_idx[LEFT]].lock);
-	// pthread_mutex_unlock(&philo->res->forks[philo->fork_idx[RIGHT]].lock);
+
 }
 
 void	nap(t_philosopher *philo)
