@@ -54,6 +54,7 @@ typedef struct s_end
 
 t_end	*end_state(void);
 void	print(t_philosopher *philo, int type);
+void	pick(t_philosopher *philo);
 void	eat(t_philosopher *philo);
 void	nap(t_philosopher *philo);
 void	think(t_philosopher *philo);

@@ -11,7 +11,7 @@ t_end	*end_state(void)
 void	print(t_philosopher *philo, int type)
 {
 	pthread_mutex_lock(&philo->res->table_lock);
-	if (end_state()->type != DIE)
+	if (!gdata(&philo->res->end))
 	{
 		printf("%d %d %s\n", timestamp() - philo->res->start, \
 				philo->idx + 1, message(type));
@@ -28,6 +28,7 @@ void	*routine(void *data)
 	{
 		if (gdata(&philo->res->end))
 			break ;
+		pick(philo);
 		eat(philo);
 		nap(philo);
 		think(philo);

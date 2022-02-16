@@ -9,12 +9,10 @@ int	check_die(t_monitor	*monitor)
 	idx = -1;
 	while (++idx < monitor->cond->num_of_philo)
 	{
-		// printf("%d\n", gdata(&monitor->philos[idx].die_time) - timestamp());
 		if (gdata(&monitor->philos[idx].die_time) < timestamp())
 		{
 			print(&monitor->philos[idx], DIE);
 			sdata(&monitor->res->end, 1);
-			end_state()->type = DIE;
 			return (FALSE);
 		}
 	}
