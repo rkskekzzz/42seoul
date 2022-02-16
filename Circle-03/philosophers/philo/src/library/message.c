@@ -10,6 +10,8 @@ char	*message(int type)
 		return ("is sleeping");
 	else if (type == 3)
 		return ("is thinking");
+	else if (type == 4)
+		return ("is full");	
 	else
 		return ("died");
 }

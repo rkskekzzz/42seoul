@@ -23,7 +23,7 @@ typedef struct s_condition
  */
 typedef struct s_resource
 {
-	int				start;
+	long long		start;
 	t_data			end;
 	t_data			*forks;
 	pthread_mutex_t	table_lock;
@@ -49,10 +49,9 @@ typedef struct s_monitor
 
 typedef struct s_end
 {
-	int				type;
+	long long				type;
 }	t_end;
 
-t_end	*end_state(void);
 void	print(t_philosopher *philo, int type);
 void	pick(t_philosopher *philo);
 void	eat(t_philosopher *philo);

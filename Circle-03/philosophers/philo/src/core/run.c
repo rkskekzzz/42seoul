@@ -1,19 +1,12 @@
 #include "philo.h"
 #include "type.h"
 
-t_end	*end_state(void)
-{
-	static t_end	end_state;
-
-	return (&end_state);
-}
-
 void	print(t_philosopher *philo, int type)
 {
 	pthread_mutex_lock(&philo->res->table_lock);
 	if (!gdata(&philo->res->end))
 	{
-		printf("%d %d %s\n", timestamp() - philo->res->start, \
+		printf("%lld %d %s\n", timestamp() - philo->res->start, \
 				philo->idx + 1, message(type));
 	}
 	pthread_mutex_unlock(&philo->res->table_lock);
@@ -24,6 +17,8 @@ void	*routine(void *data)
 	t_philosopher	*philo;
 
 	philo = (t_philosopher *)data;
+	if (philo->idx % 2 == 0)
+		usleep(200);
 	while (1)
 	{
 		if (gdata(&philo->res->end))
@@ -32,7 +27,6 @@ void	*routine(void *data)
 		eat(philo);
 		nap(philo);
 		think(philo);
-		usleep(200);
 	}
 	return (NULL);
 }

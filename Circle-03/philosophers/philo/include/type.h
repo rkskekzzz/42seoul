@@ -16,7 +16,8 @@ typedef enum e_msg {
 	EAT,
 	SLEEP,
 	THINK,
-	DIE
+	DIE,
+	FULL
 }			t_msg;
 
 #endif

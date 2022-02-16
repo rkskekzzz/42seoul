@@ -21,8 +21,17 @@ int	check_die(t_monitor	*monitor)
 
 int	check_full(t_monitor *monitor)
 {
-	(void)monitor;
-	return (TRUE);
+	int	idx;
+
+	idx = -1;
+	while (++idx < monitor->cond->num_of_philo)
+	{
+		if (gdata(&monitor->philos[idx].eat_count) < \
+			monitor->cond->num_of_philo_must_eat)
+			return (TRUE);
+	}
+	sdata(&monitor->res->end, 1);
+	return (FALSE);
 }
 
 void	*monitor_routine(void *data)
@@ -34,8 +43,9 @@ void	*monitor_routine(void *data)
 	{
 		if (check_die(monitor))
 			break ;
-		// if (check_full(monitor))
-		// 	break ;
+		if (monitor->cond->num_of_philo_must_eat != -1 && \
+			check_full(monitor))
+			break ;
 		usleep(200);
 	}
 	return (NULL);

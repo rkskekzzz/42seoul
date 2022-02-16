@@ -17,7 +17,7 @@ int	init_data(t_data *data)
  * @param new_value to enter data
  * @return TRUE (0) / FALSE (-1)
  */
-int	sdata(t_data *data, int new_value)
+int	sdata(t_data *data, long long new_value)
 {
 	pthread_mutex_lock(&data->lock);
 	data->value = new_value;
@@ -25,9 +25,9 @@ int	sdata(t_data *data, int new_value)
 	return (TRUE);
 }
 
-int	gdata(t_data *data)
+long long	gdata(t_data *data)
 {
-	int	value;
+	long long	value;
 
 	pthread_mutex_lock(&data->lock);
 	value = data->value;

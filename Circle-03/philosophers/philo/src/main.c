@@ -4,11 +4,10 @@
 
 static int	init_argv(char **argv, t_condition *cond)
 {
-	end_state()->type = 0;
 	cond->num_of_philo = ph_atoi(argv[1]);
 	cond->time_to_die = ph_atoi(argv[2]);
-	cond->time_to_eat = ph_atoi(argv[3]) * 1000;
-	cond->time_to_sleep = ph_atoi(argv[4]) * 1000;
+	cond->time_to_eat = ph_atoi(argv[3]);
+	cond->time_to_sleep = ph_atoi(argv[4]);
 	if (argv[5])
 		cond->num_of_philo_must_eat = ph_atoi(argv[5]);
 	else

@@ -8,7 +8,7 @@
 
 int		ph_atoi(char *str);
 int		ph_isnum(char *str);
-int		timestamp(void);
+long long		timestamp(void);
 char	*message(int type);
 
 #endif
