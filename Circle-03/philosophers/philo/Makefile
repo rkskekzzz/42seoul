@@ -6,7 +6,14 @@ CFLAGS	=	-Wall -Wextra -Werror $(INCLUDE) -g
 SRC		=	main.c debug.c \
 			library/atoi.c \
 			library/library.c \
-			core/philo.c
+			library/time.c \
+			library/message.c \
+			entities/data.c \
+			core/init.c \
+			core/destroy.c \
+			core/monitor.c \
+			core/run.c \
+			core/run_command.c
 
 
 SRC_DIR =	./src/

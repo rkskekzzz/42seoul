@@ -1,6 +1,7 @@
 #include "library.h"
+#include "type.h"
 
-t_bool	ph_isnum(char *str)
+int	ph_isnum(char *str)
 {
 	int	i;
 
@@ -11,10 +12,4 @@ t_bool	ph_isnum(char *str)
 			return (FALSE);
 	}
 	return (TRUE);
-}
-
-t_bool	ph_exit(char *s)
-{
-	printf("%s\n", s);
-	exit(1);
 }

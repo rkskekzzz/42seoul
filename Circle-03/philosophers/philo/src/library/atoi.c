@@ -2,19 +2,26 @@
 
 int	ph_atoi(char *str)
 {
-	int	ret;
+	long long	answer;
+	int			minus;
+	int			i;
 
-	ret = 0;
-	if (*str == '-')
+	i = 0;
+	minus = 1;
+	answer = 0;
+	if (str[i] == '-' || str[i] == '+')
 	{
-		exit(1);
+		if (str[i] == '-')
+			minus *= -1;
+		i++;
 	}
-	while (*str)
+	while (str[i] != '\0')
 	{
-		ret = ret * 10 + (*str - '0');
-		++str;
+		if (str[i] >= '0' && str[i] <= '9')
+			answer = answer * 10 + str[i] - '0';
+		else
+			break ;
+		i++;
 	}
-	if ((*str) != 0)
-		ph_exit("not num");
-	return (ret);
+	return (minus * answer);
 }
