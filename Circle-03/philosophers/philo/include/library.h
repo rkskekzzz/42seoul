@@ -6,9 +6,9 @@
 # include <sys/time.h>
 # include <time.h>
 
-int			ph_atoi(char *str);
-int			ph_isnum(char *str);
-long long	timestamp(void);
-char		*message(int type);
+int		ph_atoi(char *str);
+int		ph_isnum(char *str);
+int		timestamp(void);
+char	*message(int type);
 
 #endif

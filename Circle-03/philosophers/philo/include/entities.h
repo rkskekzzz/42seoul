@@ -9,8 +9,8 @@ typedef struct s_data
 	pthread_mutex_t	lock;
 }	t_data;
 
-int	init_data(t_data *data);
-int	sdata(t_data *data, int new_value);
-int	gdata(t_data *data);
+int		init_data(t_data *data);
+int		sdata(t_data *data, int new_value);
+int		gdata(t_data *data);
 
 #endif

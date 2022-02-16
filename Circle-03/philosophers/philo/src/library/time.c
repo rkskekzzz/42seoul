@@ -1,7 +1,7 @@
 #include "library.h"
 #include "type.h"
 
-long long	timestamp(void)
+int	timestamp(void)
 {
 	struct timeval	tv;
 

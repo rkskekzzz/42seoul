@@ -52,17 +52,14 @@ int	init_res(t_resource *res, t_condition *cond)
 {
 	res->forks = malloc(sizeof(t_data) * cond->num_of_philo);
 	res->start = timestamp();
-
-
 	if (!res->forks || \
-		res->start < 0 || \
 		pthread_mutex_init(&res->table_lock, 0) || \
 		init_data(&res->end))
 		return (FALSE);
 	return (TRUE);
 }
 
-int	init(t_resource *res, t_philosopher **philos, t_condition *cond)
+int	init(t_condition *cond, t_resource *res, t_philosopher **philos)
 {
 	if (init_res(res, cond) || \
 		init_forks(res, cond->num_of_philo) || \

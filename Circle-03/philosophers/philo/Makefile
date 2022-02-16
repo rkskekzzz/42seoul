@@ -11,7 +11,9 @@ SRC		=	main.c debug.c \
 			entities/data.c \
 			core/init.c \
 			core/destroy.c \
-			core/run.c
+			core/monitor.c \
+			core/run.c \
+			core/run_command.c
 
 
 SRC_DIR =	./src/

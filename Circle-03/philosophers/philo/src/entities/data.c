@@ -1,6 +1,7 @@
 #include "entities.h"
 #include "type.h"
 #include <stdio.h>
+
 int	init_data(t_data *data)
 {
 	data->value = 0;
