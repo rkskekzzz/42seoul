@@ -9,6 +9,7 @@ int	check_die(t_monitor	*monitor)
 	idx = -1;
 	while (++idx < monitor->cond->num_of_philo)
 	{
+		// printf("%d\n", gdata(&monitor->philos[idx].die_time) - timestamp());
 		if (gdata(&monitor->philos[idx].die_time) < timestamp())
 		{
 			print(&monitor->philos[idx], DIE);
@@ -35,8 +36,8 @@ void	*monitor_routine(void *data)
 	{
 		if (check_die(monitor))
 			break ;
-		if (check_full(monitor))
-			break ;
+		// if (check_full(monitor))
+		// 	break ;
 		usleep(200);
 	}
 	return (NULL);
@@ -57,8 +58,8 @@ int	monitor(t_condition *cond, t_resource *res, t_philosopher *philos)
 			monitor_routine, \
 			(void *)(&monitor)))
 		return (FALSE);
+	pthread_join(monitor_thread, 0);
 	while (++idx < cond->num_of_philo)
 		pthread_join(philos[idx].thread, 0);
-	pthread_join(monitor_thread, 0);
 	return (TRUE);
 }
