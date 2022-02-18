@@ -1,11 +1,23 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/02/18 15:18:06 by suhshin           #+#    #+#              #
+#    Updated: 2022/02/18 15:18:08 by suhshin          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME	=	philo
 
 CC		=	gcc
 INCLUDE =	-I./include
 CFLAGS	=	-Wall -Wextra -Werror $(INCLUDE) -g
-SRC		=	main.c debug.c \
+SRC		=	main.c \
 			library/atoi.c \
-			library/library.c \
+			library/isnum.c \
 			library/time.c \
 			library/message.c \
 			entities/data.c \

@@ -1,6 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/18 15:19:35 by suhshin           #+#    #+#             */
+/*   Updated: 2022/02/18 15:19:36 by suhshin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 #include "type.h"
-#include "debug.h"
 
 static int	init_argv(char **argv, t_condition *cond)
 {
@@ -36,7 +47,7 @@ static t_bool	run_command(t_condition *cond)
 	if (init(cond, &res, &philos) || \
 		run(cond, philos) || \
 		monitor(cond, &res, philos) || \
-		destroy(&res, philos, cond))
+		destroy(cond, &res, philos))
 		return (FALSE);
 	return (TRUE);
 }

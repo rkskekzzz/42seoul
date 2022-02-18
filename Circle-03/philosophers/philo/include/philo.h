@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/18 15:18:39 by suhshin           #+#    #+#             */
+/*   Updated: 2022/02/18 15:18:40 by suhshin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
 # define PHILO_H
 
 # include "entities.h"
 # include "library.h"
 
-// 상태
 typedef struct s_condition
 {
 	int			num_of_philo;
@@ -14,13 +25,6 @@ typedef struct s_condition
 	int			num_of_philo_must_eat;
 }	t_condition;
 
-/**
- * 공유자원 구조체
- * forks : 포크 배열 ( { value, mutex} )
- * start : 시뮬레이션 시작시간
- * end : 시뮬레이션 종료 확인 값 ( { value, mutex} )
- * table_lock : 출력을 위한 뮤텍스
- */
 typedef struct s_resource
 {
 	long long		start;
@@ -59,7 +63,7 @@ void	nap(t_philosopher *philo);
 void	think(t_philosopher *philo);
 int		run(t_condition *cond, t_philosopher *philos);
 int		monitor(t_condition *cond, t_resource *res, t_philosopher *philos);
-int		destroy();
+int		destroy(t_condition *cond, t_resource *res, t_philosopher *philos);
 int		init(t_condition *cond, t_resource *res, t_philosopher **philos);
 
 #endif

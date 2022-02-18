@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   message.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/18 15:20:02 by suhshin           #+#    #+#             */
+/*   Updated: 2022/02/18 15:20:12 by suhshin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "library.h"
 
 char	*message(int type)
@@ -10,8 +22,6 @@ char	*message(int type)
 		return ("is sleeping");
 	else if (type == 3)
 		return ("is thinking");
-	else if (type == 4)
-		return ("is full");	
 	else
 		return ("died");
 }

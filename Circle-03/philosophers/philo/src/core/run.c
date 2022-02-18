@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   run.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suhshin <suhshin@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/18 15:19:20 by suhshin           #+#    #+#             */
+/*   Updated: 2022/02/18 15:19:21 by suhshin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 #include "type.h"
 
@@ -23,6 +35,8 @@ void	*routine(void *data)
 	{
 		if (gdata(&philo->res->end))
 			break ;
+		if (philo->fork_idx[LEFT] == philo->fork_idx[RIGHT])
+			continue ;
 		pick(philo);
 		eat(philo);
 		nap(philo);
