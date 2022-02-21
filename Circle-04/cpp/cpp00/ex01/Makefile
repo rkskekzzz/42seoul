@@ -3,7 +3,8 @@ NAME	=	phonebook
 CC		=	g++
 INCLUDE =	-I./include
 CFLAGS	=	-Wall -Wextra -Werror $(INCLUDE) -g
-SRC		=	main.cpp 
+SRC		=	main.cpp \
+			util.cpp
 
 
 SRC_DIR =	./src/
