@@ -31,8 +31,9 @@ void Phonebook::add() {
 void Phonebook::search() {
     prints((std::string[4]){"index", "first_name", "last_name", "nickname"});
     for (int i = 0 ; i < MAX_NUMBER ; i++) {
+        std::string temp = static_cast<std::string>(i + 1);
         prints((std::string[4]){
-            std::to_string(i + 1),
+            temp,
             _stringf(contexts[i].getFirstName()),
             _stringf(contexts[i].getLastName()),
             _stringf(contexts[i].getNickName()),
