@@ -2,6 +2,7 @@
 #define PHONEBOOK_HPP
 
 #include <iostream>
+#include <sstream>
 #include "util.hpp"
 #include "context.hpp"
 #define MAX_NUMBER 8
@@ -31,9 +32,10 @@ void Phonebook::add() {
 void Phonebook::search() {
     prints((std::string[4]){"index", "first_name", "last_name", "nickname"});
     for (int i = 0 ; i < MAX_NUMBER ; i++) {
-        std::string temp = static_cast<std::string>(i + 1);
+        std::stringstream ssInt;
+	    ssInt << i + 1;
         prints((std::string[4]){
-            temp,
+            ssInt.str(),
             _stringf(contexts[i].getFirstName()),
             _stringf(contexts[i].getLastName()),
             _stringf(contexts[i].getNickName()),

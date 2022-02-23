@@ -1,10 +1,13 @@
-NAME	=	phonebook
+NAME	=	zombie
 
-CC		=	c++
+CC		=	g++
 INCLUDE =	-I./include
-CFLAGS	=	-Wall -Wextra -Werror -std=c++98 $(INCLUDE)
+CFLAGS	=	-Wall -Wextra -Werror -std=c++98 $(INCLUDE) 
 SRC		=	main.cpp \
-			util.cpp
+			Zombie.cpp \
+			ZombieHorde.cpp \
+			randomChump.cpp
+			
 
 
 SRC_DIR =	./src/
