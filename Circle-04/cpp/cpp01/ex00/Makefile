@@ -1,8 +1,8 @@
-NAME	=	phonebook
+NAME	=	zombie
 
 CC		=	g++
 INCLUDE =	-I./include
-CFLAGS	=	-Wall -Wextra -Werror $(INCLUDE) -g
+CFLAGS	=	-Wall -Wextra -Werror -std=c++98 $(INCLUDE)
 SRC		=	main.cpp \
 			Zombie.cpp \
 			newZombie.cpp \

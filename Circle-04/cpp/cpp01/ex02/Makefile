@@ -1,10 +1,9 @@
-NAME	=	phonebook
+NAME	=	string
 
 CC		=	g++
-INCLUDE =	-I./include
+INCLUDE =	-I./
 CFLAGS	=	-Wall -Wextra -Werror -std=c++98 $(INCLUDE)
-SRC		=	main.cpp \
-			util.cpp
+SRC		=	main.cpp 
 
 
 SRC_DIR =	./src/
@@ -32,7 +31,6 @@ fclean	:	clean
 
 norm	:
 	norminette src/*
-	norminette include/*
 
 re		:	fclean	all
 
