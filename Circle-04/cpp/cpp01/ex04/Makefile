@@ -1,14 +1,11 @@
-NAME		=	zombie
+NAME		=	replace
 
 INCLUDE 	=	-I./include
 
 CXX			=	g++
 CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98 $(INCLUDE)
 
-SRC			=	main.cpp \
-				Zombie.cpp \
-				newZombie.cpp \
-				randomChump.cpp
+SRC			=	main.cpp
 
 
 SRC_DIR 	=	./src/

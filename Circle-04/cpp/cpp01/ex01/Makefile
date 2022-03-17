@@ -1,34 +1,37 @@
-NAME	=	zombie
+NAME		=	zombie
 
-CC		=	g++
-INCLUDE =	-I./include
-CFLAGS	=	-Wall -Wextra -Werror -std=c++98 $(INCLUDE) 
-SRC		=	main.cpp \
-			Zombie.cpp \
-			ZombieHorde.cpp \
-			randomChump.cpp
-			
+INCLUDE 	=	-I./include
+
+CXX			=	g++
+CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98 $(INCLUDE)
+
+SRC			=	main.cpp \
+				Zombie.cpp \
+				ZombieHorde.cpp \
+				randomChump.cpp
 
 
-SRC_DIR =	./src/
-SRCS	=	$(addprefix $(SRC_DIR),$(SRC))
-OBJ		=	$(patsubst %.cpp,%.o,$(SRCS))
-SHELL	=	/bin/bash
+SRC_DIR 	=	./src/
+SRCS		=	$(addprefix $(SRC_DIR),$(SRC))
+OBJ_DIR		=	./obj
+OBJS		=	$(addprefix $(OBJ_DIR)/, $(patsubst %.cpp,%.o,$(SRC)))
+SHELL		=	/bin/bash
 
 all		:	$(NAME)
 
-%.o		:	%.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+$(OBJ_DIR)/%.o	: $(SRC_DIR)/%.cpp
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-$(NAME)	:	$(OBJ)
-	$(CC) $(CFLAGS) $^ -o $@
+$(NAME)	:	$(OBJS)
+	$(CXX) $(CXXFLAGS) $^ -o $@
 
 
 
 bonus	: all
 
 clean	:
-	@rm -f $(OBJ)
+	@rm -rf $(OBJ_DIR)
 
 fclean	:	clean
 	@rm -f $(NAME)

@@ -1,4 +1,4 @@
-NAME		=	zombie
+NAME		=	a.out
 
 INCLUDE 	=	-I./include
 
@@ -6,9 +6,7 @@ CXX			=	g++
 CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98 $(INCLUDE)
 
 SRC			=	main.cpp \
-				Zombie.cpp \
-				newZombie.cpp \
-				randomChump.cpp
+				Fixed.cpp
 
 
 SRC_DIR 	=	./src/
