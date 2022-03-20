@@ -21,5 +21,6 @@ int main() {
 
 	const WrongAnimal* wrong = new WrongCat();
 	wrong->makeSound();
+	delete wrong;
 	return 0;
 }

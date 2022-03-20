@@ -6,9 +6,19 @@
 int main() {
     const Animal* cat = new Cat();
     const Animal* dog = new Dog();
+    const Animal* animals[10];
+
+    for (int i = 0 ; i < 10 ; i++) {
+        if (i % 2)
+            animals[i] = new Dog();
+        else
+            animals[i] = new Cat();
+    }
+    for (int i = 0 ; i < 10 ; i++)
+        animals[i]->makeSound();
+
     const Animal* copy = new Animal(*dog);
 
-    std::cout << copy->getType() << std::endl;
 
 	delete dog;
     delete cat;

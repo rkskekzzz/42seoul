@@ -12,9 +12,11 @@ Dog::~Dog() {
 }
 
 Dog::Dog(const Dog& origin) {
+	if (this->brain != NULL) {
+		delete this->brain;
+	}
 	this->type = origin.type;
-	this->brain = new Brain();
-	this->brain = origin.brain;
+	this->brain = new Brain(*origin.brain);
 	std::cout << "[Dog] Constructor called!(copied)" << std::endl;
 }
 

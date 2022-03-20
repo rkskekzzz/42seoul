@@ -16,3 +16,7 @@ WrongCat& WrongCat::operator=(const WrongCat& rvalue) {
 	this->type = rvalue.type;
 	return *this;
 }
+
+void WrongCat::makeSound() const {
+	std::cout << "...wrong cat wrong cat" << std::endl;
+}
