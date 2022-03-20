@@ -8,7 +8,9 @@ CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98 $(INCLUDE)
 SRC			=	main.cpp \
 				Animal.cpp \
 				Dog.cpp \
-				Cat.cpp
+				Cat.cpp \
+				WrongAnimal.cpp \
+				WrongCat.cpp
 
 
 SRC_DIR 	=	./src/

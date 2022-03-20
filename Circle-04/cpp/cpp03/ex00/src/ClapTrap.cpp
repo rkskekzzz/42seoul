@@ -15,8 +15,8 @@ ClapTrap::ClapTrap(std::string name) : \
 }
 
 ClapTrap::ClapTrap(const ClapTrap& origin) {
-	std::cout << "ClapTrap " << name << " is generated(copied) !" << std::endl;
 	*this = origin;
+	std::cout << "ClapTrap " << name << " is generated(copied) !" << std::endl;
 }
 
 ClapTrap& ClapTrap::operator=(const ClapTrap& rvalue) {

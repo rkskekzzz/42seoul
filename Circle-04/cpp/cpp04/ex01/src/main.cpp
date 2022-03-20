@@ -4,9 +4,13 @@
 #include "Cat.hpp"
 
 int main() {
-    const Animal* j = new Dog();
-    const Animal* i = new Cat();
+    const Animal* cat = new Cat();
+    const Animal* dog = new Dog();
+    const Animal* copy = new Animal(*dog);
 
-	delete j;
-    delete i;
+    std::cout << copy->getType() << std::endl;
+
+	delete dog;
+    delete cat;
+    delete copy;
 }

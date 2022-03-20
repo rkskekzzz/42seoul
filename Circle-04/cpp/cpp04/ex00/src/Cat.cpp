@@ -1,12 +1,17 @@
 #include "Cat.hpp"
 #include <iostream>
 
-Cat::Cat() : Animal("Cat") {}
+Cat::Cat() : Animal("Cat") {
+	std::cout << "[Cat] Constructor called!" << std::endl;
+}
 
 
-Cat::~Cat() {}
+Cat::~Cat() {
+	std::cout << "[Cat] Destructor called!" << std::endl;
+}
 
 Cat::Cat(const Cat& origin) {
+	std::cout << "[Cat] Constructor called!(copied)" << std::endl;
 	*this = origin;
 }
 
