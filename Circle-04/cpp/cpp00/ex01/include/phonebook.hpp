@@ -45,11 +45,13 @@ void Phonebook::search() {
 
 void Phonebook::detailSearch() {
     int idx;
-    
+
     std::cout << "\nEnter the index to display the contact information\n" << " -> ";
 	while (true)
 	{
 		std::cin >> idx;
+        if (std::cin.eof() == 1)
+            return;
 		if (std::cin.fail()) {
 			std::cin.clear();\
             std::cin.ignore(32767, '\n');

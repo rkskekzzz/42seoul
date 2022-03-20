@@ -4,10 +4,13 @@
 int main() {
     Phonebook phonebook;
     std::string cmd;
+    std::string delim = "\n";
 
     for(;;) {
-        std::cout << "*** Input Your Command**\n" << " >> ";
+        std::cout << "*** Input Your Command[ADD / SEARCH / EXIT] ***\n" << " >> ";
         std::getline(std::cin, cmd);
+        if (std::cin.eof() == 1)
+            break;
         if (cmd == "EXIT" || cmd == "exit") {
             break ;
         } else if (cmd == "ADD" || cmd == "add" ) {
