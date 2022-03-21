@@ -4,7 +4,7 @@ Brain::Brain() {
 	std::cout << "[Brain] Constructor called!" << std::endl;
 }
 
-Brain::Brain(std::string ideas[100]) {
+Brain::Brain(std::string *ideas) {
 	for (int i = 0 ; i < 100 ; i++) {
 		this->ideas[i] = ideas[i];
 	}

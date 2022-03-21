@@ -14,7 +14,7 @@ Animal::~Animal() {
 }
 
 Animal::Animal(const Animal& origin) {
-	this->type = origin.type;
+	*this = origin;
 	std::cout << "[Animal] Constructor called!(copied)" << std::endl;
 }
 

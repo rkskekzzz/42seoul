@@ -4,8 +4,6 @@
 #include "Cat.hpp"
 
 int main() {
-    const Animal* cat = new Cat();
-    const Animal* dog = new Dog();
     const Animal* animals[10];
 
     for (int i = 0 ; i < 10 ; i++) {
@@ -17,10 +15,10 @@ int main() {
     for (int i = 0 ; i < 10 ; i++)
         animals[i]->makeSound();
 
-    const Animal* copy = new Animal(*dog);
 
+    Dog dog1;
+    Dog dog2;
+    Dog dog3(dog1);
 
-	delete dog;
-    delete cat;
-    delete copy;
+    dog2 = dog1;
 }
