@@ -7,7 +7,7 @@ int main() {
     FragTrap b("b");
 
     a.attack("b");
-    b.takeDamage(0);
+    b.takeDamage(a.getAttackDamage());
 
     b.beRepaired(10);
     a.highFivesGuys();

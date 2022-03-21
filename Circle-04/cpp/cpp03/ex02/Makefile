@@ -11,7 +11,7 @@ SRC			=	main.cpp \
 				FragTrap.cpp
 
 
-SRC_DIR 	=	./src/
+SRC_DIR 	=	./src
 SRCS		=	$(addprefix $(SRC_DIR),$(SRC))
 OBJ_DIR		=	./obj
 OBJS		=	$(addprefix $(OBJ_DIR)/, $(patsubst %.cpp,%.o,$(SRC)))

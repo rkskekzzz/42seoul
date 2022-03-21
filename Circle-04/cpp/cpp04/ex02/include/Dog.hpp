@@ -11,11 +11,11 @@ class Dog : public Animal {
     public:
 		Dog();
 		Dog(const Dog&);
-		virtual ~Dog();
+		~Dog();
 
 		Dog& operator=(const Dog&);
 
-		virtual void makeSound() const;
+		void makeSound() const;
 };
 
 

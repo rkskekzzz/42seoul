@@ -9,11 +9,11 @@ class Cat : public Animal {
     public:
 		Cat();
 		Cat(const Cat&);
-		virtual ~Cat();
+		~Cat();
 
 		Cat& operator=(const Cat&);
 
-		virtual void makeSound() const;
+		void makeSound() const;
 };
 
 

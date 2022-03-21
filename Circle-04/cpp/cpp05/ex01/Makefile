@@ -6,8 +6,8 @@ CXX			=	g++
 CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98 $(INCLUDE)
 
 SRC			=	main.cpp \
-				ClapTrap.cpp
-
+				Bureaucrat.cpp \
+				Form.cpp
 
 SRC_DIR 	=	./src
 SRCS		=	$(addprefix $(SRC_DIR),$(SRC))

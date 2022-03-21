@@ -10,8 +10,9 @@ int main() {
     three = one;
 
 	one.attack("two");
-    two.takeDamage(0);
+    two.takeDamage(one.getAttackDamage());
 
+    two.beRepaired(100);
     two.beRepaired(10);
     one.guardGate();
 }

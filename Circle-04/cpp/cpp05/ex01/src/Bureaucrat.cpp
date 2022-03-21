@@ -33,6 +33,16 @@ void Bureaucrat::setGrade(int const grade) {
 	this->grade = grade;
 }
 
+void Bureaucrat::signForm(Form& form) {
+	try {
+		form.beSigned(*this);
+		std::cout << GREEN << this->getName() << " signs " << form.getName() << std::endl;
+	}
+	catch (std::exception& e) {
+		std::cout << RED << this->getName() << " cannot sign " << form.getName() << " because "<< e.what() << DEFAULT << std::endl;
+	}
+}
+
 void Bureaucrat::increaseGrade(int const amount) {
 	if (this->getGrade() - amount < MAX_GRADE) {
 		throw GradeTooHighException();
