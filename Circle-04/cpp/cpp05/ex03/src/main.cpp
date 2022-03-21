@@ -3,6 +3,7 @@
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
+#include "Intern.hpp"
 #include "Color.hpp"
 
 void successCase_presi() {
@@ -119,15 +120,19 @@ void successCase() {
 }
 
 int main() {
-	successCase();
-	errorCase_gradeIsTooLow();
-	errorCase_formIsNotSigned();
+	// successCase();
+	// errorCase_gradeIsTooLow();
+	// errorCase_formIsNotSigned();
 
-	successCase_roboto();
-	errorCase_gradeIsTooLow_roboto();
+	// successCase_roboto();
+	// errorCase_gradeIsTooLow_roboto();
 
-	successCase_presi();
-	errorCase_gradeIsTooLow_presi();
+	// successCase_presi();
+	// errorCase_gradeIsTooLow_presi();
+	Intern  someRandomIntern;
+	Form*   rrf;
 
+	rrf = someRandomIntern.makeForm("robotomy request", "Bender");
+	std::cout << *rrf;
 	return 0;
 }
