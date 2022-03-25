@@ -2,7 +2,7 @@
   "configurations": [
     {
       "name": "Linux",
-      "includePath": ["${workspaceFolder}/cpp06/ex00/**"],
+      "includePath": ["${workspaceFolder}/cpp06/ex02/**"],
       "defines": [],
       "compilerPath": "/usr/bin/g++",
       "cStandard": "gnu17",
