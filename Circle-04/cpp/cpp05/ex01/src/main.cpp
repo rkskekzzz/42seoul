@@ -31,7 +31,6 @@ void successCase_errorCase() {
 		Form form2("form2", 80, 59, false);
 
 		bu.signForm(form1);
-		bu.signForm(form1);
 		bu.signForm(form2);
 	} catch (std::exception &e) {
 		std::cout << RED << "Error: " << e.what() << DEFAULT << std::endl;
