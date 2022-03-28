@@ -4,28 +4,33 @@
 #include <string>
 #include <exception>
 #include <iostream>
-#include <ctype.h>
-#include <float.h>
-#include <math.h>
 #include <iomanip>
 
+enum InputType {
+	Number = 0,
+	NaN,
+	Inf,
+	CantCasting
+};
 class CastClass {
 	private:
 		double value;
+		InputType type;
 	public:
 		CastClass(std::string value);
 		~CastClass();
 
-		char castToChar() const;
-		int castToInt() const;
-		float castToFloat() const;
-		double castToDouble(std::string value) const;
+		char castToChar();
+		int castToInt();
+		float castToFloat();
+		double castToDouble(std::string value);
 
+		InputType getType();
 
-		void printCharValue() const;
-		void printIntValue() const;
-		void printDoubleValue() const;
-		void printFloatValue() const;
+		void printCharValue();
+		void printIntValue();
+		void printDoubleValue();
+		void printFloatValue();
 
 		class Imposible : public std::exception {
 			const char * what() const throw();

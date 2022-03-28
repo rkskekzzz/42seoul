@@ -6,34 +6,55 @@ CastClass::CastClass(std::string value) {
 
 CastClass::~CastClass() {}
 
-double CastClass::castToDouble(std::string value) const {
-	return std::stod(value);
+double CastClass::castToDouble(std::string value) {
+	double dub = 0;
+	try {
+		dub = std::stod(value.c_str(), NULL);
+	} catch (std::exception &e) {
+		std::cout << value.length() << std::endl;
+		if (value.length() != 1) {
+			this->type = CantCasting;
+			return dub;
+		}
+		dub = value[0];
+	}
+	if (value == "nan" || value == "nanf")
+		this->type = NaN;
+	else if (value == "inf" || value == "-inf" || value == "inff" || value == "-inff")
+		this->type = Inf;
+	else
+		this->type = Number;
+	return dub;
 }
 
-char CastClass::castToChar() const {
+char CastClass::castToChar()  {
 	char ch;
-	if (isnan(this->value) || isinf(this->value))
+	if (this->type != Number)
 		throw Imposible();
 	ch = static_cast<char>(this->value);
-	if (!isprint(ch))
+	if (!std::isprint(ch))
 		throw NonDisplayable();
 	return ch;
 }
-int CastClass::castToInt() const {
+int CastClass::castToInt() {
 	int in;
-	if (isnan(this->value) || isinf(this->value))
+	if (this->type != Number)
 		throw Imposible();
 	in = static_cast<int>(this->value);
 	return in;
 }
-float CastClass::castToFloat() const {
+float CastClass::castToFloat() {
 	float fl;
 	fl = static_cast<double>(this->value);
 	return fl;
 }
 
+InputType CastClass::getType() {
+	return this->type;
+}
 
-void CastClass::printCharValue() const{
+
+void CastClass::printCharValue(){
 	std::cout << "Char: ";
 	try {
 		std::string cast = "";
@@ -43,7 +64,7 @@ void CastClass::printCharValue() const{
 		std::cout << e.what() << std::endl;;
 	}
 }
-void CastClass::printIntValue() const {
+void CastClass::printIntValue() {
 	std::cout << "Int: ";
 	try {
 		std::cout << castToInt() << std::endl;
@@ -51,13 +72,13 @@ void CastClass::printIntValue() const {
 		std::cout << e.what() << std::endl;;
 	}
 }
-void CastClass::printDoubleValue() const {
+void CastClass::printDoubleValue() {
 	std::cout << "Double: ";
 	std::cout << std::fixed;
 	std::cout.precision(1);
 	std::cout << this->value << std::endl;
 }
-void CastClass::printFloatValue() const {
+void CastClass::printFloatValue() {
 	int i = static_cast<int>(value);
 	std::cout << "Float: ";
 	std::cout << this->value;
