@@ -2,7 +2,7 @@ NAME		=	phonebook
 
 INCLUDE 	=	-I./include
 
-CXX			=	g++
+CXX			=	c++
 CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98 $(INCLUDE)
 
 SRC			=	main.cpp \

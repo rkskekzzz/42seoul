@@ -4,7 +4,7 @@
       "name": "Linux",
       "includePath": ["${workspaceFolder}/cpp06/ex02/**"],
       "defines": [],
-      "compilerPath": "/usr/bin/g++",
+      "compilerPath": "/usr/bin/c++",
       "cStandard": "gnu17",
       "cppStandard": "gnu++14",
       "intelliSenseMode": "linux-gcc-x64"

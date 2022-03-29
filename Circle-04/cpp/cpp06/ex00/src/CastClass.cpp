@@ -9,7 +9,7 @@ CastClass::~CastClass() {}
 double CastClass::castToDouble(std::string value) {
 	double dub = 0;
 	try {
-		dub = std::stod(value.c_str(), NULL);
+		dub = std::strtod(value.c_str(), NULL);
 	} catch (std::exception &e) {
 		std::cout << value.length() << std::endl;
 		if (value.length() != 1) {
