@@ -6,38 +6,43 @@
 #include <iostream>
 #include <iomanip>
 
-enum InputType {
-	Number = 0,
-	NaN,
-	Inf,
-	CantCasting
-};
 class CastClass {
-	private:
-		double value;
-		InputType type;
-	public:
-		CastClass(std::string value);
-		~CastClass();
+public:
+    CastClass(std::string value);
+    ~CastClass();
+    CastClass(CastClass const&);
 
-		char castToChar();
-		int castToInt();
-		float castToFloat();
-		double castToDouble(std::string value);
+    CastClass& operator=(CastClass const&);
 
-		InputType getType();
+    char castToChar();
+    int castToInt();
+    float castToFloat();
+    double castToDouble(std::string value);
+    bool regexValue(std::string value);
 
-		void printCharValue();
-		void printIntValue();
-		void printDoubleValue();
-		void printFloatValue();
+    void printCharValue();
+    void printIntValue();
+    void printDoubleValue();
+    void printFloatValue();
 
-		class Imposible : public std::exception {
-			const char * what() const throw();
-		};
-		class NonDisplayable : public std::exception {
-			const char * what() const throw();
-		};
+    enum InputType {
+        Number = 0,
+        Char,
+        NaN,
+        Inf,
+        CantCasting
+    };
+    CastClass::InputType getType();
+    class Imposible : public std::exception {
+        const char * what() const throw();
+    };
+    class NonDisplayable : public std::exception {
+        const char * what() const throw();
+    };
+
+private:
+    double value;
+    InputType type;
 };
 
 #endif

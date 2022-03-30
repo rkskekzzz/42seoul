@@ -6,22 +6,58 @@ CastClass::CastClass(std::string value) {
 
 CastClass::~CastClass() {}
 
+//+-
+// 숫자
+// . [옵션]
+// 숫자 [옵션]
+// f 하나 [옵션] [마지막]
+bool CastClass::regexValue(std::string value) {
+	bool has_dot = false;
+	unsigned int idx = 0;
+	if (value[idx] == '+' || value[idx] == '-')
+		++idx;
+	if (!std::isdigit(value[idx]))
+		return false;
+	while (idx < value.length()) {
+		if (value[idx] == '.') {
+			if (has_dot)
+				return false;
+			has_dot = true;
+			if (idx + 1 == value.length())
+				return true;
+			if (!isdigit(value[idx + 1]))
+				return false;
+			++idx;
+		}
+		if (value[idx] == 'f' && idx == value.length() - 1)
+			return true;
+		if (value[idx] == 'f' && idx != value.length() - 1)
+			return false;
+		if (!std::isdigit(value[idx]))
+			return false;
+		++idx;
+	}
+	while (++idx < value.length()) {
+		if (value[idx] == 'f')
+			break;
+		if (std::isdigit(value[idx]))
+			return false;
+	}
+	return true;
+}
+
 double CastClass::castToDouble(std::string value) {
 	double dub = 0;
-	try {
-		dub = std::strtod(value.c_str(), NULL);
-	} catch (std::exception &e) {
-		std::cout << value.length() << std::endl;
-		if (value.length() != 1) {
-			this->type = CantCasting;
-			return dub;
-		}
-		dub = value[0];
-	}
-	if (value == "nan" || value == "nanf")
+
+	dub = std::strtod(value.c_str(), NULL);
+	if (!regexValue(value))
+		this->type = CantCasting;
+	else if (value == "nan" || value == "nanf")
 		this->type = NaN;
 	else if (value == "inf" || value == "-inf" || value == "inff" || value == "-inff")
 		this->type = Inf;
+	else if (value.length() == 1 && value[0] > 32 && value[0] < 127)
+		this->type = Char;
 	else
 		this->type = Number;
 	return dub;
@@ -29,7 +65,7 @@ double CastClass::castToDouble(std::string value) {
 
 char CastClass::castToChar()  {
 	char ch;
-	if (this->type != Number)
+	if (this->type != Number && this->type != Char)
 		throw Imposible();
 	ch = static_cast<char>(this->value);
 	if (!std::isprint(ch))
@@ -38,7 +74,7 @@ char CastClass::castToChar()  {
 }
 int CastClass::castToInt() {
 	int in;
-	if (this->type != Number)
+	if (this->type != Number && this->type != Char)
 		throw Imposible();
 	in = static_cast<int>(this->value);
 	return in;
@@ -49,7 +85,7 @@ float CastClass::castToFloat() {
 	return fl;
 }
 
-InputType CastClass::getType() {
+CastClass::InputType CastClass::getType() {
 	return this->type;
 }
 
@@ -73,9 +109,14 @@ void CastClass::printIntValue() {
 	}
 }
 void CastClass::printDoubleValue() {
+	int i = static_cast<int>(value);
 	std::cout << "Double: ";
-	std::cout << std::fixed;
-	std::cout.precision(1);
+	if (i - value == 0) {
+		std::cout << std::fixed;
+		std::cout.precision(1);
+	} else {
+		std::cout.precision(17);
+	}
 	std::cout << this->value << std::endl;
 }
 void CastClass::printFloatValue() {
