@@ -6,11 +6,6 @@ CastClass::CastClass(std::string value) {
 
 CastClass::~CastClass() {}
 
-//+-
-// 숫자
-// . [옵션]
-// 숫자 [옵션]
-// f 하나 [옵션] [마지막]
 bool CastClass::regexValue(std::string value) {
 	bool has_dot = false;
 	unsigned int idx = 0;
@@ -50,12 +45,12 @@ double CastClass::castToDouble(std::string value) {
 	double dub = 0;
 
 	dub = std::strtod(value.c_str(), NULL);
-	if (!regexValue(value))
-		this->type = CantCasting;
-	else if (value == "nan" || value == "nanf")
+	if (value == "nan" || value == "nanf")
 		this->type = NaN;
-	else if (value == "inf" || value == "-inf" || value == "inff" || value == "-inff")
+	else if (value == "inf" || value == "-inf" || value == "inff" || value == "-inff" || value == "+inf" || value == "+inff")
 		this->type = Inf;
+	else if (!regexValue(value))
+		this->type = CantCasting;
 	else if (value.length() == 1 && value[0] > 32 && value[0] < 127)
 		this->type = Char;
 	else
@@ -115,7 +110,7 @@ void CastClass::printDoubleValue() {
 		std::cout << std::fixed;
 		std::cout.precision(1);
 	} else {
-		std::cout.precision(17);
+		std::cout.precision();
 	}
 	std::cout << this->value << std::endl;
 }
