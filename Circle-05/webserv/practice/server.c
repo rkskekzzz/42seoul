@@ -41,6 +41,7 @@ int main() {
 	}
 
 	while (1) {
+
 		len = sizeof(c_addr);
 		c_socket = accept(s_socket, (struct sockaddr *)&c_addr, &len);
 
@@ -49,20 +50,29 @@ int main() {
 
 		length = 0;
 		temp = rBuffer;
-		while((n = read(c_socket, temp, 1)) > 0) {
-			if(*temp == '\r') continue;
-			if(*temp == '\n') break;
-			if(*temp == '\0') break;
+		printf("----- read wait\n");
+		while (1)
+		{
+            memset(temp, 0x00, sizeof(rBuffer));
+			n = read(c_socket, temp, 1);
 
-			if (length == BUFSIZ) break;
-			temp++;
-			length++;
+			if (n > 0) {
+				if(*temp == '\r') continue;
+				if(*temp == '\n') break;
+				if(*temp == '\0') break;
+
+				if (length == BUFSIZ) break;
+				temp++;
+				length++;
+			} else {
+				printf(" routine running \n");
+			}
 		}
 
 		rBuffer[length] = '\0';
 		write(c_socket, rBuffer, strlen(rBuffer));
 		close(c_socket);
-		printf(" routine running \n");
+		printf(" socket close with %d \n", n);
 	}
 	close(s_socket);
 }
