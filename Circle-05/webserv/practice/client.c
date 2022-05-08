@@ -8,7 +8,7 @@
 #include <arpa/inet.h>
 
 #define PORT 9000
-#define IPADDR "127.0.0.1"
+#define IPADDR "10.19.238.159"
 
 char buffer[BUFSIZ];
 

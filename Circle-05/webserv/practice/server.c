@@ -44,6 +44,9 @@ int main() {
 		len = sizeof(c_addr);
 		c_socket = accept(s_socket, (struct sockaddr *)&c_addr, &len);
 
+		int flag = fcntl(c_socket, F_GETFL, 0);
+        fcntl(c_socket, F_SETFL, flag | O_NONBLOCK);
+
 		length = 0;
 		temp = rBuffer;
 		while((n = read(c_socket, temp, 1)) > 0) {
@@ -59,6 +62,7 @@ int main() {
 		rBuffer[length] = '\0';
 		write(c_socket, rBuffer, strlen(rBuffer));
 		close(c_socket);
+		printf(" routine running \n");
 	}
 	close(s_socket);
 }
