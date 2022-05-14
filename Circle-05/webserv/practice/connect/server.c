@@ -51,7 +51,7 @@ int main() {
 	socklen_t c_addr_len = sizeof(c_addr);
 	printf("EAGAIN : %d\n", EAGAIN);
 	while (1) {
-		int c_sockfd = accept(sockfd, (struct sockaddr *)&c_addr, &c_addr_len);
+		// int c_sockfd = accept(sockfd, (struct sockaddr *)&c_addr, &c_addr_len);
 		if (c_sockfd == -1) {
 			// fprintf(stderr, "2 : %s(%d)\n", strerror(errno), errno);
 		} else {

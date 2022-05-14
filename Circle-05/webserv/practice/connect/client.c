@@ -47,9 +47,9 @@ int main(int argc, char** argv) {
 	write(sockfd, argv[1], strlen(argv[1]) + 1);
 	read(sockfd, &buff, BUFF_SIZE);
 	printf("client : %s\n", buff);
-	shutdown(sockfd, SHUT_RDWR);
-	sleep(2);
-	close(sockfd);
+	// shutdown(sockfd, SHUT_RDWR);
+	// sleep(2);
+	// close(sockfd);
 	while (1);
 	return 0;
 }
